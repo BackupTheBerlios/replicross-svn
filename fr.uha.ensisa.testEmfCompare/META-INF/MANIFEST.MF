@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: TestEmfCompare
+Bundle-SymbolicName: fr.uha.ensisa.testEmfCompare
+Bundle-Version: 1.0.0
+Export-Package: fr.uha.ensisa.testEmfCompare
+Require-Bundle: org.eclipse.emf.ecore.xmi;bundle-version="2.4.1",
+ fr.uha.ensisa.DBSynchro;bundle-version="1.0.0"
