@@ -1,0 +1,7 @@
+import param;
+
+context Rule ERROR "Rule " + this.name + " must have different source ant target databases." :
+	 this.source != this.target;
+	 
+context Rule if this.all == false ERROR "Rule " + this.name + " must have at least one table to copy." :
+	!this.tables.isEmpty;
