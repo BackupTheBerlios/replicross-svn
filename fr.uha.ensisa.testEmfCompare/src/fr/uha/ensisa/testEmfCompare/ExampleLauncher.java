@@ -78,7 +78,10 @@ public final class ExampleLauncher {
 						.<String, Object> emptyMap());
 				System.out.println("Differencing models.\n"); //$NON-NLS-1$
 				final DiffModel diff = DiffService.doDiff(match, false);
-
+				
+				EObject[] eobject = new EObject[]{diff};
+				ModelSaver.saveModel("match.xmi", eobject);
+				
 				System.out.println("Merging difference to args[1].\n"); //$NON-NLS-1$
 				final List<DiffElement> differences = new ArrayList<DiffElement>(diff.getOwnedElements());
 				// This will merge all references to the right model (second argument).

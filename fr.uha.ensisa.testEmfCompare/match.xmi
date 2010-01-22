@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diff:DiffModel xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:diff="http://www.eclipse.org/emf/compare/diff/1.1" xmlns:param="http://param/1.0" xmi:id="_M5yg4AddEd-c_eFv178YkQ">
+  <ownedElements xmi:type="diff:DiffGroup" xmi:id="_M5yg4QddEd-c_eFv178YkQ">
+    <subDiffElements xmi:type="diff:DiffGroup" xmi:id="_M5yg4gddEd-c_eFv178YkQ">
+      <subDiffElements xmi:type="diff:ModelElementChangeLeftTarget" xmi:id="_M5zH8AddEd-c_eFv178YkQ">
+        <rightParent xmi:type="param:Param" href="../fr.uha.ensisa.synchroModel/model/my2.xmi#/"/>
+        <leftElement xmi:type="param:DataBase" href="../fr.uha.ensisa.synchroModel/model/My.xmi#//@databases.1"/>
+      </subDiffElements>
+      <subDiffElements xmi:type="diff:ModelElementChangeLeftTarget" xmi:id="_M5zH8QddEd-c_eFv178YkQ">
+        <rightParent xmi:type="param:Param" href="../fr.uha.ensisa.synchroModel/model/my2.xmi#/"/>
+        <leftElement xmi:type="param:Rule" href="../fr.uha.ensisa.synchroModel/model/My.xmi#//@rules.0"/>
+      </subDiffElements>
+      <subDiffElements xmi:type="diff:ModelElementChangeLeftTarget" xmi:id="_M5zH8gddEd-c_eFv178YkQ">
+        <rightParent xmi:type="param:Param" href="../fr.uha.ensisa.synchroModel/model/my2.xmi#/"/>
+        <leftElement xmi:type="param:DataBase" href="../fr.uha.ensisa.synchroModel/model/My.xmi#//@databases.0"/>
+      </subDiffElements>
+      <subDiffElements xmi:type="diff:ModelElementChangeRightTarget" xmi:id="_M5zH8wddEd-c_eFv178YkQ">
+        <leftParent xmi:type="param:Param" href="../fr.uha.ensisa.synchroModel/model/My.xmi#/"/>
+        <rightElement xmi:type="param:Rule" href="../fr.uha.ensisa.synchroModel/model/my2.xmi#//@rules.0"/>
+      </subDiffElements>
+      <subDiffElements xmi:type="diff:ModelElementChangeRightTarget" xmi:id="_M5zH9AddEd-c_eFv178YkQ">
+        <leftParent xmi:type="param:Param" href="../fr.uha.ensisa.synchroModel/model/My.xmi#/"/>
+        <rightElement xmi:type="param:DataBase" href="../fr.uha.ensisa.synchroModel/model/my2.xmi#//@databases.1"/>
+      </subDiffElements>
+      <subDiffElements xmi:type="diff:ModelElementChangeRightTarget" xmi:id="_M5zH9QddEd-c_eFv178YkQ">
+        <leftParent xmi:type="param:Param" href="../fr.uha.ensisa.synchroModel/model/My.xmi#/"/>
+        <rightElement xmi:type="param:DataBase" href="../fr.uha.ensisa.synchroModel/model/my2.xmi#//@databases.0"/>
+      </subDiffElements>
+      <rightParent xmi:type="param:Param" href="../fr.uha.ensisa.synchroModel/model/my2.xmi#/"/>
+    </subDiffElements>
+  </ownedElements>
+  <leftRoots xmi:type="param:Param" href="../fr.uha.ensisa.synchroModel/model/My.xmi#/"/>
+  <rightRoots xmi:type="param:Param" href="../fr.uha.ensisa.synchroModel/model/my2.xmi#/"/>
+</diff:DiffModel>
