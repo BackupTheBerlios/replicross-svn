@@ -12,5 +12,8 @@ Require-Bundle: org.eclipse.core.runtime,
  fr.uha.ensisa.DBSynchro;bundle-version="1.0.0",
  org.eclipse.emf.ecore.xmi;bundle-version="2.4.1",
  org.openarchitectureware.adapter.emf.check;bundle-version="4.3.1",
- fr.uha.ensisa.LogModel;bundle-version="1.0.0"
+ fr.uha.ensisa.LogModel;bundle-version="1.0.0",
+ fr.uha.ensisa.DataBase;bundle-version="1.0.0",
+ org.eclipse.uml2.uml
 Bundle-ActivationPolicy: lazy
+Import-Package: org.eclipse.uml2.uml
