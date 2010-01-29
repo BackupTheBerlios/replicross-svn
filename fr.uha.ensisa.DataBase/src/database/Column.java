@@ -19,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link database.Column#getNom <em>Nom</em>}</li>
  *   <li>{@link database.Column#getType <em>Type</em>}</li>
  *   <li>{@link database.Column#isNullable <em>Nullable</em>}</li>
+ *   <li>{@link database.Column#getDefault <em>Default</em>}</li>
  * </ul>
  * </p>
  *
@@ -104,5 +105,31 @@ public interface Column extends EObject {
 	 * @generated
 	 */
 	void setNullable(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Default</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Default</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Default</em>' attribute.
+	 * @see #setDefault(String)
+	 * @see database.DatabasePackage#getColumn_Default()
+	 * @model
+	 * @generated
+	 */
+	String getDefault();
+
+	/**
+	 * Sets the value of the '{@link database.Column#getDefault <em>Default</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Default</em>' attribute.
+	 * @see #getDefault()
+	 * @generated
+	 */
+	void setDefault(String value);
 
 } // Column

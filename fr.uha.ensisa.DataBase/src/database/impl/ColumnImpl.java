@@ -26,6 +26,7 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  *   <li>{@link database.impl.ColumnImpl#getNom <em>Nom</em>}</li>
  *   <li>{@link database.impl.ColumnImpl#getType <em>Type</em>}</li>
  *   <li>{@link database.impl.ColumnImpl#isNullable <em>Nullable</em>}</li>
+ *   <li>{@link database.impl.ColumnImpl#getDefault <em>Default</em>}</li>
  * </ul>
  * </p>
  *
@@ -91,6 +92,26 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * @ordered
 	 */
 	protected boolean nullable = NULLABLE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getDefault() <em>Default</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefault()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String DEFAULT_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getDefault() <em>Default</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getDefault()
+	 * @generated
+	 * @ordered
+	 */
+	protected String default_ = DEFAULT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -179,6 +200,27 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getDefault() {
+		return default_;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setDefault(String newDefault) {
+		String oldDefault = default_;
+		default_ = newDefault;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DatabasePackage.COLUMN__DEFAULT, oldDefault, default_));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
@@ -188,6 +230,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return getType();
 			case DatabasePackage.COLUMN__NULLABLE:
 				return isNullable() ? Boolean.TRUE : Boolean.FALSE;
+			case DatabasePackage.COLUMN__DEFAULT:
+				return getDefault();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -208,6 +252,9 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return;
 			case DatabasePackage.COLUMN__NULLABLE:
 				setNullable(((Boolean)newValue).booleanValue());
+				return;
+			case DatabasePackage.COLUMN__DEFAULT:
+				setDefault((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -230,6 +277,9 @@ public class ColumnImpl extends EObjectImpl implements Column {
 			case DatabasePackage.COLUMN__NULLABLE:
 				setNullable(NULLABLE_EDEFAULT);
 				return;
+			case DatabasePackage.COLUMN__DEFAULT:
+				setDefault(DEFAULT_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -248,6 +298,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
 			case DatabasePackage.COLUMN__NULLABLE:
 				return nullable != NULLABLE_EDEFAULT;
+			case DatabasePackage.COLUMN__DEFAULT:
+				return DEFAULT_EDEFAULT == null ? default_ != null : !DEFAULT_EDEFAULT.equals(default_);
 		}
 		return super.eIsSet(featureID);
 	}
@@ -268,6 +320,8 @@ public class ColumnImpl extends EObjectImpl implements Column {
 		result.append(type);
 		result.append(", Nullable: ");
 		result.append(nullable);
+		result.append(", Default: ");
+		result.append(default_);
 		result.append(')');
 		return result.toString();
 	}

@@ -180,13 +180,22 @@ public interface DatabasePackage extends EPackage {
 	int COLUMN__NULLABLE = 2;
 
 	/**
+	 * The feature id for the '<em><b>Default</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__DEFAULT = 3;
+
+	/**
 	 * The number of structural features of the '<em>Column</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_FEATURE_COUNT = 3;
+	int COLUMN_FEATURE_COUNT = 4;
 
 
 	/**
@@ -225,6 +234,15 @@ public interface DatabasePackage extends EPackage {
 	 * @ordered
 	 */
 	int PKEY__NULLABLE = COLUMN__NULLABLE;
+
+	/**
+	 * The feature id for the '<em><b>Default</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PKEY__DEFAULT = COLUMN__DEFAULT;
 
 	/**
 	 * The number of structural features of the '<em>PKey</em>' class.
@@ -355,6 +373,17 @@ public interface DatabasePackage extends EPackage {
 	EAttribute getColumn_Nullable();
 
 	/**
+	 * Returns the meta object for the attribute '{@link database.Column#getDefault <em>Default</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Default</em>'.
+	 * @see database.Column#getDefault()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_Default();
+
+	/**
 	 * Returns the meta object for class '{@link database.PKey <em>PKey</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -479,6 +508,14 @@ public interface DatabasePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COLUMN__NULLABLE = eINSTANCE.getColumn_Nullable();
+
+		/**
+		 * The meta object literal for the '<em><b>Default</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__DEFAULT = eINSTANCE.getColumn_Default();
 
 		/**
 		 * The meta object literal for the '{@link database.impl.PKeyImpl <em>PKey</em>}' class.
