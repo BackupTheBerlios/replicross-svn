@@ -13,6 +13,7 @@ import org.eclipse.emf.ecore.EObject;
 import database.Column;
 import database.DataBase;
 import database.DatabaseFactory;
+import database.PKey;
 import database.Table;
 
 
@@ -67,7 +68,7 @@ public class SynchroStructure {
 			for (String pkeyName : pkn) {
 				Column column = DatabaseFactory.eINSTANCE.createColumn();
 				column.setNom(pkeyName);
-				table.getPKeys().add(column);
+				table.getPKeys().add((PKey) column);
 			}
 
 			database.getTables().add(table);			

@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
 
-import logmodel.CouldNotTruncate;
+//import logmodel.CouldNotTruncate;
 import logmodel.Log;
 import logmodel.LogmodelFactory;
 import logmodel.TableNotFound;
@@ -92,9 +92,9 @@ public class DBCopy {
 							dstTable.truncate();
 							if (dstTable.getSize() != 0){
 								ret.addError("Could not truncate " + dstTable.getName());
-								CouldNotTruncate cnt = LogmodelFactory.eINSTANCE.createCouldNotTruncate();
-									cnt.setTableName(dstTable.getName());
-								log.getErrors().add(cnt);
+								//CouldNotTruncate cnt = LogmodelFactory.eINSTANCE.createCouldNotTruncate();
+								//	cnt.setTableName(dstTable.getName());
+								//log.getErrors().add(cnt);
 								}
 						}
 						boolean shouldStop = false;

@@ -1,20 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<database:DataBase xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:database="http://database/1.0" xmi:id="_aS_LEAdnEd-5tdSnzvOsew">
-  <tables xmi:id="_aZgp0AdnEd-5tdSnzvOsew" dataBase="_aS_LEAdnEd-5tdSnzvOsew" Nom="visit">
-    <columns xmi:id="_aZgp0QdnEd-5tdSnzvOsew" Nom="endtime"/>
-    <columns xmi:id="_aZgp0gdnEd-5tdSnzvOsew" Nom="endms"/>
-    <columns xmi:id="_aZgp0wdnEd-5tdSnzvOsew" Nom="pagenumber"/>
-    <columns xmi:id="_aZgp1AdnEd-5tdSnzvOsew" Nom="serverstarttime"/>
-    <columns xmi:id="_aZgp1QdnEd-5tdSnzvOsew" Nom="serverendtime"/>
-    <columns xmi:id="_aZgp1gdnEd-5tdSnzvOsew" Nom="serverstartdate"/>
-    <columns xmi:id="_aZgp1wdnEd-5tdSnzvOsew" Nom="serverenddate"/>
-    <columns xmi:id="_aZgp2AdnEd-5tdSnzvOsew" Nom="ip"/>
-    <columns xmi:id="_aZgp2QdnEd-5tdSnzvOsew" Nom="duration"/>
-    <columns xmi:id="_aZgp2gdnEd-5tdSnzvOsew" Nom="valid_1"/>
-    <columns xmi:id="_aZgp2wdnEd-5tdSnzvOsew" Nom="visit_id"/>
-    <columns xmi:id="_aZgp3AdnEd-5tdSnzvOsew" Nom="activeduration"/>
-    <columns xmi:id="_aZgp3QdnEd-5tdSnzvOsew" Nom="referer"/>
-    <columns xmi:id="_aZgp3gdnEd-5tdSnzvOsew" Nom="enddate"/>
-    <pKeys xmi:id="_aZgp3wdnEd-5tdSnzvOsew" Nom="visit_id"/>
+<database:DataBase xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:database="http://database/1.0" xmi:id="_hlobYAzPEd-maL7z2fEKVg">
+  <tables xmi:id="_hny-kAzPEd-maL7z2fEKVg" dataBase="_hlobYAzPEd-maL7z2fEKVg" Nom="visit">
+    <columns xmi:id="_hny-kQzPEd-maL7z2fEKVg" Nom="id"/>
   </tables>
 </database:DataBase>
