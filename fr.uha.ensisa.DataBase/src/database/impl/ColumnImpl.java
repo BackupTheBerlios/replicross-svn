@@ -24,6 +24,8 @@ import org.eclipse.emf.ecore.impl.EObjectImpl;
  * The following features are implemented:
  * <ul>
  *   <li>{@link database.impl.ColumnImpl#getNom <em>Nom</em>}</li>
+ *   <li>{@link database.impl.ColumnImpl#getType <em>Type</em>}</li>
+ *   <li>{@link database.impl.ColumnImpl#isNullable <em>Nullable</em>}</li>
  * </ul>
  * </p>
  *
@@ -49,6 +51,46 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * @ordered
 	 */
 	protected String nom = NOM_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String TYPE_EDEFAULT = null;
+
+	/**
+	 * The cached value of the '{@link #getType() <em>Type</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getType()
+	 * @generated
+	 * @ordered
+	 */
+	protected String type = TYPE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isNullable() <em>Nullable</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isNullable()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean NULLABLE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isNullable() <em>Nullable</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isNullable()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean nullable = NULLABLE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -95,11 +137,57 @@ public class ColumnImpl extends EObjectImpl implements Column {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setType(String newType) {
+		String oldType = type;
+		type = newType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DatabasePackage.COLUMN__TYPE, oldType, type));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isNullable() {
+		return nullable;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setNullable(boolean newNullable) {
+		boolean oldNullable = nullable;
+		nullable = newNullable;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DatabasePackage.COLUMN__NULLABLE, oldNullable, nullable));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 			case DatabasePackage.COLUMN__NOM:
 				return getNom();
+			case DatabasePackage.COLUMN__TYPE:
+				return getType();
+			case DatabasePackage.COLUMN__NULLABLE:
+				return isNullable() ? Boolean.TRUE : Boolean.FALSE;
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -114,6 +202,12 @@ public class ColumnImpl extends EObjectImpl implements Column {
 		switch (featureID) {
 			case DatabasePackage.COLUMN__NOM:
 				setNom((String)newValue);
+				return;
+			case DatabasePackage.COLUMN__TYPE:
+				setType((String)newValue);
+				return;
+			case DatabasePackage.COLUMN__NULLABLE:
+				setNullable(((Boolean)newValue).booleanValue());
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -130,6 +224,12 @@ public class ColumnImpl extends EObjectImpl implements Column {
 			case DatabasePackage.COLUMN__NOM:
 				setNom(NOM_EDEFAULT);
 				return;
+			case DatabasePackage.COLUMN__TYPE:
+				setType(TYPE_EDEFAULT);
+				return;
+			case DatabasePackage.COLUMN__NULLABLE:
+				setNullable(NULLABLE_EDEFAULT);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -144,6 +244,10 @@ public class ColumnImpl extends EObjectImpl implements Column {
 		switch (featureID) {
 			case DatabasePackage.COLUMN__NOM:
 				return NOM_EDEFAULT == null ? nom != null : !NOM_EDEFAULT.equals(nom);
+			case DatabasePackage.COLUMN__TYPE:
+				return TYPE_EDEFAULT == null ? type != null : !TYPE_EDEFAULT.equals(type);
+			case DatabasePackage.COLUMN__NULLABLE:
+				return nullable != NULLABLE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -160,6 +264,10 @@ public class ColumnImpl extends EObjectImpl implements Column {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (Nom: ");
 		result.append(nom);
+		result.append(", Type: ");
+		result.append(type);
+		result.append(", Nullable: ");
+		result.append(nullable);
 		result.append(')');
 		return result.toString();
 	}

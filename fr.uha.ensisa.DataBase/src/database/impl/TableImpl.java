@@ -9,6 +9,7 @@ package database.impl;
 import database.Column;
 import database.DataBase;
 import database.DatabasePackage;
+import database.PKey;
 import database.Table;
 
 import java.util.Collection;
@@ -72,7 +73,7 @@ public class TableImpl extends EObjectImpl implements Table {
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<Column> pKeys;
+	protected EList<PKey> pKeys;
 
 	/**
 	 * The default value of the '{@link #getNom() <em>Nom</em>}' attribute.
@@ -168,9 +169,9 @@ public class TableImpl extends EObjectImpl implements Table {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<Column> getPKeys() {
+	public EList<PKey> getPKeys() {
 		if (pKeys == null) {
-			pKeys = new EObjectContainmentEList<Column>(Column.class, this, DatabasePackage.TABLE__PKEYS);
+			pKeys = new EObjectContainmentEList<PKey>(PKey.class, this, DatabasePackage.TABLE__PKEYS);
 		}
 		return pKeys;
 	}
@@ -251,7 +252,7 @@ public class TableImpl extends EObjectImpl implements Table {
 				return;
 			case DatabasePackage.TABLE__PKEYS:
 				getPKeys().clear();
-				getPKeys().addAll((Collection<? extends Column>)newValue);
+				getPKeys().addAll((Collection<? extends PKey>)newValue);
 				return;
 			case DatabasePackage.TABLE__NOM:
 				setNom((String)newValue);

@@ -10,6 +10,7 @@ import database.Column;
 import database.DataBase;
 import database.DatabaseFactory;
 import database.DatabasePackage;
+import database.PKey;
 import database.Table;
 
 import org.eclipse.emf.ecore.EAttribute;
@@ -46,6 +47,13 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 	 * @generated
 	 */
 	private EClass columnEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass pKeyEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -201,6 +209,33 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getColumn_Type() {
+		return (EAttribute)columnEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getColumn_Nullable() {
+		return (EAttribute)columnEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPKey() {
+		return pKeyEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public DatabaseFactory getDatabaseFactory() {
 		return (DatabaseFactory)getEFactoryInstance();
 	}
@@ -235,6 +270,10 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 
 		columnEClass = createEClass(COLUMN);
 		createEAttribute(columnEClass, COLUMN__NOM);
+		createEAttribute(columnEClass, COLUMN__TYPE);
+		createEAttribute(columnEClass, COLUMN__NULLABLE);
+
+		pKeyEClass = createEClass(PKEY);
 	}
 
 	/**
@@ -265,6 +304,7 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
+		pKeyEClass.getESuperTypes().add(this.getColumn());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(dataBaseEClass, DataBase.class, "DataBase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -273,11 +313,15 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 		initEClass(tableEClass, Table.class, "Table", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getTable_DataBase(), this.getDataBase(), null, "dataBase", null, 0, 1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getTable_Columns(), this.getColumn(), null, "columns", null, 1, -1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTable_PKeys(), this.getColumn(), null, "pKeys", null, 0, -1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTable_PKeys(), this.getPKey(), null, "pKeys", null, 0, -1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTable_Nom(), ecorePackage.getEString(), "Nom", null, 0, 1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(columnEClass, Column.class, "Column", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getColumn_Nom(), ecorePackage.getEString(), "Nom", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getColumn_Type(), ecorePackage.getEString(), "Type", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getColumn_Nullable(), ecorePackage.getEBoolean(), "Nullable", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+		initEClass(pKeyEClass, PKey.class, "PKey", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		// Create resource
 		createResource(eNS_URI);

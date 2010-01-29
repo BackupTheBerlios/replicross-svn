@@ -162,13 +162,78 @@ public interface DatabasePackage extends EPackage {
 	int COLUMN__NOM = 0;
 
 	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__TYPE = 1;
+
+	/**
+	 * The feature id for the '<em><b>Nullable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__NULLABLE = 2;
+
+	/**
 	 * The number of structural features of the '<em>Column</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_FEATURE_COUNT = 1;
+	int COLUMN_FEATURE_COUNT = 3;
+
+
+	/**
+	 * The meta object id for the '{@link database.impl.PKeyImpl <em>PKey</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see database.impl.PKeyImpl
+	 * @see database.impl.DatabasePackageImpl#getPKey()
+	 * @generated
+	 */
+	int PKEY = 3;
+
+	/**
+	 * The feature id for the '<em><b>Nom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PKEY__NOM = COLUMN__NOM;
+
+	/**
+	 * The feature id for the '<em><b>Type</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PKEY__TYPE = COLUMN__TYPE;
+
+	/**
+	 * The feature id for the '<em><b>Nullable</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PKEY__NULLABLE = COLUMN__NULLABLE;
+
+	/**
+	 * The number of structural features of the '<em>PKey</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PKEY_FEATURE_COUNT = COLUMN_FEATURE_COUNT + 0;
 
 
 	/**
@@ -266,6 +331,38 @@ public interface DatabasePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getColumn_Nom();
+
+	/**
+	 * Returns the meta object for the attribute '{@link database.Column#getType <em>Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Type</em>'.
+	 * @see database.Column#getType()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_Type();
+
+	/**
+	 * Returns the meta object for the attribute '{@link database.Column#isNullable <em>Nullable</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Nullable</em>'.
+	 * @see database.Column#isNullable()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_Nullable();
+
+	/**
+	 * Returns the meta object for class '{@link database.PKey <em>PKey</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>PKey</em>'.
+	 * @see database.PKey
+	 * @generated
+	 */
+	EClass getPKey();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -366,6 +463,32 @@ public interface DatabasePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COLUMN__NOM = eINSTANCE.getColumn_Nom();
+
+		/**
+		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__TYPE = eINSTANCE.getColumn_Type();
+
+		/**
+		 * The meta object literal for the '<em><b>Nullable</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__NULLABLE = eINSTANCE.getColumn_Nullable();
+
+		/**
+		 * The meta object literal for the '{@link database.impl.PKeyImpl <em>PKey</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see database.impl.PKeyImpl
+		 * @see database.impl.DatabasePackageImpl#getPKey()
+		 * @generated
+		 */
+		EClass PKEY = eINSTANCE.getPKey();
 
 	}
 

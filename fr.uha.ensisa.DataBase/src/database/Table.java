@@ -74,7 +74,7 @@ public interface Table extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>PKeys</b></em>' containment reference list.
-	 * The list contents are of type {@link database.Column}.
+	 * The list contents are of type {@link database.PKey}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>PKeys</em>' containment reference list isn't clear,
@@ -86,7 +86,7 @@ public interface Table extends EObject {
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<Column> getPKeys();
+	EList<PKey> getPKeys();
 
 	/**
 	 * Returns the value of the '<em><b>Nom</b></em>' attribute.
