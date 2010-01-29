@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="Cp1252"?>
-<diff:ComparisonResourceSnapshot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:diff="http://www.eclipse.org/emf/compare/diff/1.1" xmlns:match="http://www.eclipse.org/emf/compare/match/1.1" date="2010-01-22T14:51:12.914+0100">
+<diff:ComparisonResourceSnapshot xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:diff="http://www.eclipse.org/emf/compare/diff/1.1" xmlns:match="http://www.eclipse.org/emf/compare/match/1.1" date="2010-01-23T17:58:15.870+0100">
   <diff>
     <leftRoots href="file:/C:/Users/Aghilas/Documents/runtime-EclipseApplication/fr.uha.ensisa.synchroModel/model/My.xmi#/"/>
-    <rightRoots href="file:/C:/Users/Aghilas/Documents/runtime-EclipseApplication/fr.uha.ensisa.synchroModel/model/my2.xmi#/"/>
+    <rightRoots href="file:/C:/Users/Aghilas/Documents/runtime-EclipseApplication/fr.uha.ensisa.synchroModel/model/My2.xmi#/"/>
   </diff>
   <match>
     <matchedElements xsi:type="match:Match2Elements" similarity="0.9">
       <leftElement href="file:/C:/Users/Aghilas/Documents/runtime-EclipseApplication/fr.uha.ensisa.synchroModel/model/My.xmi#/"/>
-      <rightElement href="file:/C:/Users/Aghilas/Documents/runtime-EclipseApplication/fr.uha.ensisa.synchroModel/model/my2.xmi#/"/>
+      <rightElement href="file:/C:/Users/Aghilas/Documents/runtime-EclipseApplication/fr.uha.ensisa.synchroModel/model/My2.xmi#/"/>
     </matchedElements>
     <unmatchedElements>
       <element href="file:/C:/Users/Aghilas/Documents/runtime-EclipseApplication/fr.uha.ensisa.synchroModel/model/My.xmi#//@databases.1"/>
@@ -22,6 +22,6 @@
     <unmatchedElements side="Right"/>
     <unmatchedElements side="Right"/>
     <leftRoots href="file:/C:/Users/Aghilas/Documents/runtime-EclipseApplication/fr.uha.ensisa.synchroModel/model/My.xmi#/"/>
-    <rightRoots href="file:/C:/Users/Aghilas/Documents/runtime-EclipseApplication/fr.uha.ensisa.synchroModel/model/my2.xmi#/"/>
+    <rightRoots href="file:/C:/Users/Aghilas/Documents/runtime-EclipseApplication/fr.uha.ensisa.synchroModel/model/My2.xmi#/"/>
   </match>
 </diff:ComparisonResourceSnapshot>
