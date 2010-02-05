@@ -7,7 +7,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="errors" upperBound="-1"
         eType="#//Error"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Error"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Error">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="rule" eType="ecore:EClass ../../../../../../fr.uha.ensisa.DBSynchro/src/fr/uha/ensisa/DBSynchro/Param.ecore#//Rule"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="TableNotFound" eSuperTypes="#//Error">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="tableName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
@@ -20,5 +22,4 @@
   <eClassifiers xsi:type="ecore:EClass" name="SQLError" eSuperTypes="#//Error">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="error" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eSubpackages name="DBSynchro" nsURI="" nsPrefix=""/>
 </ecore:EPackage>

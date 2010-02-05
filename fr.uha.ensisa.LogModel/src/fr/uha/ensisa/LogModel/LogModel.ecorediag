@@ -112,6 +112,25 @@
     <element xmi:type="ecore:EClass" href="LogModel.ecore#//SQLError"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_2hbg4srZEd6v0Ke6F0wD_Q" x="750" y="265"/>
   </children>
+  <children xmi:type="notation:Node" xmi:id="_UwDrYBGWEd-nIobx5kr_Lg" type="1001">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_UwgXUBGWEd-nIobx5kr_Lg" source="Shortcut">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_UwgXURGWEd-nIobx5kr_Lg" key="modelID" value="EcoreTools"/>
+    </eAnnotations>
+    <children xmi:type="notation:Node" xmi:id="_UwNcYBGWEd-nIobx5kr_Lg" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_UwNcYRGWEd-nIobx5kr_Lg" type="5001">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_UwNcYhGWEd-nIobx5kr_Lg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_UwNcYxGWEd-nIobx5kr_Lg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_UwNcZBGWEd-nIobx5kr_Lg"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_UwNcZRGWEd-nIobx5kr_Lg" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_UwNcZhGWEd-nIobx5kr_Lg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_UwNcZxGWEd-nIobx5kr_Lg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_UwNcaBGWEd-nIobx5kr_Lg"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_UwDrYRGWEd-nIobx5kr_Lg" fontName="Segoe UI" fontHeight="10" fillColor="13761016" lineColor="0"/>
+    <element xmi:type="ecore:EClass" href="platform:/resource/fr.uha.ensisa.DBSynchro/src/fr/uha/ensisa/DBSynchro/Param.ecore#//Rule"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_UwDrYhGWEd-nIobx5kr_Lg" x="65" y="90"/>
+  </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_3G134srVEd6v0Ke6F0wD_Q"/>
   <element xmi:type="ecore:EPackage" href="LogModel.ecore#/"/>
   <edges xmi:type="notation:Edge" xmi:id="_9rf3sMrVEd6v0Ke6F0wD_Q" type="3002" source="_4pVlYMrVEd6v0Ke6F0wD_Q" target="_5mIk0MrVEd6v0Ke6F0wD_Q">
@@ -156,5 +175,17 @@
     <element xsi:nil="true"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_9IlbEsrZEd6v0Ke6F0wD_Q" points="[0, -12, 425, 90]$[0, -47, 425, 55]$[-415, -47, 10, 55]$[-415, -81, 10, 21]"/>
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_9JFKUMrZEd6v0Ke6F0wD_Q" id="(0.38,0.24489796)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_WVFvgBGWEd-nIobx5kr_Lg" type="3002" source="_5mIk0MrVEd6v0Ke6F0wD_Q" target="_UwDrYBGWEd-nIobx5kr_Lg">
+    <children xmi:type="notation:Node" xmi:id="_WVFvhBGWEd-nIobx5kr_Lg" type="4011">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_WVFvhRGWEd-nIobx5kr_Lg" x="-10" y="-10"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_WVFvhhGWEd-nIobx5kr_Lg" type="4012">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_WVFvhxGWEd-nIobx5kr_Lg" x="10" y="10"/>
+    </children>
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_WVFvgRGWEd-nIobx5kr_Lg" lineColor="0"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_WVFvghGWEd-nIobx5kr_Lg" fontName="Segoe UI" fontHeight="10"/>
+    <element xmi:type="ecore:EReference" href="LogModel.ecore#//Error/rule"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_WVFvgxGWEd-nIobx5kr_Lg" points="[-50, -2, 188, 25]$[-175, 27, 63, 54]"/>
   </edges>
 </notation:Diagram>
