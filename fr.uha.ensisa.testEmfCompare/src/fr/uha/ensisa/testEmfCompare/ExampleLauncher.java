@@ -80,7 +80,7 @@ public final class ExampleLauncher {
 				final DiffModel diff = DiffService.doDiff(match, false);
 				
 				EObject[] eobject = new EObject[]{diff};
-				ModelSaver.saveModel("match.xmi", eobject);
+				//ModelSaver.saveModel("match.xmi", eobject);
 				
 				System.out.println("Merging difference to args[1].\n"); //$NON-NLS-1$
 				final List<DiffElement> differences = new ArrayList<DiffElement>(diff.getOwnedElements());

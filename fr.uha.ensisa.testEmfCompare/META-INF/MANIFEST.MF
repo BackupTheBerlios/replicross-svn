@@ -5,6 +5,6 @@ Bundle-SymbolicName: fr.uha.ensisa.testEmfCompare
 Bundle-Version: 1.0.0
 Export-Package: fr.uha.ensisa.testEmfCompare
 Require-Bundle: org.eclipse.emf.ecore.xmi;bundle-version="2.4.1",
- fr.uha.ensisa.DBSynchro;bundle-version="1.0.0",
- org.eclipse.uml2.uml
+ org.eclipse.uml2.uml,
+ fr.uha.ensisa.DBSynchro;bundle-version="1.0.0"
 Import-Package: org.eclipse.uml2.uml
