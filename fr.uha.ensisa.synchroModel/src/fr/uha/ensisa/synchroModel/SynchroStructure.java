@@ -6,16 +6,19 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 import com.mysql.jdbc.DatabaseMetaData;
 
 import database.Column;
 import database.DataBase;
-import database.PKey;
 import database.DatabaseFactory;
+import database.Index;
+import database.PKey;
 import database.Table;
 
 
@@ -36,33 +39,18 @@ public class SynchroStructure {
 		//tableNames
 		ResultSet tablesRS = targetConn.getMetaData().getTables(null, null, null, null);
 		System.out.println("Je suis connecté");
-		Set<String> tbn = new HashSet<String>();
 		while (tablesRS.next()) {
-			System.out.println("J'ai trouvé une table: " + tablesRS.getString("TABLE_NAME"));
-			tbn.add(tablesRS.getString("TABLE_NAME"));
-		}
-		
-		for (String tbName : tbn) {
+			String tableName = tablesRS.getString("TABLE_NAME");
+			
+			//table
 			Table table = DatabaseFactory.eINSTANCE.createTable();
 			table.setDataBase(database);
-			table.setNom(tbName);
+			table.setNom(tableName);
+			System.out.println("------------------------------------------");
 			
-			//indexes
-			ResultSet indexesRs = targetConn.getMetaData().getIndexInfo(null, null, tbName, false, false);
-			while(indexesRs.next()){
-				System.out.println("Index : " + indexesRs.getString("INDEX_NAME"));
-			}
-			
-			//foreignKeys
-			ResultSet foreignKeys = targetConn.getMetaData().getExportedKeys(null, null, tbName);
-			while(foreignKeys.next()){
-				System.out.println("ForeignKey : " + foreignKeys.getString("FK_NAME") + " " + foreignKeys.getString("UPDATE_RULE"));
-			}
-			
-			//ColumnNames
-			ResultSet columnsRS = targetConn.getMetaData().getColumns(null, null, tbName, null);
+			//Columns
+			ResultSet columnsRS = targetConn.getMetaData().getColumns(null, null, tableName, null);
 			while (columnsRS.next()) {
-				System.out.println("Colonne: " + columnsRS.getString("COLUMN_NAME") + " " + columnsRS.getString("TYPE_NAME") + " " + columnsRS.getString("COLUMN_DEF"));
 				Column column = DatabaseFactory.eINSTANCE.createColumn();
 				column.setNom(columnsRS.getString("COLUMN_NAME"));
 				column.setType(columnsRS.getString("TYPE_NAME"));
@@ -74,29 +62,57 @@ public class SynchroStructure {
 				table.getColumns().add(column);			
 			}
 			
-			//PKeysNames
-			ResultSet pKeysRS = targetConn.getMetaData().getPrimaryKeys(null, null, tbName);
-			Set<String> pkn = new HashSet<String>();
-			while (pKeysRS.next()) {
-				pkn.add(pKeysRS.getString("COLUMN_NAME"));
-				System.out.println("Clé primaire: " + pKeysRS.getString("COLUMN_NAME"));
-				PKey pkey = DatabaseFactory.eINSTANCE.createPKey();
-				pkey.setNom(pKeysRS.getString("COLUMN_NAME"));
-				//@TODO setProperties properties
-				table.getPKeys().add(pkey);
+			//indexes
+			ResultSet indexesRs = targetConn.getMetaData().getIndexInfo(null, null, tableName, false, false);
+			String lastIndexName = "";
+			String indexName = "";
+			Index index = DatabaseFactory.eINSTANCE.createIndex();
+			while(indexesRs.next()){
+				System.out.println("index : " + indexesRs.getString("INDEX_NAME"));
+				indexName = indexesRs.getString("INDEX_NAME");
+				index.setNom(indexName);
+				if(indexName.equals(lastIndexName)){
+					index.getColumns().add(table.getColumn(indexesRs.getString("COLUMN_NAME")));
+					System.out.println("l'index est le même");
+				}
+				else{
+					System.out.println("je trouve un nouvel indexe");
+					if(index.getColumns().size() != 0)
+						table.getIndexes().add(index);
+					index = DatabaseFactory.eINSTANCE.createIndex();
+					index.setNom(indexName);
+					index.getColumns().add(table.getColumn(indexesRs.getString("COLUMN_NAME")));
+				}
+				lastIndexName = indexName;
 			}
+			
+			//PKeysNames
+			ResultSet pKeysRS = targetConn.getMetaData().getPrimaryKeys(null, null, tableName);
+			PKey pkey = DatabaseFactory.eINSTANCE.createPKey();
+			while (pKeysRS.next()) {
+				pkey.getColumns().add(table.getColumn(pKeysRS.getString("COLUMN_NAME")));
+				pkey.setNom(pKeysRS.getString("PK_NAME"));
+			}
+			if(pkey.getColumns().size() != 0)
+				table.getPKeys().add(pkey);
+			
+			/*//foreignKeys
+			ResultSet foreignKeys = targetConn.getMetaData().getExportedKeys(null, null, tbName);
+			while(foreignKeys.next()){
+				System.out.println("ForeignKey : " + foreignKeys.getString("FK_NAME") + " " + foreignKeys.getString("UPDATE_RULE"));
+			}
+			
+			
+			*/
 
-			database.getTables().add(table);			
+			database.getTables().add(table);
 		}
-		
 
 		System.out.println("Nombre de tables: " + database.getTables().size());
-		System.out.println("Nombre de colonnes: " + database.getTables().get(0).getColumns().size());
-		System.out.println("Nombre de clés primaires: " + database.getTables().get(0).getPKeys().size());
 		
 		EObject[] eobject = new EObject[]{database};
 		ModelSaver.saveModel("modelDatabase.xmi", eobject);
-			
-	}
 
+	
+	}
 }
