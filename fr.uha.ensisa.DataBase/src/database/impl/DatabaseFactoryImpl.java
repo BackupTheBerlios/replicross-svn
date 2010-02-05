@@ -64,6 +64,7 @@ public class DatabaseFactoryImpl extends EFactoryImpl implements DatabaseFactory
 			case DatabasePackage.TABLE: return createTable();
 			case DatabasePackage.COLUMN: return createColumn();
 			case DatabasePackage.PKEY: return createPKey();
+			case DatabasePackage.INDEX: return createIndex();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -107,6 +108,16 @@ public class DatabaseFactoryImpl extends EFactoryImpl implements DatabaseFactory
 	public PKey createPKey() {
 		PKeyImpl pKey = new PKeyImpl();
 		return pKey;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public Index createIndex() {
+		IndexImpl index = new IndexImpl();
+		return index;
 	}
 
 	/**

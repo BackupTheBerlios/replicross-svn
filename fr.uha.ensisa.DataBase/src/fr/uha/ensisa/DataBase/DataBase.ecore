@@ -8,12 +8,17 @@
         eType="#//Table" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Table">
+    <eOperations name="getColumn" eType="#//Column">
+      <eParameters name="columnName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataBase" eType="#//DataBase"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="columns" lowerBound="1"
         upperBound="-1" eType="#//Column" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="pKeys" upperBound="-1"
         eType="#//PKey" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Nom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="indexes" upperBound="-1"
+        eType="#//Index" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Column">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Nom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -21,5 +26,10 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Nullable" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Default" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="PKey" eSuperTypes="#//Column"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PKey" eSuperTypes="#//Index"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Index">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="columns" lowerBound="1"
+        upperBound="-1" eType="#//Column"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Nom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
 </ecore:EPackage>

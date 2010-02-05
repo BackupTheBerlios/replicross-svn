@@ -17,5 +17,5 @@ package database;
  * @model
  * @generated
  */
-public interface PKey extends Column {
+public interface PKey extends Index {
 } // PKey

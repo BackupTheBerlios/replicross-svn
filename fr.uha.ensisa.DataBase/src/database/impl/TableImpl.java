@@ -9,10 +9,12 @@ package database.impl;
 import database.Column;
 import database.DataBase;
 import database.DatabasePackage;
+import database.Index;
 import database.PKey;
 import database.Table;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -39,6 +41,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  *   <li>{@link database.impl.TableImpl#getColumns <em>Columns</em>}</li>
  *   <li>{@link database.impl.TableImpl#getPKeys <em>PKeys</em>}</li>
  *   <li>{@link database.impl.TableImpl#getNom <em>Nom</em>}</li>
+ *   <li>{@link database.impl.TableImpl#getIndexes <em>Indexes</em>}</li>
  * </ul>
  * </p>
  *
@@ -94,6 +97,16 @@ public class TableImpl extends EObjectImpl implements Table {
 	 * @ordered
 	 */
 	protected String nom = NOM_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getIndexes() <em>Indexes</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getIndexes()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<Index> indexes;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -202,6 +215,34 @@ public class TableImpl extends EObjectImpl implements Table {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EList<Index> getIndexes() {
+		if (indexes == null) {
+			indexes = new EObjectContainmentEList<Index>(Index.class, this, DatabasePackage.TABLE__INDEXES);
+		}
+		return indexes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public Column getColumn(String columnName) {
+		EList<Column> columns = this.getColumns();
+		Iterator<Column> it = columns.iterator();
+		while(it.hasNext()){
+			Column column = it.next();
+			if(column.getNom().equals(columnName))
+				return column;
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -209,6 +250,8 @@ public class TableImpl extends EObjectImpl implements Table {
 				return ((InternalEList<?>)getColumns()).basicRemove(otherEnd, msgs);
 			case DatabasePackage.TABLE__PKEYS:
 				return ((InternalEList<?>)getPKeys()).basicRemove(otherEnd, msgs);
+			case DatabasePackage.TABLE__INDEXES:
+				return ((InternalEList<?>)getIndexes()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -230,6 +273,8 @@ public class TableImpl extends EObjectImpl implements Table {
 				return getPKeys();
 			case DatabasePackage.TABLE__NOM:
 				return getNom();
+			case DatabasePackage.TABLE__INDEXES:
+				return getIndexes();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -257,6 +302,10 @@ public class TableImpl extends EObjectImpl implements Table {
 			case DatabasePackage.TABLE__NOM:
 				setNom((String)newValue);
 				return;
+			case DatabasePackage.TABLE__INDEXES:
+				getIndexes().clear();
+				getIndexes().addAll((Collection<? extends Index>)newValue);
+				return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -281,6 +330,9 @@ public class TableImpl extends EObjectImpl implements Table {
 			case DatabasePackage.TABLE__NOM:
 				setNom(NOM_EDEFAULT);
 				return;
+			case DatabasePackage.TABLE__INDEXES:
+				getIndexes().clear();
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -301,6 +353,8 @@ public class TableImpl extends EObjectImpl implements Table {
 				return pKeys != null && !pKeys.isEmpty();
 			case DatabasePackage.TABLE__NOM:
 				return NOM_EDEFAULT == null ? nom != null : !NOM_EDEFAULT.equals(nom);
+			case DatabasePackage.TABLE__INDEXES:
+				return indexes != null && !indexes.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}

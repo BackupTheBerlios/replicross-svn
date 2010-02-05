@@ -22,6 +22,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link database.Table#getColumns <em>Columns</em>}</li>
  *   <li>{@link database.Table#getPKeys <em>PKeys</em>}</li>
  *   <li>{@link database.Table#getNom <em>Nom</em>}</li>
+ *   <li>{@link database.Table#getIndexes <em>Indexes</em>}</li>
  * </ul>
  * </p>
  *
@@ -113,5 +114,29 @@ public interface Table extends EObject {
 	 * @generated
 	 */
 	void setNom(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Indexes</b></em>' containment reference list.
+	 * The list contents are of type {@link database.Index}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Indexes</em>' containment reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Indexes</em>' containment reference list.
+	 * @see database.DatabasePackage#getTable_Indexes()
+	 * @model containment="true"
+	 * @generated
+	 */
+	EList<Index> getIndexes();
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	Column getColumn(String columnName);
 
 } // Table

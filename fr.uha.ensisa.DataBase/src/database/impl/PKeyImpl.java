@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EClass;
  *
  * @generated
  */
-public class PKeyImpl extends ColumnImpl implements PKey {
+public class PKeyImpl extends IndexImpl implements PKey {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

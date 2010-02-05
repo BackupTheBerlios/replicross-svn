@@ -134,13 +134,22 @@ public interface DatabasePackage extends EPackage {
 	int TABLE__NOM = 3;
 
 	/**
+	 * The feature id for the '<em><b>Indexes</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE__INDEXES = 4;
+
+	/**
 	 * The number of structural features of the '<em>Table</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TABLE_FEATURE_COUNT = 4;
+	int TABLE_FEATURE_COUNT = 5;
 
 	/**
 	 * The meta object id for the '{@link database.impl.ColumnImpl <em>Column</em>}' class.
@@ -199,6 +208,43 @@ public interface DatabasePackage extends EPackage {
 
 
 	/**
+	 * The meta object id for the '{@link database.impl.IndexImpl <em>Index</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see database.impl.IndexImpl
+	 * @see database.impl.DatabasePackageImpl#getIndex()
+	 * @generated
+	 */
+	int INDEX = 4;
+
+	/**
+	 * The feature id for the '<em><b>Columns</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INDEX__COLUMNS = 0;
+
+	/**
+	 * The feature id for the '<em><b>Nom</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INDEX__NOM = 1;
+
+	/**
+	 * The number of structural features of the '<em>Index</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INDEX_FEATURE_COUNT = 2;
+
+	/**
 	 * The meta object id for the '{@link database.impl.PKeyImpl <em>PKey</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -209,40 +255,22 @@ public interface DatabasePackage extends EPackage {
 	int PKEY = 3;
 
 	/**
+	 * The feature id for the '<em><b>Columns</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PKEY__COLUMNS = INDEX__COLUMNS;
+
+	/**
 	 * The feature id for the '<em><b>Nom</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PKEY__NOM = COLUMN__NOM;
-
-	/**
-	 * The feature id for the '<em><b>Type</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PKEY__TYPE = COLUMN__TYPE;
-
-	/**
-	 * The feature id for the '<em><b>Nullable</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PKEY__NULLABLE = COLUMN__NULLABLE;
-
-	/**
-	 * The feature id for the '<em><b>Default</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PKEY__DEFAULT = COLUMN__DEFAULT;
+	int PKEY__NOM = INDEX__NOM;
 
 	/**
 	 * The number of structural features of the '<em>PKey</em>' class.
@@ -251,7 +279,7 @@ public interface DatabasePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PKEY_FEATURE_COUNT = COLUMN_FEATURE_COUNT + 0;
+	int PKEY_FEATURE_COUNT = INDEX_FEATURE_COUNT + 0;
 
 
 	/**
@@ -330,6 +358,17 @@ public interface DatabasePackage extends EPackage {
 	EAttribute getTable_Nom();
 
 	/**
+	 * Returns the meta object for the containment reference list '{@link database.Table#getIndexes <em>Indexes</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference list '<em>Indexes</em>'.
+	 * @see database.Table#getIndexes()
+	 * @see #getTable()
+	 * @generated
+	 */
+	EReference getTable_Indexes();
+
+	/**
 	 * Returns the meta object for class '{@link database.Column <em>Column</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -392,6 +431,38 @@ public interface DatabasePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getPKey();
+
+	/**
+	 * Returns the meta object for class '{@link database.Index <em>Index</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Index</em>'.
+	 * @see database.Index
+	 * @generated
+	 */
+	EClass getIndex();
+
+	/**
+	 * Returns the meta object for the reference list '{@link database.Index#getColumns <em>Columns</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Columns</em>'.
+	 * @see database.Index#getColumns()
+	 * @see #getIndex()
+	 * @generated
+	 */
+	EReference getIndex_Columns();
+
+	/**
+	 * Returns the meta object for the attribute '{@link database.Index#getNom <em>Nom</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Nom</em>'.
+	 * @see database.Index#getNom()
+	 * @see #getIndex()
+	 * @generated
+	 */
+	EAttribute getIndex_Nom();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -476,6 +547,14 @@ public interface DatabasePackage extends EPackage {
 		EAttribute TABLE__NOM = eINSTANCE.getTable_Nom();
 
 		/**
+		 * The meta object literal for the '<em><b>Indexes</b></em>' containment reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TABLE__INDEXES = eINSTANCE.getTable_Indexes();
+
+		/**
 		 * The meta object literal for the '{@link database.impl.ColumnImpl <em>Column</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -526,6 +605,32 @@ public interface DatabasePackage extends EPackage {
 		 * @generated
 		 */
 		EClass PKEY = eINSTANCE.getPKey();
+
+		/**
+		 * The meta object literal for the '{@link database.impl.IndexImpl <em>Index</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see database.impl.IndexImpl
+		 * @see database.impl.DatabasePackageImpl#getIndex()
+		 * @generated
+		 */
+		EClass INDEX = eINSTANCE.getIndex();
+
+		/**
+		 * The meta object literal for the '<em><b>Columns</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference INDEX__COLUMNS = eINSTANCE.getIndex_Columns();
+
+		/**
+		 * The meta object literal for the '<em><b>Nom</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute INDEX__NOM = eINSTANCE.getIndex_Nom();
 
 	}
 
