@@ -49,7 +49,6 @@ public class SynchroStructure {
 		DataBase DBcible = dbstructure2.retrieveStructure();
 		
 		Connection connModel = DriverManager.getConnection("jdbc:mysql://" + hostModel + "/" + DatabaseModel, UserModel, passwordModel);
-		System.out.println("Je suis connecté");
 		DBStructure dbstructure = new DBStructure(connModel);
 		DataBase DBmodel = dbstructure.retrieveStructure();
 		
