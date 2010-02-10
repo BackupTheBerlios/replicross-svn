@@ -249,7 +249,7 @@ public class DBCopy {
 						System.out.println("Process ended with " + res.getErrorNumber() + " errors.");
 				}
 			}
-			ModelSaver.saveModel("log.xmi", new EObject[]{log});
+			//ModelSaver.saveModel("log.xmi", new EObject[]{log});
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {

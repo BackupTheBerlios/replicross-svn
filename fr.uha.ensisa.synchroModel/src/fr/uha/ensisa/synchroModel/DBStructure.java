@@ -2,15 +2,8 @@ package fr.uha.ensisa.synchroModel;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
 
 import com.mysql.jdbc.DatabaseMetaData;
 
@@ -34,6 +27,8 @@ public class DBStructure {
 	public DataBase retrieveStructure() throws SQLException, IOException {
 
 		DataBase database = DatabaseFactory.eINSTANCE.createDataBase();
+		
+		System.out.println("Retrieving database structure...");
 
 		// tableNames
 		ResultSet tablesRS = targetConn.getMetaData().getTables(null, null,
@@ -120,10 +115,7 @@ public class DBStructure {
 			database.getTables().add(table);
 		}
 
-		System.out.println("Nombre de tables: " + database.getTables().size());
-		ModelSaver.saveModel(database.toString()+".xmi", new
-		EObject[]{database});
-
+		System.out.println("Structure retieved");
 		return database;
 	}
 }

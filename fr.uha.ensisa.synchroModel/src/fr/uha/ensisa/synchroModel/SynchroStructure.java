@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Iterator;
 
-import org.eclipse.emf.ecore.EObject;
-
 import database.Column;
 import database.DataBase;
 import database.DatabaseFactory;
@@ -32,17 +30,30 @@ public class SynchroStructure {
 	 */
 	public static void main(String[] args) throws SQLException,
 			ClassNotFoundException, IOException {
+		String hostModel, hostCible, DatabaseModel, DatabaseCible, UserModel, UserCible, passwordModel, passwordCible;
+		
+		hostModel = args[0];
+		DatabaseModel = args[1];
+		UserModel = args[2];
+		passwordModel = args[3];
+		
+		hostCible = args[4];
+		DatabaseCible =  args[5];
+		UserCible = args[6];
+		passwordCible = args[7];
 		
 		Class.forName("com.mysql.jdbc.Driver");
 
-		Connection connCible = DriverManager.getConnection("jdbc:mysql://localhost/replicrossp", "root", "");
+		Connection connCible = DriverManager.getConnection("jdbc:mysql://" + hostCible + "/" + DatabaseCible, UserCible, passwordCible);
 		DBStructure dbstructure2 = new DBStructure(connCible);
 		DataBase DBcible = dbstructure2.retrieveStructure();
 		
-		Connection connModel = DriverManager.getConnection("jdbc:mysql://localhost/replicrossa", "root", "");
+		Connection connModel = DriverManager.getConnection("jdbc:mysql://" + hostModel + "/" + DatabaseModel, UserModel, passwordModel);
 		System.out.println("Je suis connecté");
 		DBStructure dbstructure = new DBStructure(connModel);
 		DataBase DBmodel = dbstructure.retrieveStructure();
+		
+		System.out.println("Synchronizing structure...");
 
 		for (Table table : DBmodel.getTables()) {
 			Table tableCible = SynchroStructure.getTable(table.getNom(),
@@ -147,6 +158,7 @@ public class SynchroStructure {
 		}
 	}
 
+	
 	// TODO rajouter dans Le méta-Model
 	public static Table getTable(String tableName, DataBase database) {
 		for (Table table : database.getTables()) {
