@@ -43,4 +43,12 @@ public interface DataBase extends EObject {
 	 */
 	EList<Table> getTables();
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	Table getTable(String tableName);
+
 } // DataBase

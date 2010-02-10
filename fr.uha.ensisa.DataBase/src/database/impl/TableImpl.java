@@ -241,6 +241,19 @@ public class TableImpl extends EObjectImpl implements Table {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public Index getIndex(String indexName) {
+		for(Index index : this.getIndexes()){
+			if(index.getNom().equals(indexName))
+				return index;
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override

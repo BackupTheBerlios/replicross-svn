@@ -139,4 +139,12 @@ public interface Table extends EObject {
 	 */
 	Column getColumn(String columnName);
 
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @model
+	 * @generated
+	 */
+	Index getIndex(String indexName);
+
 } // Table

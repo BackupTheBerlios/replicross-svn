@@ -82,6 +82,19 @@ public class DataBaseImpl extends EObjectImpl implements DataBase {
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
+	 * @generated NOT
+	 */
+	public Table getTable(String tableName) {
+		for (Table table : this.getTables()) {
+			if (table.getNom().equals(tableName))
+				return table;
+		}
+		return null;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
 	 * @generated
 	 */
 	@Override

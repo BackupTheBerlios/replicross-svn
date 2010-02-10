@@ -4,12 +4,18 @@
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="database"
     nsURI="http://database/1.0" nsPrefix="database">
   <eClassifiers xsi:type="ecore:EClass" name="DataBase">
+    <eOperations name="getTable" eType="#//Table">
+      <eParameters name="tableName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="tables" upperBound="-1"
         eType="#//Table" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Table">
     <eOperations name="getColumn" eType="#//Column">
       <eParameters name="columnName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    </eOperations>
+    <eOperations name="getIndex" eType="#//Index">
+      <eParameters name="indexName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     </eOperations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="dataBase" eType="#//DataBase"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="columns" lowerBound="1"
