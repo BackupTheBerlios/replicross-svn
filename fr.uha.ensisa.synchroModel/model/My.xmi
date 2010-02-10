@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <param:Param xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:param="http://param/1.0">
-  <rules source="//@databases.0" target="//@databases.1" name="Première">
+  <rules source="//@databases.1" target="//@databases.0" name="Première" all="true">
     <tables name="visit"/>
   </rules>
-  <databases name="Production" url="jdbc:mysql://localhost/testSynchroP">
-    <users userName="aghilas" Pass="az110900"/>
+  <databases name="Production" url="jdbc:mysql://localhost/replicrossp">
+    <users userName="root" Pass=""/>
   </databases>
-  <databases name="Analyse" url="jdbc:mysql://localhost/testSynchroA">
-    <users userName="aghilas" Pass="az110900"/>
+  <databases name="Analyse" url="jdbc:mysql://localhost/replicrossa">
+    <users userName="root" Pass=""/>
   </databases>
 </param:Param>

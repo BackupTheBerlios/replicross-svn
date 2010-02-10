@@ -1,5 +1,6 @@
 package fr.uha.ensisa.synchroModel;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,10 +10,7 @@ import java.sql.Statement;
 import java.util.HashSet;
 import java.util.Set;
 
-//import logmodel.CouldNotTruncate;
-import logmodel.Log;
-import logmodel.LogmodelFactory;
-import logmodel.TableNotFound;
+import logmodel.*;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -62,8 +60,8 @@ public class DBCopy {
 		return this.target;
 	}
 	
-	public CopyResult override() {
-		return this.override(false, null, true);
+	public CopyResult override(Rule rule, Log log) {
+		return this.override(false, null, true, rule, log);
 	}
 	
 	public boolean differInSize(Table t1, Table t2) throws SQLException {
@@ -71,9 +69,8 @@ public class DBCopy {
 		return ((double)(s1-t2.getSize())/((double)s1) > 0.2);
 	}
 	
-	public CopyResult override(boolean ifDiffer, Set<Table> tables, boolean flushBefore) {
+	public CopyResult override(boolean ifDiffer, Set<Table> tables, boolean flushBefore, Rule rule, Log log) {
 		CopyResult ret = new CopyResult();
-		Log log = LogmodelFactory.eINSTANCE.createLog();
 		try {
 			Database src = this.getSource(), tgt = this.getTarget();
 			
@@ -83,6 +80,7 @@ public class DBCopy {
 					ret.addError("Unknown target table " + srcTable.getName());
 					TableNotFound tnf = LogmodelFactory.eINSTANCE.createTableNotFound();
 					tnf.setTableName(srcTable.getName());
+					tnf.setRule(rule);
 					log.getErrors().add(tnf);
 				} else {
 					long size = srcTable.getSize();
@@ -92,9 +90,10 @@ public class DBCopy {
 							dstTable.truncate();
 							if (dstTable.getSize() != 0){
 								ret.addError("Could not truncate " + dstTable.getName());
-								//CouldNotTruncate cnt = LogmodelFactory.eINSTANCE.createCouldNotTruncate();
-								//	cnt.setTableName(dstTable.getName());
-								//log.getErrors().add(cnt);
+								CouldNotTruncate cnt = LogmodelFactory.eINSTANCE.createCouldNotTruncate();
+								cnt.setTableName(dstTable.getName());
+								cnt.setRule(rule);
+								log.getErrors().add(cnt);
 								}
 						}
 						boolean shouldStop = false;
@@ -142,6 +141,10 @@ public class DBCopy {
 									} catch (SQLException x) {
 										if (flushBefore || !x.getMessage().contains("Duplicate")) {
 											ret.addError("Error running update " + upsql + ":"+x.getMessage());
+											SQLError sqle = LogmodelFactory.eINSTANCE.createSQLError();
+											sqle.setError("Error running update " + upsql + ":"+x.getMessage());
+											sqle.setRule(rule);
+											log.getErrors().add(sqle);
 										}
 									} finally {
 										ups.close();
@@ -156,14 +159,19 @@ public class DBCopy {
 						long tgSize = dstTable.getSize();
 						if (!this.differInSize(srcTable, dstTable))
 							ret.addMessage("    Source and target " + srcTable.getName() + " have same size.");
-						else
+						else{
 							ret.addError("    Source and target " + srcTable.getName() + " differ in size (target is " + tgSize + ").");
+						}
 					}	
 				}
 				
 			}
 		} catch (SQLException x) {
 			ret.addError(x.getMessage());
+			SQLError sqle = LogmodelFactory.eINSTANCE.createSQLError();
+			sqle.setError(x.getMessage());
+			sqle.setRule(rule);
+			log.getErrors().add(sqle);
 		}
 		
 		return ret;
@@ -190,13 +198,15 @@ public class DBCopy {
 	
 	/**@param sourceXMI File location of the model serialization *
 	 * @param pack Singleton object of the main package instance (e.g. UMLPackage.eINSTANCE) *
-	 * @return The set of roots found in the serialized model */
+	 * @return The set of roots found in the serialized model 
+	 * @throws IOException */
 	
 	
-	public static void main(String [] args) {
+	public static void main(String [] args) throws IOException {
 		
 		EObject[] parametres =  ModelLoader.loadModel(args[0], param.ParamPackage.eINSTANCE);
 		EList<Rule> rules = ((param.impl.ParamImpl) parametres[0]).getRules();
+		Log log = LogmodelFactory.eINSTANCE.createLog();
 		 
 		DBCopy cop;
 		try {
@@ -207,7 +217,7 @@ public class DBCopy {
 					cop = new DBCopy(rule);
 					CopyResult res = null;
 					if (rule.isAll()) {
-						res = cop.override();
+						res = cop.override(rule, log);
 					} else if (rule.isCheck()) {
 						Set<Table> diff = cop.checkSourceAndTargetSize();
 						if (diff.isEmpty())
@@ -218,7 +228,7 @@ public class DBCopy {
 							}
 						}
 					} else if (rule.isRepair()) {
-						res = cop.override(true, null, false);
+						res = cop.override(true, null, false, rule, log);
 					} else if (!rule.getTables().isEmpty()) {
 						Database target = cop.getTarget();
 						Set<Table> tbd = new HashSet<Table>();
@@ -231,7 +241,7 @@ public class DBCopy {
 								tbd.add(t);
 							}
 						}
-						res = cop.override(false, tbd, !rule.getTables().isEmpty());
+						res = cop.override(false, tbd, !rule.getTables().isEmpty(), rule, log);
 					} else {
 						printHelp();
 					}
@@ -239,6 +249,7 @@ public class DBCopy {
 						System.out.println("Process ended with " + res.getErrorNumber() + " errors.");
 				}
 			}
+			ModelSaver.saveModel("log.xmi", new EObject[]{log});
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
