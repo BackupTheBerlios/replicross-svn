@@ -56,8 +56,7 @@ public class SynchroStructure {
 		System.out.println("Synchronizing structure...");
 
 		for (Table table : DBmodel.getTables()) {
-			Table tableCible = SynchroStructure.getTable(table.getNom(),
-					DBcible);
+			Table tableCible = DBcible.getTable(table.getNom());
 			Statement st = connCible.createStatement();
 			if (tableCible == null) {
 				String cmd = "CREATE TABLE `" + table.getNom() + "` ( `" + table.getColumns().get(0).getNom() + "` " + table.getColumns().get(0).getType() + " ";
@@ -123,7 +122,7 @@ public class SynchroStructure {
 			
 			//Indexes
 			for(Index index : table.getIndexes()){
-				Index indexCible = SynchroStructure.getIndex(index.getNom(), tableCible);
+				Index indexCible = tableCible.getIndex(index.getNom());
 				if(indexCible == null){
 					String cmd = "CREATE INDEX `" + index.getNom() + "` ON `" + table.getNom() + "` (";
 					Iterator<Column> it = index.getColumns().iterator();
@@ -156,25 +155,6 @@ public class SynchroStructure {
 			}
 
 		}
-	}
-
-	
-	// TODO rajouter dans Le méta-Model
-	public static Table getTable(String tableName, DataBase database) {
-		for (Table table : database.getTables()) {
-			if (table.getNom().equals(tableName))
-				return table;
-		}
-		return null;
-	}
-
-	// TODO rajouter dans Le méta-Model
-	public static Index getIndex(String indexName, Table table){
-		for(Index index : table.getIndexes()){
-			if(index.getNom().equals(indexName))
-				return index;
-		}
-		return null;
 	}
 	
 }
