@@ -145,7 +145,7 @@
     </children>
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_NztxUQdDEd-qc4HONyeAPQ" lineColor="0"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_NztxUgdDEd-qc4HONyeAPQ" fontName="Segoe UI" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="DataBase.ecore#//Table/pKeys"/>
+    <element xmi:type="ecore:EReference" href="DataBase.ecore#//Table/pKey"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_NztxUwdDEd-qc4HONyeAPQ" points="[1, 12, -8, -231]$[9, 240, 0, -3]"/>
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Nz3iUAdDEd-qc4HONyeAPQ" id="(0.53,0.80487806)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Nz4JYAdDEd-qc4HONyeAPQ" id="(0.37,0.09756097)"/>

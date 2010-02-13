@@ -116,13 +116,13 @@ public interface DatabasePackage extends EPackage {
 	int TABLE__COLUMNS = 1;
 
 	/**
-	 * The feature id for the '<em><b>PKeys</b></em>' containment reference list.
+	 * The feature id for the '<em><b>PKey</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TABLE__PKEYS = 2;
+	int TABLE__PKEY = 2;
 
 	/**
 	 * The feature id for the '<em><b>Nom</b></em>' attribute.
@@ -336,15 +336,15 @@ public interface DatabasePackage extends EPackage {
 	EReference getTable_Columns();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link database.Table#getPKeys <em>PKeys</em>}'.
+	 * Returns the meta object for the containment reference '{@link database.Table#getPKey <em>PKey</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>PKeys</em>'.
-	 * @see database.Table#getPKeys()
+	 * @return the meta object for the containment reference '<em>PKey</em>'.
+	 * @see database.Table#getPKey()
 	 * @see #getTable()
 	 * @generated
 	 */
-	EReference getTable_PKeys();
+	EReference getTable_PKey();
 
 	/**
 	 * Returns the meta object for the attribute '{@link database.Table#getNom <em>Nom</em>}'.
@@ -531,12 +531,12 @@ public interface DatabasePackage extends EPackage {
 		EReference TABLE__COLUMNS = eINSTANCE.getTable_Columns();
 
 		/**
-		 * The meta object literal for the '<em><b>PKeys</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>PKey</b></em>' containment reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TABLE__PKEYS = eINSTANCE.getTable_PKeys();
+		EReference TABLE__PKEY = eINSTANCE.getTable_PKey();
 
 		/**
 		 * The meta object literal for the '<em><b>Nom</b></em>' attribute feature.

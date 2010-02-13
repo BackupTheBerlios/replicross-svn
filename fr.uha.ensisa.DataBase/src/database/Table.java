@@ -20,7 +20,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link database.Table#getDataBase <em>Data Base</em>}</li>
  *   <li>{@link database.Table#getColumns <em>Columns</em>}</li>
- *   <li>{@link database.Table#getPKeys <em>PKeys</em>}</li>
+ *   <li>{@link database.Table#getPKey <em>PKey</em>}</li>
  *   <li>{@link database.Table#getNom <em>Nom</em>}</li>
  *   <li>{@link database.Table#getIndexes <em>Indexes</em>}</li>
  * </ul>
@@ -74,20 +74,30 @@ public interface Table extends EObject {
 	EList<Column> getColumns();
 
 	/**
-	 * Returns the value of the '<em><b>PKeys</b></em>' containment reference list.
-	 * The list contents are of type {@link database.PKey}.
+	 * Returns the value of the '<em><b>PKey</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>PKeys</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>PKey</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>PKeys</em>' containment reference list.
-	 * @see database.DatabasePackage#getTable_PKeys()
+	 * @return the value of the '<em>PKey</em>' containment reference.
+	 * @see #setPKey(PKey)
+	 * @see database.DatabasePackage#getTable_PKey()
 	 * @model containment="true"
 	 * @generated
 	 */
-	EList<PKey> getPKeys();
+	PKey getPKey();
+
+	/**
+	 * Sets the value of the '{@link database.Table#getPKey <em>PKey</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>PKey</em>' containment reference.
+	 * @see #getPKey()
+	 * @generated
+	 */
+	void setPKey(PKey value);
 
 	/**
 	 * Returns the value of the '<em><b>Nom</b></em>' attribute.

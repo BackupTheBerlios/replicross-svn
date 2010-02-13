@@ -39,7 +39,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link database.impl.TableImpl#getDataBase <em>Data Base</em>}</li>
  *   <li>{@link database.impl.TableImpl#getColumns <em>Columns</em>}</li>
- *   <li>{@link database.impl.TableImpl#getPKeys <em>PKeys</em>}</li>
+ *   <li>{@link database.impl.TableImpl#getPKey <em>PKey</em>}</li>
  *   <li>{@link database.impl.TableImpl#getNom <em>Nom</em>}</li>
  *   <li>{@link database.impl.TableImpl#getIndexes <em>Indexes</em>}</li>
  * </ul>
@@ -69,14 +69,14 @@ public class TableImpl extends EObjectImpl implements Table {
 	protected EList<Column> columns;
 
 	/**
-	 * The cached value of the '{@link #getPKeys() <em>PKeys</em>}' containment reference list.
+	 * The cached value of the '{@link #getPKey() <em>PKey</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPKeys()
+	 * @see #getPKey()
 	 * @generated
 	 * @ordered
 	 */
-	protected EList<PKey> pKeys;
+	protected PKey pKey;
 
 	/**
 	 * The default value of the '{@link #getNom() <em>Nom</em>}' attribute.
@@ -182,11 +182,42 @@ public class TableImpl extends EObjectImpl implements Table {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<PKey> getPKeys() {
-		if (pKeys == null) {
-			pKeys = new EObjectContainmentEList<PKey>(PKey.class, this, DatabasePackage.TABLE__PKEYS);
+	public PKey getPKey() {
+		return pKey;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public NotificationChain basicSetPKey(PKey newPKey, NotificationChain msgs) {
+		PKey oldPKey = pKey;
+		pKey = newPKey;
+		if (eNotificationRequired()) {
+			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DatabasePackage.TABLE__PKEY, oldPKey, newPKey);
+			if (msgs == null) msgs = notification; else msgs.add(notification);
 		}
-		return pKeys;
+		return msgs;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPKey(PKey newPKey) {
+		if (newPKey != pKey) {
+			NotificationChain msgs = null;
+			if (pKey != null)
+				msgs = ((InternalEObject)pKey).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DatabasePackage.TABLE__PKEY, null, msgs);
+			if (newPKey != null)
+				msgs = ((InternalEObject)newPKey).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DatabasePackage.TABLE__PKEY, null, msgs);
+			msgs = basicSetPKey(newPKey, msgs);
+			if (msgs != null) msgs.dispatch();
+		}
+		else if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DatabasePackage.TABLE__PKEY, newPKey, newPKey));
 	}
 
 	/**
@@ -261,8 +292,8 @@ public class TableImpl extends EObjectImpl implements Table {
 		switch (featureID) {
 			case DatabasePackage.TABLE__COLUMNS:
 				return ((InternalEList<?>)getColumns()).basicRemove(otherEnd, msgs);
-			case DatabasePackage.TABLE__PKEYS:
-				return ((InternalEList<?>)getPKeys()).basicRemove(otherEnd, msgs);
+			case DatabasePackage.TABLE__PKEY:
+				return basicSetPKey(null, msgs);
 			case DatabasePackage.TABLE__INDEXES:
 				return ((InternalEList<?>)getIndexes()).basicRemove(otherEnd, msgs);
 		}
@@ -282,8 +313,8 @@ public class TableImpl extends EObjectImpl implements Table {
 				return basicGetDataBase();
 			case DatabasePackage.TABLE__COLUMNS:
 				return getColumns();
-			case DatabasePackage.TABLE__PKEYS:
-				return getPKeys();
+			case DatabasePackage.TABLE__PKEY:
+				return getPKey();
 			case DatabasePackage.TABLE__NOM:
 				return getNom();
 			case DatabasePackage.TABLE__INDEXES:
@@ -308,9 +339,8 @@ public class TableImpl extends EObjectImpl implements Table {
 				getColumns().clear();
 				getColumns().addAll((Collection<? extends Column>)newValue);
 				return;
-			case DatabasePackage.TABLE__PKEYS:
-				getPKeys().clear();
-				getPKeys().addAll((Collection<? extends PKey>)newValue);
+			case DatabasePackage.TABLE__PKEY:
+				setPKey((PKey)newValue);
 				return;
 			case DatabasePackage.TABLE__NOM:
 				setNom((String)newValue);
@@ -337,8 +367,8 @@ public class TableImpl extends EObjectImpl implements Table {
 			case DatabasePackage.TABLE__COLUMNS:
 				getColumns().clear();
 				return;
-			case DatabasePackage.TABLE__PKEYS:
-				getPKeys().clear();
+			case DatabasePackage.TABLE__PKEY:
+				setPKey((PKey)null);
 				return;
 			case DatabasePackage.TABLE__NOM:
 				setNom(NOM_EDEFAULT);
@@ -362,8 +392,8 @@ public class TableImpl extends EObjectImpl implements Table {
 				return dataBase != null;
 			case DatabasePackage.TABLE__COLUMNS:
 				return columns != null && !columns.isEmpty();
-			case DatabasePackage.TABLE__PKEYS:
-				return pKeys != null && !pKeys.isEmpty();
+			case DatabasePackage.TABLE__PKEY:
+				return pKey != null;
 			case DatabasePackage.TABLE__NOM:
 				return NOM_EDEFAULT == null ? nom != null : !NOM_EDEFAULT.equals(nom);
 			case DatabasePackage.TABLE__INDEXES:
