@@ -204,7 +204,7 @@ public class DBCopy {
 	
 	public static void main(String [] args) throws IOException {
 		
-		EObject[] parametres =  ModelLoader.loadModel(args[0], param.ParamPackage.eINSTANCE);
+		EObject[] parametres =  Utils.loadModel(args[0], param.ParamPackage.eINSTANCE);
 		EList<Rule> rules = ((param.impl.ParamImpl) parametres[0]).getRules();
 		Log log = LogmodelFactory.eINSTANCE.createLog();
 		 

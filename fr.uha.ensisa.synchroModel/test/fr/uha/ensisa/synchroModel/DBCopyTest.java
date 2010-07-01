@@ -4,6 +4,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
+import java.io.File;
 import java.sql.SQLException;
 
 import org.eclipse.emf.common.util.EList;
@@ -20,7 +21,7 @@ public class DBCopyTest {
 	
 	@Before
 	public void connect(){
-		EObject[] parametres =  ModelLoader.loadModel("C:\\Users\\Aghilas\\Documents\\runtime-EclipseApplication\\fr.uha.ensisa.synchroModel\\model\\My.xmi", param.ParamPackage.eINSTANCE);
+		EObject[] parametres =  Utils.loadModel(new File("model/My.xmi").getAbsolutePath(), param.ParamPackage.eINSTANCE);
 		EList<Rule> rules = ((param.impl.ParamImpl) parametres[0]).getRules();
 		try{
 			copy = new DBCopy(rules.get(0));

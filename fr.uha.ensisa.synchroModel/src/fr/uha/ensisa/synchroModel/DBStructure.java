@@ -101,7 +101,7 @@ public class DBStructure {
 				pkey.setNom(pKeysRS.getString("PK_NAME"));
 			}
 			if (pkey.getColumns().size() != 0)
-				table.getPKeys().add(pkey);
+				table.setPKey(pkey);
 
 			// foreignKeys
 			/*

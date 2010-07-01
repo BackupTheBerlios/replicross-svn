@@ -9,14 +9,5 @@
 -->
 
 <plugin>
-   <extension
-         point="org.openarchitectureware.adapter.emf.check.checks">
-      <metaModel
-            nsURI="http://param/1.0">
-         <checkFile
-               path="location	C:\Users\Aghilas\Documents\workspace\fr.uha.ensisa.DBSynchro\src\fr\uha\ensisa\DBSynchro\CheckFile.chk">
-         </checkFile>
-      </metaModel>
-   </extension>
 
 </plugin>
