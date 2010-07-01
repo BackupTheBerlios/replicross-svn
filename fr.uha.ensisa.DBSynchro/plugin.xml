@@ -16,14 +16,5 @@
             class="param.ParamPackage"
             genModel="src/fr/uha/ensisa/DBSynchro/ParamModel.genmodel"/>
    </extension>
-   <extension
-         point="org.openarchitectureware.adapter.emf.check.checks">
-      <metaModel
-            nsURI="http://param/1.0">
-         <checkFile
-               path="src/fr/uha/ensisa/DBSynchro/Param">
-         </checkFile>
-      </metaModel>
-   </extension>
 
 </plugin>

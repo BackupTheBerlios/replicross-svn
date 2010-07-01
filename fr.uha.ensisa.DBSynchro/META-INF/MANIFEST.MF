@@ -12,6 +12,5 @@ Export-Package: param,
  param.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
- org.eclipse.emf.ecore.xmi;bundle-version="2.4.1",
- org.openarchitectureware.adapter.emf.check
+ org.eclipse.emf.ecore.xmi;bundle-version="2.4.1"
 Bundle-ActivationPolicy: lazy
