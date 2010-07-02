@@ -17,11 +17,10 @@ public class Utils {
 	/**@param targetXMI Destination file for the model serialization.
 	* @param toBeSaved List of root objects of the model to be serialized.
 	*/
-	public static void saveModel (String targetXMI, EObject [] toBeSaved){
-		URI fileURI = URI.createFileURI(new File(targetXMI).getAbsolutePath());
+	public static void saveModel (URI targetURI, EObject [] toBeSaved){
 		ResourceSet resourceSet = new ResourceSetImpl();
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
-		Resource resource = resourceSet.createResource(fileURI);
+		Resource resource = resourceSet.createResource(targetURI);
 		for (int i = 0; i < toBeSaved.length; i++) {
 			resource.getContents().add(toBeSaved[i]);
 		}
@@ -34,11 +33,10 @@ public class Utils {
 	 * @param pack metamodel
 	 * @return
 	 */
-	public static EObject [] loadModel (String sourceXMI, EPackage pack) {
-		URI fileURI = URI.createFileURI(new File(sourceXMI).getAbsolutePath());
+	public static EObject [] loadModel (URI sourceURI, EPackage pack) {
 		ResourceSet resourceSet = new ResourceSetImpl();
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put( Resource.Factory.Registry.DEFAULT_EXTENSION, new XMIResourceFactoryImpl());
-		Resource resource = resourceSet.getResource(fileURI, true);
+		Resource resource = resourceSet.getResource(sourceURI, true);
 		return resource.getContents().toArray( new EObject [resource.getContents().size()]);
 	}
 }

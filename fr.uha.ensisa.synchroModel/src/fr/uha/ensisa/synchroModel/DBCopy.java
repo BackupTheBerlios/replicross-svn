@@ -1,5 +1,6 @@
 package fr.uha.ensisa.synchroModel;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,6 +14,7 @@ import java.util.Set;
 import logmodel.*;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 
 import param.Rule;
@@ -204,7 +206,7 @@ public class DBCopy {
 	
 	public static void main(String [] args) throws IOException {
 		
-		EObject[] parametres =  Utils.loadModel(args[0], param.ParamPackage.eINSTANCE);
+		EObject[] parametres =  Utils.loadModel(URI.createFileURI(new File(args[0]).getAbsolutePath()), param.ParamPackage.eINSTANCE);
 		EList<Rule> rules = ((param.impl.ParamImpl) parametres[0]).getRules();
 		Log log = LogmodelFactory.eINSTANCE.createLog();
 		 
