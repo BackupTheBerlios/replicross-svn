@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.1/notation" xmi:id="__3bXAbTMEd6ZlfIGf_krbg" type="EcoreTools" name="Param" measurementUnit="Pixel">
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmi:id="__3bXAbTMEd6ZlfIGf_krbg" type="EcoreTools" name="Param" measurementUnit="Pixel">
   <children xmi:type="notation:Node" xmi:id="_A20XcLTNEd6ZlfIGf_krbg" type="1001">
     <children xmi:type="notation:Node" xmi:id="_A2-IcLTNEd6ZlfIGf_krbg" type="4001"/>
     <children xmi:type="notation:Node" xmi:id="_A3IggLTNEd6ZlfIGf_krbg" type="5001">
@@ -120,6 +120,26 @@
     <element xmi:type="ecore:EClass" href="Param.ecore#//User"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_f6lqILTQEd6ZlfIGf_krbg" x="1046" y="249"/>
   </children>
+  <children xmi:type="notation:Node" xmi:id="_CalfsYWkEd-jru-e7Fv-IA" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_Camt0IWkEd-jru-e7Fv-IA" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_CanU4IWkEd-jru-e7Fv-IA" type="5001">
+      <children xmi:type="notation:Node" xmi:id="_EFI9AIWkEd-jru-e7Fv-IA" type="2001">
+        <element xmi:type="ecore:EAttribute" href="Param.ecore#//StructureRule/positive"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_EFI9AYWkEd-jru-e7Fv-IA"/>
+      </children>
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_CanU4YWkEd-jru-e7Fv-IA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_CanU4oWkEd-jru-e7Fv-IA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_CanU44WkEd-jru-e7Fv-IA"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_Can78IWkEd-jru-e7Fv-IA" type="5002">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_Can78YWkEd-jru-e7Fv-IA"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_Can78oWkEd-jru-e7Fv-IA"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_Can784WkEd-jru-e7Fv-IA"/>
+    </children>
+    <styles xmi:type="notation:ShapeStyle" xmi:id="_CalfsoWkEd-jru-e7Fv-IA" fontColor="4210752" fontName="Lucida Grande" fontHeight="10" fillColor="13761016" lineColor="8421504"/>
+    <element xmi:type="ecore:EClass" href="Param.ecore#//StructureRule"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Calfs4WkEd-jru-e7Fv-IA" x="92" y="344"/>
+  </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="__3bXArTMEd6ZlfIGf_krbg"/>
   <element xmi:type="ecore:EPackage" href="Param.ecore#/"/>
   <edges xmi:type="notation:Edge" xmi:id="_d3458LTNEd6ZlfIGf_krbg" type="3002" source="_A20XcLTNEd6ZlfIGf_krbg" target="_ENjCsLTNEd6ZlfIGf_krbg">
@@ -200,5 +220,12 @@
     <element xmi:type="ecore:EReference" href="Param.ecore#//DataBase/users"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_phCnA7TQEd6ZlfIGf_krbg" points="[57, 3, -173, -11]$[211, 2, -19, -12]"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_phPbULTQEd6ZlfIGf_krbg" id="(0.19,0.22727273)"/>
+  </edges>
+  <edges xmi:type="notation:Edge" xmi:id="_-EkrQIWvEd-jru-e7Fv-IA" type="3003" source="_CalfsYWkEd-jru-e7Fv-IA" target="_ENjCsLTNEd6ZlfIGf_krbg">
+    <styles xmi:type="notation:ConnectorStyle" xmi:id="_-EkrQYWvEd-jru-e7Fv-IA" routing="Rectilinear" lineColor="4210752"/>
+    <styles xmi:type="notation:FontStyle" xmi:id="_-EkrQoWvEd-jru-e7Fv-IA" fontName="Lucida Grande"/>
+    <element xsi:nil="true"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-EkrQ4WvEd-jru-e7Fv-IA" points="[1, -4, -12, 134]$[47, -90, 34, 48]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-Eo8sIWvEd-jru-e7Fv-IA" id="(0.6776859504132231,0.10204081632653061)"/>
   </edges>
 </notation:Diagram>

@@ -65,6 +65,7 @@ public class ParamFactoryImpl extends EFactoryImpl implements ParamFactory {
 			case ParamPackage.DATA_BASE: return createDataBase();
 			case ParamPackage.TABLE: return createTable();
 			case ParamPackage.USER: return createUser();
+			case ParamPackage.STRUCTURE_RULE: return createStructureRule();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
 		}
@@ -118,6 +119,16 @@ public class ParamFactoryImpl extends EFactoryImpl implements ParamFactory {
 	public User createUser() {
 		UserImpl user = new UserImpl();
 		return user;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public StructureRule createStructureRule() {
+		StructureRuleImpl structureRule = new StructureRuleImpl();
+		return structureRule;
 	}
 
 	/**

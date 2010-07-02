@@ -143,7 +143,7 @@ public class TableImpl extends EObjectImpl implements Table {
 			case ParamPackage.TABLE__NAME:
 				return getName();
 			case ParamPackage.TABLE__UPDATE:
-				return isUpdate() ? Boolean.TRUE : Boolean.FALSE;
+				return isUpdate();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -160,7 +160,7 @@ public class TableImpl extends EObjectImpl implements Table {
 				setName((String)newValue);
 				return;
 			case ParamPackage.TABLE__UPDATE:
-				setUpdate(((Boolean)newValue).booleanValue());
+				setUpdate((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);

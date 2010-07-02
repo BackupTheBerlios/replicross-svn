@@ -71,6 +71,15 @@ public interface ParamFactory extends EFactory {
 	User createUser();
 
 	/**
+	 * Returns a new object of class '<em>Structure Rule</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Structure Rule</em>'.
+	 * @generated
+	 */
+	StructureRule createStructureRule();
+
+	/**
 	 * Returns the package supported by this factory.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->

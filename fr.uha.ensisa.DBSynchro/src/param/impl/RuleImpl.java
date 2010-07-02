@@ -381,11 +381,11 @@ public class RuleImpl extends EObjectImpl implements Rule {
 			case ParamPackage.RULE__NAME:
 				return getName();
 			case ParamPackage.RULE__ALL:
-				return isAll() ? Boolean.TRUE : Boolean.FALSE;
+				return isAll();
 			case ParamPackage.RULE__CHECK:
-				return isCheck() ? Boolean.TRUE : Boolean.FALSE;
+				return isCheck();
 			case ParamPackage.RULE__REPAIR:
-				return isRepair() ? Boolean.TRUE : Boolean.FALSE;
+				return isRepair();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -413,13 +413,13 @@ public class RuleImpl extends EObjectImpl implements Rule {
 				setName((String)newValue);
 				return;
 			case ParamPackage.RULE__ALL:
-				setAll(((Boolean)newValue).booleanValue());
+				setAll((Boolean)newValue);
 				return;
 			case ParamPackage.RULE__CHECK:
-				setCheck(((Boolean)newValue).booleanValue());
+				setCheck((Boolean)newValue);
 				return;
 			case ParamPackage.RULE__REPAIR:
-				setRepair(((Boolean)newValue).booleanValue());
+				setRepair((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
