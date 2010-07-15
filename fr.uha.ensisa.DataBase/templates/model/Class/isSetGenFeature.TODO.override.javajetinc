@@ -1,0 +1,16 @@
+<%
+String derive = null;
+EStructuralFeature eFeature = genFeature.getEcoreFeature();
+EAnnotation ocl = eFeature.getEAnnotation(oclNsURI);
+if (ocl != null) derive = (String) ocl.getDetails().get("derive");
+if (derive == null) { %>
+		// TODO: implement this method
+		// Ensure that you remove @generated or mark it @generated NOT
+		throw new UnsupportedOperationException();
+<% } else { %>
+	<% if (genFeature.isListType() || (eFeature instanceof EAttribute)) { %>
+		return this.get<%=genFeature.getAccessorName()%>() != null;
+	<% } else { %>
+		return this.basicGet<%=genFeature.getAccessorName()%>() != null;
+	<% } %>
+<% } %>

@@ -11,9 +11,11 @@ import database.DataBase;
 import database.DatabaseFactory;
 import database.DatabasePackage;
 import database.Index;
-import database.PKey;
+import database.NamedElement;
+import database.PrimaryKey;
 import database.Table;
 
+import database.Unique;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EOperation;
@@ -55,7 +57,7 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private EClass pKeyEClass = null;
+	private EClass primaryKeyEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -63,6 +65,20 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 	 * @generated
 	 */
 	private EClass indexEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass uniqueEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	private EClass namedElementEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -91,20 +107,10 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 	private static boolean isInited = false;
 
 	/**
-	 * Creates, registers, and initializes the <b>Package</b> for this
-	 * model, and for any others upon which it depends.  Simple
-	 * dependencies are satisfied by calling this method on all
-	 * dependent packages before doing anything else.  This method drives
-	 * initialization for interdependent packages directly, in parallel
-	 * with this package, itself.
-	 * <p>Of this package and its interdependencies, all packages which
-	 * have not yet been registered by their URI values are first created
-	 * and registered.  The packages are then initialized in two steps:
-	 * meta-model objects for all of the packages are created before any
-	 * are initialized, since one package's meta-model objects may refer to
-	 * those of another.
-	 * <p>Invocation of this method will not affect any packages that have
-	 * already been initialized.
+	 * Creates, registers, and initializes the <b>Package</b> for this model, and for any others upon which it depends.
+	 * 
+	 * <p>This method is used to initialize {@link DatabasePackage#eINSTANCE} when that field is accessed.
+	 * Clients should not invoke it directly. Instead, they should simply access that field to obtain the package.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #eNS_URI
@@ -116,7 +122,7 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 		if (isInited) return (DatabasePackage)EPackage.Registry.INSTANCE.getEPackage(DatabasePackage.eNS_URI);
 
 		// Obtain or create and register package
-		DatabasePackageImpl theDatabasePackage = (DatabasePackageImpl)(EPackage.Registry.INSTANCE.getEPackage(eNS_URI) instanceof DatabasePackageImpl ? EPackage.Registry.INSTANCE.getEPackage(eNS_URI) : new DatabasePackageImpl());
+		DatabasePackageImpl theDatabasePackage = (DatabasePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof DatabasePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new DatabasePackageImpl());
 
 		isInited = true;
 
@@ -129,6 +135,9 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 		// Mark meta-data to indicate it can't be changed
 		theDatabasePackage.freeze();
 
+  
+		// Update the registry and return the package
+		EPackage.Registry.INSTANCE.put(DatabasePackage.eNS_URI, theDatabasePackage);
 		return theDatabasePackage;
 	}
 
@@ -182,7 +191,7 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTable_PKey() {
+	public EReference getTable_Indexes() {
 		return (EReference)tableEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -191,7 +200,7 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getTable_Nom() {
+	public EAttribute getTable_StorageEngine() {
 		return (EAttribute)tableEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -200,8 +209,26 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTable_Indexes() {
-		return (EReference)tableEClass.getEStructuralFeatures().get(4);
+	public EAttribute getTable_Collation() {
+		return (EAttribute)tableEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTable_PrimaryKeys() {
+		return (EReference)tableEClass.getEStructuralFeatures().get(5);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getTable_Uniques() {
+		return (EReference)tableEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -218,7 +245,7 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getColumn_Nom() {
+	public EAttribute getColumn_Type() {
 		return (EAttribute)columnEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -227,7 +254,7 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getColumn_Type() {
+	public EAttribute getColumn_Nullable() {
 		return (EAttribute)columnEClass.getEStructuralFeatures().get(1);
 	}
 
@@ -236,7 +263,7 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getColumn_Nullable() {
+	public EAttribute getColumn_Default() {
 		return (EAttribute)columnEClass.getEStructuralFeatures().get(2);
 	}
 
@@ -245,7 +272,7 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getColumn_Default() {
+	public EAttribute getColumn_Length() {
 		return (EAttribute)columnEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -254,8 +281,17 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getPKey() {
-		return pKeyEClass;
+	public EAttribute getColumn_Collation() {
+		return (EAttribute)columnEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getPrimaryKey() {
+		return primaryKeyEClass;
 	}
 
 	/**
@@ -281,8 +317,26 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getIndex_Nom() {
-		return (EAttribute)indexEClass.getEStructuralFeatures().get(1);
+	public EClass getUnique() {
+		return uniqueEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EClass getNamedElement() {
+		return namedElementEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getNamedElement_Name() {
+		return (EAttribute)namedElementEClass.getEStructuralFeatures().get(0);
 	}
 
 	/**
@@ -319,21 +373,28 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 		tableEClass = createEClass(TABLE);
 		createEReference(tableEClass, TABLE__DATA_BASE);
 		createEReference(tableEClass, TABLE__COLUMNS);
-		createEReference(tableEClass, TABLE__PKEY);
-		createEAttribute(tableEClass, TABLE__NOM);
 		createEReference(tableEClass, TABLE__INDEXES);
+		createEAttribute(tableEClass, TABLE__STORAGE_ENGINE);
+		createEAttribute(tableEClass, TABLE__COLLATION);
+		createEReference(tableEClass, TABLE__PRIMARY_KEYS);
+		createEReference(tableEClass, TABLE__UNIQUES);
 
 		columnEClass = createEClass(COLUMN);
-		createEAttribute(columnEClass, COLUMN__NOM);
 		createEAttribute(columnEClass, COLUMN__TYPE);
 		createEAttribute(columnEClass, COLUMN__NULLABLE);
 		createEAttribute(columnEClass, COLUMN__DEFAULT);
+		createEAttribute(columnEClass, COLUMN__LENGTH);
+		createEAttribute(columnEClass, COLUMN__COLLATION);
 
-		pKeyEClass = createEClass(PKEY);
+		primaryKeyEClass = createEClass(PRIMARY_KEY);
 
 		indexEClass = createEClass(INDEX);
 		createEReference(indexEClass, INDEX__COLUMNS);
-		createEAttribute(indexEClass, INDEX__NOM);
+
+		uniqueEClass = createEClass(UNIQUE);
+
+		namedElementEClass = createEClass(NAMED_ELEMENT);
+		createEAttribute(namedElementEClass, NAMED_ELEMENT__NAME);
 	}
 
 	/**
@@ -364,21 +425,27 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		pKeyEClass.getESuperTypes().add(this.getIndex());
+		tableEClass.getESuperTypes().add(this.getNamedElement());
+		columnEClass.getESuperTypes().add(this.getNamedElement());
+		primaryKeyEClass.getESuperTypes().add(this.getIndex());
+		indexEClass.getESuperTypes().add(this.getNamedElement());
+		uniqueEClass.getESuperTypes().add(this.getIndex());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(dataBaseEClass, DataBase.class, "DataBase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getDataBase_Tables(), this.getTable(), null, "tables", null, 0, -1, DataBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getDataBase_Tables(), this.getTable(), null, "tables", null, 0, -1, DataBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		EOperation op = addEOperation(dataBaseEClass, this.getTable(), "getTable", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "tableName", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(tableEClass, Table.class, "Table", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getTable_DataBase(), this.getDataBase(), null, "dataBase", null, 0, 1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTable_DataBase(), this.getDataBase(), null, "dataBase", null, 0, 1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getTable_Columns(), this.getColumn(), null, "columns", null, 1, -1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTable_PKey(), this.getPKey(), null, "pKey", null, 0, 1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getTable_Nom(), ecorePackage.getEString(), "Nom", null, 0, 1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTable_Indexes(), this.getIndex(), null, "indexes", null, 0, -1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTable_Indexes(), this.getIndex(), null, "indexes", null, 0, -1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getTable_StorageEngine(), ecorePackage.getEString(), "storageEngine", "InnoDB", 1, 1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getTable_Collation(), ecorePackage.getEString(), "collation", "utf8_bin", 1, 1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getTable_PrimaryKeys(), this.getPrimaryKey(), null, "primaryKeys", null, 0, -1, Table.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
+		initEReference(getTable_Uniques(), this.getUnique(), null, "uniques", null, 0, -1, Table.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, IS_ORDERED);
 
 		op = addEOperation(tableEClass, this.getColumn(), "getColumn", 0, 1, IS_UNIQUE, IS_ORDERED);
 		addEParameter(op, ecorePackage.getEString(), "columnName", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -387,19 +454,50 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 		addEParameter(op, ecorePackage.getEString(), "indexName", 0, 1, IS_UNIQUE, IS_ORDERED);
 
 		initEClass(columnEClass, Column.class, "Column", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getColumn_Nom(), ecorePackage.getEString(), "Nom", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getColumn_Type(), ecorePackage.getEString(), "Type", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getColumn_Nullable(), ecorePackage.getEBoolean(), "Nullable", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getColumn_Default(), ecorePackage.getEString(), "Default", null, 0, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getColumn_Type(), ecorePackage.getEString(), "type", null, 1, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getColumn_Nullable(), ecorePackage.getEBoolean(), "nullable", null, 1, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getColumn_Default(), ecorePackage.getEString(), "default", null, 1, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getColumn_Length(), ecorePackage.getEInt(), "length", null, 1, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getColumn_Collation(), ecorePackage.getEString(), "collation", "utf8_bin", 1, 1, Column.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-		initEClass(pKeyEClass, PKey.class, "PKey", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEClass(primaryKeyEClass, PrimaryKey.class, "PrimaryKey", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(indexEClass, Index.class, "Index", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getIndex_Columns(), this.getColumn(), null, "columns", null, 1, -1, Index.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getIndex_Nom(), ecorePackage.getEString(), "Nom", null, 0, 1, Index.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getIndex_Columns(), this.getColumn(), null, "columns", null, 1, -1, Index.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+
+		initEClass(uniqueEClass, Unique.class, "Unique", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(namedElementEClass, NamedElement.class, "NamedElement", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getNamedElement_Name(), ecorePackage.getEString(), "name", null, 1, 1, NamedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);
+
+		// Create annotations
+		// http://www.eclipse.org/ocl/examples/OCL
+		createOCLAnnotations();
+	}
+
+	/**
+	 * Initializes the annotations for <b>http://www.eclipse.org/ocl/examples/OCL</b>.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void createOCLAnnotations() {
+		String source = "http://www.eclipse.org/ocl/examples/OCL";		
+		addAnnotation
+		  (getTable_PrimaryKeys(), 
+		   source, 
+		   new String[] {
+			 "derive", "self.indexes->select(e|e.oclIsTypeOf(PrimaryKey))"
+		   });		
+		addAnnotation
+		  (getTable_Uniques(), 
+		   source, 
+		   new String[] {
+			 "derive", "self.indexes->select(e|e.oclIsTypeOf(Unique))"
+		   });
 	}
 
 } //DatabasePackageImpl

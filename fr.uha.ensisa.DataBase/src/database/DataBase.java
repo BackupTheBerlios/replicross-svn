@@ -38,7 +38,7 @@ public interface DataBase extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Tables</em>' containment reference list.
 	 * @see database.DatabasePackage#getDataBase_Tables()
-	 * @model containment="true"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<Table> getTables();

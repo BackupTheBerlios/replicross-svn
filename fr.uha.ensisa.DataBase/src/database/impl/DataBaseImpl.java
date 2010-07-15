@@ -86,7 +86,7 @@ public class DataBaseImpl extends EObjectImpl implements DataBase {
 	 */
 	public Table getTable(String tableName) {
 		for (Table table : this.getTables()) {
-			if (table.getNom().equals(tableName))
+			if (table.getName().equals(tableName))
 				return table;
 		}
 		return null;

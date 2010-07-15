@@ -53,13 +53,13 @@ public interface DatabaseFactory extends EFactory {
 	Column createColumn();
 
 	/**
-	 * Returns a new object of class '<em>PKey</em>'.
+	 * Returns a new object of class '<em>Primary Key</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>PKey</em>'.
+	 * @return a new object of class '<em>Primary Key</em>'.
 	 * @generated
 	 */
-	PKey createPKey();
+	PrimaryKey createPrimaryKey();
 
 	/**
 	 * Returns a new object of class '<em>Index</em>'.
@@ -69,6 +69,15 @@ public interface DatabaseFactory extends EFactory {
 	 * @generated
 	 */
 	Index createIndex();
+
+	/**
+	 * Returns a new object of class '<em>Unique</em>'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return a new object of class '<em>Unique</em>'.
+	 * @generated
+	 */
+	Unique createUnique();
 
 	/**
 	 * Returns the package supported by this factory.

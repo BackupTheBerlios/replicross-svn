@@ -10,9 +10,10 @@ import database.Column;
 import database.DataBase;
 import database.DatabasePackage;
 import database.Index;
-import database.PKey;
+import database.PrimaryKey;
 import database.Table;
 
+import database.Unique;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -21,14 +22,22 @@ import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.eclipse.emf.ecore.EAnnotation;
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EClassifier;
+import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.EObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.EcoreEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.ocl.ParserException;
+import org.eclipse.ocl.Query;
+import org.eclipse.ocl.ecore.OCL;
+import org.eclipse.ocl.ecore.OCL.Helper;
+import org.eclipse.ocl.expressions.OCLExpression;
 
 /**
  * <!-- begin-user-doc -->
@@ -39,15 +48,17 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * <ul>
  *   <li>{@link database.impl.TableImpl#getDataBase <em>Data Base</em>}</li>
  *   <li>{@link database.impl.TableImpl#getColumns <em>Columns</em>}</li>
- *   <li>{@link database.impl.TableImpl#getPKey <em>PKey</em>}</li>
- *   <li>{@link database.impl.TableImpl#getNom <em>Nom</em>}</li>
  *   <li>{@link database.impl.TableImpl#getIndexes <em>Indexes</em>}</li>
+ *   <li>{@link database.impl.TableImpl#getStorageEngine <em>Storage Engine</em>}</li>
+ *   <li>{@link database.impl.TableImpl#getCollation <em>Collation</em>}</li>
+ *   <li>{@link database.impl.TableImpl#getPrimaryKeys <em>Primary Keys</em>}</li>
+ *   <li>{@link database.impl.TableImpl#getUniques <em>Uniques</em>}</li>
  * </ul>
  * </p>
  *
  * @generated
  */
-public class TableImpl extends EObjectImpl implements Table {
+public class TableImpl extends NamedElementImpl implements Table {
 	/**
 	 * The cached value of the '{@link #getDataBase() <em>Data Base</em>}' reference.
 	 * <!-- begin-user-doc -->
@@ -69,36 +80,6 @@ public class TableImpl extends EObjectImpl implements Table {
 	protected EList<Column> columns;
 
 	/**
-	 * The cached value of the '{@link #getPKey() <em>PKey</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getPKey()
-	 * @generated
-	 * @ordered
-	 */
-	protected PKey pKey;
-
-	/**
-	 * The default value of the '{@link #getNom() <em>Nom</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getNom()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String NOM_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getNom() <em>Nom</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getNom()
-	 * @generated
-	 * @ordered
-	 */
-	protected String nom = NOM_EDEFAULT;
-
-	/**
 	 * The cached value of the '{@link #getIndexes() <em>Indexes</em>}' containment reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -107,6 +88,46 @@ public class TableImpl extends EObjectImpl implements Table {
 	 * @ordered
 	 */
 	protected EList<Index> indexes;
+
+	/**
+	 * The default value of the '{@link #getStorageEngine() <em>Storage Engine</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStorageEngine()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String STORAGE_ENGINE_EDEFAULT = "InnoDB";
+
+	/**
+	 * The cached value of the '{@link #getStorageEngine() <em>Storage Engine</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getStorageEngine()
+	 * @generated
+	 * @ordered
+	 */
+	protected String storageEngine = STORAGE_ENGINE_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #getCollation() <em>Collation</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCollation()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final String COLLATION_EDEFAULT = "utf8_bin";
+
+	/**
+	 * The cached value of the '{@link #getCollation() <em>Collation</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getCollation()
+	 * @generated
+	 * @ordered
+	 */
+	protected String collation = COLLATION_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -182,75 +203,135 @@ public class TableImpl extends EObjectImpl implements Table {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public PKey getPKey() {
-		return pKey;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public NotificationChain basicSetPKey(PKey newPKey, NotificationChain msgs) {
-		PKey oldPKey = pKey;
-		pKey = newPKey;
-		if (eNotificationRequired()) {
-			ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, DatabasePackage.TABLE__PKEY, oldPKey, newPKey);
-			if (msgs == null) msgs = notification; else msgs.add(notification);
-		}
-		return msgs;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setPKey(PKey newPKey) {
-		if (newPKey != pKey) {
-			NotificationChain msgs = null;
-			if (pKey != null)
-				msgs = ((InternalEObject)pKey).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - DatabasePackage.TABLE__PKEY, null, msgs);
-			if (newPKey != null)
-				msgs = ((InternalEObject)newPKey).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - DatabasePackage.TABLE__PKEY, null, msgs);
-			msgs = basicSetPKey(newPKey, msgs);
-			if (msgs != null) msgs.dispatch();
-		}
-		else if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DatabasePackage.TABLE__PKEY, newPKey, newPKey));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public String getNom() {
-		return nom;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setNom(String newNom) {
-		String oldNom = nom;
-		nom = newNom;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, DatabasePackage.TABLE__NOM, oldNom, nom));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public EList<Index> getIndexes() {
 		if (indexes == null) {
 			indexes = new EObjectContainmentEList<Index>(Index.class, this, DatabasePackage.TABLE__INDEXES);
 		}
 		return indexes;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getStorageEngine() {
+		return storageEngine;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setStorageEngine(String newStorageEngine) {
+		String oldStorageEngine = storageEngine;
+		storageEngine = newStorageEngine;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DatabasePackage.TABLE__STORAGE_ENGINE, oldStorageEngine, storageEngine));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public String getCollation() {
+		return collation;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setCollation(String newCollation) {
+		String oldCollation = collation;
+		collation = newCollation;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, DatabasePackage.TABLE__COLLATION, oldCollation, collation));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<PrimaryKey> getPrimaryKeys() {
+		EStructuralFeature eFeature = DatabasePackage.Literals.TABLE__PRIMARY_KEYS;
+	
+		if (primaryKeysDeriveOCL == null) { 
+			Helper helper = OCL_ENV.createOCLHelper();
+			helper.setAttributeContext(DatabasePackage.Literals.TABLE, eFeature);
+			
+			EAnnotation ocl = eFeature.getEAnnotation(OCL_ANNOTATION_SOURCE);
+			String derive = (String) ocl.getDetails().get("derive");
+			
+			try {
+				primaryKeysDeriveOCL = helper.createQuery(derive);
+			} catch (ParserException e) {
+				throw new UnsupportedOperationException(e.getLocalizedMessage());
+			}
+		}
+		
+		Query<EClassifier, ?, ?> query = OCL_ENV.createQuery(primaryKeysDeriveOCL);
+	
+		@SuppressWarnings("unchecked")
+		Collection<PrimaryKey> result = (Collection<PrimaryKey>) query.evaluate(this);
+		return new EcoreEList.UnmodifiableEList<PrimaryKey>(this, eFeature, result.size(), result.toArray());
+	
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetPrimaryKeys() {
+	
+		return this.getPrimaryKeys() != null;
+	
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EList<Unique> getUniques() {
+		EStructuralFeature eFeature = DatabasePackage.Literals.TABLE__UNIQUES;
+	
+		if (uniquesDeriveOCL == null) { 
+			Helper helper = OCL_ENV.createOCLHelper();
+			helper.setAttributeContext(DatabasePackage.Literals.TABLE, eFeature);
+			
+			EAnnotation ocl = eFeature.getEAnnotation(OCL_ANNOTATION_SOURCE);
+			String derive = (String) ocl.getDetails().get("derive");
+			
+			try {
+				uniquesDeriveOCL = helper.createQuery(derive);
+			} catch (ParserException e) {
+				throw new UnsupportedOperationException(e.getLocalizedMessage());
+			}
+		}
+		
+		Query<EClassifier, ?, ?> query = OCL_ENV.createQuery(uniquesDeriveOCL);
+	
+		@SuppressWarnings("unchecked")
+		Collection<Unique> result = (Collection<Unique>) query.evaluate(this);
+		return new EcoreEList.UnmodifiableEList<Unique>(this, eFeature, result.size(), result.toArray());
+	
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean isSetUniques() {
+	
+		return this.getUniques() != null;
+	
 	}
 
 	/**
@@ -263,7 +344,7 @@ public class TableImpl extends EObjectImpl implements Table {
 		Iterator<Column> it = columns.iterator();
 		while(it.hasNext()){
 			Column column = it.next();
-			if(column.getNom().equals(columnName))
+			if(column.getName().equals(columnName))
 				return column;
 		}
 		return null;
@@ -276,7 +357,7 @@ public class TableImpl extends EObjectImpl implements Table {
 	 */
 	public Index getIndex(String indexName) {
 		for(Index index : this.getIndexes()){
-			if(index.getNom().equals(indexName))
+			if(index.getName().equals(indexName))
 				return index;
 		}
 		return null;
@@ -292,8 +373,6 @@ public class TableImpl extends EObjectImpl implements Table {
 		switch (featureID) {
 			case DatabasePackage.TABLE__COLUMNS:
 				return ((InternalEList<?>)getColumns()).basicRemove(otherEnd, msgs);
-			case DatabasePackage.TABLE__PKEY:
-				return basicSetPKey(null, msgs);
 			case DatabasePackage.TABLE__INDEXES:
 				return ((InternalEList<?>)getIndexes()).basicRemove(otherEnd, msgs);
 		}
@@ -313,12 +392,16 @@ public class TableImpl extends EObjectImpl implements Table {
 				return basicGetDataBase();
 			case DatabasePackage.TABLE__COLUMNS:
 				return getColumns();
-			case DatabasePackage.TABLE__PKEY:
-				return getPKey();
-			case DatabasePackage.TABLE__NOM:
-				return getNom();
 			case DatabasePackage.TABLE__INDEXES:
 				return getIndexes();
+			case DatabasePackage.TABLE__STORAGE_ENGINE:
+				return getStorageEngine();
+			case DatabasePackage.TABLE__COLLATION:
+				return getCollation();
+			case DatabasePackage.TABLE__PRIMARY_KEYS:
+				return getPrimaryKeys();
+			case DatabasePackage.TABLE__UNIQUES:
+				return getUniques();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -339,15 +422,15 @@ public class TableImpl extends EObjectImpl implements Table {
 				getColumns().clear();
 				getColumns().addAll((Collection<? extends Column>)newValue);
 				return;
-			case DatabasePackage.TABLE__PKEY:
-				setPKey((PKey)newValue);
-				return;
-			case DatabasePackage.TABLE__NOM:
-				setNom((String)newValue);
-				return;
 			case DatabasePackage.TABLE__INDEXES:
 				getIndexes().clear();
 				getIndexes().addAll((Collection<? extends Index>)newValue);
+				return;
+			case DatabasePackage.TABLE__STORAGE_ENGINE:
+				setStorageEngine((String)newValue);
+				return;
+			case DatabasePackage.TABLE__COLLATION:
+				setCollation((String)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -367,14 +450,14 @@ public class TableImpl extends EObjectImpl implements Table {
 			case DatabasePackage.TABLE__COLUMNS:
 				getColumns().clear();
 				return;
-			case DatabasePackage.TABLE__PKEY:
-				setPKey((PKey)null);
-				return;
-			case DatabasePackage.TABLE__NOM:
-				setNom(NOM_EDEFAULT);
-				return;
 			case DatabasePackage.TABLE__INDEXES:
 				getIndexes().clear();
+				return;
+			case DatabasePackage.TABLE__STORAGE_ENGINE:
+				setStorageEngine(STORAGE_ENGINE_EDEFAULT);
+				return;
+			case DatabasePackage.TABLE__COLLATION:
+				setCollation(COLLATION_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -392,12 +475,16 @@ public class TableImpl extends EObjectImpl implements Table {
 				return dataBase != null;
 			case DatabasePackage.TABLE__COLUMNS:
 				return columns != null && !columns.isEmpty();
-			case DatabasePackage.TABLE__PKEY:
-				return pKey != null;
-			case DatabasePackage.TABLE__NOM:
-				return NOM_EDEFAULT == null ? nom != null : !NOM_EDEFAULT.equals(nom);
 			case DatabasePackage.TABLE__INDEXES:
 				return indexes != null && !indexes.isEmpty();
+			case DatabasePackage.TABLE__STORAGE_ENGINE:
+				return STORAGE_ENGINE_EDEFAULT == null ? storageEngine != null : !STORAGE_ENGINE_EDEFAULT.equals(storageEngine);
+			case DatabasePackage.TABLE__COLLATION:
+				return COLLATION_EDEFAULT == null ? collation != null : !COLLATION_EDEFAULT.equals(collation);
+			case DatabasePackage.TABLE__PRIMARY_KEYS:
+				return isSetPrimaryKeys();
+			case DatabasePackage.TABLE__UNIQUES:
+				return isSetUniques();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -412,10 +499,34 @@ public class TableImpl extends EObjectImpl implements Table {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (Nom: ");
-		result.append(nom);
+		result.append(" (storageEngine: ");
+		result.append(storageEngine);
+		result.append(", collation: ");
+		result.append(collation);
 		result.append(')');
 		return result.toString();
 	}
+
+	/**
+	 * The parsed OCL expression for the derivation of '{@link #getPrimaryKeys <em>Primary Keys</em>}' property.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getPrimaryKeys
+	 * @generated
+	 */
+	private static OCLExpression<EClassifier> primaryKeysDeriveOCL;
+
+	/**
+	 * The parsed OCL expression for the derivation of '{@link #getUniques <em>Uniques</em>}' property.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getUniques
+	 * @generated
+	 */
+	private static OCLExpression<EClassifier> uniquesDeriveOCL;
+
+	private static final String OCL_ANNOTATION_SOURCE = "http://www.eclipse.org/ocl/examples/OCL";
+
+	private static final OCL OCL_ENV = OCL.newInstance();
 
 } //TableImpl

@@ -8,8 +8,6 @@ package database;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Table</b></em>'.
@@ -20,9 +18,11 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link database.Table#getDataBase <em>Data Base</em>}</li>
  *   <li>{@link database.Table#getColumns <em>Columns</em>}</li>
- *   <li>{@link database.Table#getPKey <em>PKey</em>}</li>
- *   <li>{@link database.Table#getNom <em>Nom</em>}</li>
  *   <li>{@link database.Table#getIndexes <em>Indexes</em>}</li>
+ *   <li>{@link database.Table#getStorageEngine <em>Storage Engine</em>}</li>
+ *   <li>{@link database.Table#getCollation <em>Collation</em>}</li>
+ *   <li>{@link database.Table#getPrimaryKeys <em>Primary Keys</em>}</li>
+ *   <li>{@link database.Table#getUniques <em>Uniques</em>}</li>
  * </ul>
  * </p>
  *
@@ -30,7 +30,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Table extends EObject {
+public interface Table extends NamedElement {
 	/**
 	 * Returns the value of the '<em><b>Data Base</b></em>' reference.
 	 * <!-- begin-user-doc -->
@@ -42,7 +42,7 @@ public interface Table extends EObject {
 	 * @return the value of the '<em>Data Base</em>' reference.
 	 * @see #setDataBase(DataBase)
 	 * @see database.DatabasePackage#getTable_DataBase()
-	 * @model
+	 * @model ordered="false"
 	 * @generated
 	 */
 	DataBase getDataBase();
@@ -74,58 +74,6 @@ public interface Table extends EObject {
 	EList<Column> getColumns();
 
 	/**
-	 * Returns the value of the '<em><b>PKey</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>PKey</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>PKey</em>' containment reference.
-	 * @see #setPKey(PKey)
-	 * @see database.DatabasePackage#getTable_PKey()
-	 * @model containment="true"
-	 * @generated
-	 */
-	PKey getPKey();
-
-	/**
-	 * Sets the value of the '{@link database.Table#getPKey <em>PKey</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>PKey</em>' containment reference.
-	 * @see #getPKey()
-	 * @generated
-	 */
-	void setPKey(PKey value);
-
-	/**
-	 * Returns the value of the '<em><b>Nom</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Nom</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Nom</em>' attribute.
-	 * @see #setNom(String)
-	 * @see database.DatabasePackage#getTable_Nom()
-	 * @model
-	 * @generated
-	 */
-	String getNom();
-
-	/**
-	 * Sets the value of the '{@link database.Table#getNom <em>Nom</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Nom</em>' attribute.
-	 * @see #getNom()
-	 * @generated
-	 */
-	void setNom(String value);
-
-	/**
 	 * Returns the value of the '<em><b>Indexes</b></em>' containment reference list.
 	 * The list contents are of type {@link database.Index}.
 	 * <!-- begin-user-doc -->
@@ -136,10 +84,120 @@ public interface Table extends EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Indexes</em>' containment reference list.
 	 * @see database.DatabasePackage#getTable_Indexes()
-	 * @model containment="true"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<Index> getIndexes();
+
+	/**
+	 * Returns the value of the '<em><b>Storage Engine</b></em>' attribute.
+	 * The default value is <code>"InnoDB"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Storage Engine</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Storage Engine</em>' attribute.
+	 * @see #setStorageEngine(String)
+	 * @see database.DatabasePackage#getTable_StorageEngine()
+	 * @model default="InnoDB" required="true"
+	 * @generated
+	 */
+	String getStorageEngine();
+
+	/**
+	 * Sets the value of the '{@link database.Table#getStorageEngine <em>Storage Engine</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Storage Engine</em>' attribute.
+	 * @see #getStorageEngine()
+	 * @generated
+	 */
+	void setStorageEngine(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Collation</b></em>' attribute.
+	 * The default value is <code>"utf8_bin"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Collation</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Collation</em>' attribute.
+	 * @see #setCollation(String)
+	 * @see database.DatabasePackage#getTable_Collation()
+	 * @model default="utf8_bin" required="true"
+	 * @generated
+	 */
+	String getCollation();
+
+	/**
+	 * Sets the value of the '{@link database.Table#getCollation <em>Collation</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Collation</em>' attribute.
+	 * @see #getCollation()
+	 * @generated
+	 */
+	void setCollation(String value);
+
+	/**
+	 * Returns the value of the '<em><b>Primary Keys</b></em>' reference list.
+	 * The list contents are of type {@link database.PrimaryKey}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Primary Keys</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Primary Keys</em>' reference list.
+	 * @see #isSetPrimaryKeys()
+	 * @see database.DatabasePackage#getTable_PrimaryKeys()
+	 * @model unsettable="true" transient="true" changeable="false" volatile="true" derived="true"
+	 *        annotation="http://www.eclipse.org/ocl/examples/OCL derive='self.indexes->select(e|e.oclIsTypeOf(PrimaryKey))'"
+	 * @generated
+	 */
+	EList<PrimaryKey> getPrimaryKeys();
+
+	/**
+	 * Returns whether the value of the '{@link database.Table#getPrimaryKeys <em>Primary Keys</em>}' reference list is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Primary Keys</em>' reference list is set.
+	 * @see #getPrimaryKeys()
+	 * @generated
+	 */
+	boolean isSetPrimaryKeys();
+
+	/**
+	 * Returns the value of the '<em><b>Uniques</b></em>' reference list.
+	 * The list contents are of type {@link database.Unique}.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Uniques</em>' reference list isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Uniques</em>' reference list.
+	 * @see #isSetUniques()
+	 * @see database.DatabasePackage#getTable_Uniques()
+	 * @model unsettable="true" transient="true" changeable="false" volatile="true" derived="true"
+	 *        annotation="http://www.eclipse.org/ocl/examples/OCL derive='self.indexes->select(e|e.oclIsTypeOf(Unique))'"
+	 * @generated
+	 */
+	EList<Unique> getUniques();
+
+	/**
+	 * Returns whether the value of the '{@link database.Table#getUniques <em>Uniques</em>}' reference list is set.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return whether the value of the '<em>Uniques</em>' reference list is set.
+	 * @see #getUniques()
+	 * @generated
+	 */
+	boolean isSetUniques();
 
 	/**
 	 * <!-- begin-user-doc -->

@@ -96,25 +96,43 @@ public class DatabaseSwitch<T> {
 			case DatabasePackage.TABLE: {
 				Table table = (Table)theEObject;
 				T result = caseTable(table);
+				if (result == null) result = caseNamedElement(table);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case DatabasePackage.COLUMN: {
 				Column column = (Column)theEObject;
 				T result = caseColumn(column);
+				if (result == null) result = caseNamedElement(column);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case DatabasePackage.PKEY: {
-				PKey pKey = (PKey)theEObject;
-				T result = casePKey(pKey);
-				if (result == null) result = caseIndex(pKey);
+			case DatabasePackage.PRIMARY_KEY: {
+				PrimaryKey primaryKey = (PrimaryKey)theEObject;
+				T result = casePrimaryKey(primaryKey);
+				if (result == null) result = caseIndex(primaryKey);
+				if (result == null) result = caseNamedElement(primaryKey);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
 			case DatabasePackage.INDEX: {
 				Index index = (Index)theEObject;
 				T result = caseIndex(index);
+				if (result == null) result = caseNamedElement(index);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DatabasePackage.UNIQUE: {
+				Unique unique = (Unique)theEObject;
+				T result = caseUnique(unique);
+				if (result == null) result = caseIndex(unique);
+				if (result == null) result = caseNamedElement(unique);
+				if (result == null) result = defaultCase(theEObject);
+				return result;
+			}
+			case DatabasePackage.NAMED_ELEMENT: {
+				NamedElement namedElement = (NamedElement)theEObject;
+				T result = caseNamedElement(namedElement);
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
@@ -168,17 +186,17 @@ public class DatabaseSwitch<T> {
 	}
 
 	/**
-	 * Returns the result of interpreting the object as an instance of '<em>PKey</em>'.
+	 * Returns the result of interpreting the object as an instance of '<em>Primary Key</em>'.
 	 * <!-- begin-user-doc -->
 	 * This implementation returns null;
 	 * returning a non-null result will terminate the switch.
 	 * <!-- end-user-doc -->
 	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>PKey</em>'.
+	 * @return the result of interpreting the object as an instance of '<em>Primary Key</em>'.
 	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
 	 * @generated
 	 */
-	public T casePKey(PKey object) {
+	public T casePrimaryKey(PrimaryKey object) {
 		return null;
 	}
 
@@ -194,6 +212,36 @@ public class DatabaseSwitch<T> {
 	 * @generated
 	 */
 	public T caseIndex(Index object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Unique</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Unique</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseUnique(Unique object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Named Element</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Named Element</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseNamedElement(NamedElement object) {
 		return null;
 	}
 

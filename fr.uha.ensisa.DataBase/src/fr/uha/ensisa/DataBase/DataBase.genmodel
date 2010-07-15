@@ -2,9 +2,11 @@
 <genmodel:GenModel xmi:version="2.0"
     xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
     xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/fr.uha.ensisa.DataBase/src"
-    modelPluginID="fr.uha.ensisa.DataBase" modelName="DataBase" importerID="org.eclipse.emf.importer.ecore"
+    modelPluginID="fr.uha.ensisa.DataBase" templateDirectory="fr.uha.ensisa.DataBase/templates"
+    dynamicTemplates="true" modelName="DataBase" importerID="org.eclipse.emf.importer.ecore"
     complianceLevel="6.0" copyrightFields="false">
   <foreignModel>DataBase.ecore</foreignModel>
+  <modelPluginVariables>OCL_ECORE=org.eclipse.ocl.ecore</modelPluginVariables>
   <genPackages prefix="Database" disposableProviderFactory="true" ecorePackage="DataBase.ecore#/">
     <genClasses ecoreClass="DataBase.ecore#//DataBase">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DataBase.ecore#//DataBase/tables"/>
@@ -15,9 +17,10 @@
     <genClasses ecoreClass="DataBase.ecore#//Table">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DataBase.ecore#//Table/dataBase"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DataBase.ecore#//Table/columns"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DataBase.ecore#//Table/pKey"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DataBase.ecore#//Table/Nom"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference DataBase.ecore#//Table/indexes"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DataBase.ecore#//Table/storageEngine"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DataBase.ecore#//Table/collation"/>
+      <genFeatures property="Readonly" notify="false" createChild="false" ecoreFeature="ecore:EReference DataBase.ecore#//Table/pKeys"/>
       <genOperations ecoreOperation="DataBase.ecore#//Table/getColumn">
         <genParameters ecoreParameter="DataBase.ecore#//Table/getColumn/columnName"/>
       </genOperations>
@@ -26,15 +29,19 @@
       </genOperations>
     </genClasses>
     <genClasses ecoreClass="DataBase.ecore#//Column">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DataBase.ecore#//Column/Nom"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DataBase.ecore#//Column/Type"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DataBase.ecore#//Column/Nullable"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DataBase.ecore#//Column/Default"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DataBase.ecore#//Column/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DataBase.ecore#//Column/nullable"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DataBase.ecore#//Column/default"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DataBase.ecore#//Column/length"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DataBase.ecore#//Column/collation"/>
     </genClasses>
     <genClasses ecoreClass="DataBase.ecore#//PKey"/>
     <genClasses ecoreClass="DataBase.ecore#//Index">
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference DataBase.ecore#//Index/columns"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DataBase.ecore#//Index/Nom"/>
+    </genClasses>
+    <genClasses ecoreClass="DataBase.ecore#//Unique"/>
+    <genClasses image="false" ecoreClass="DataBase.ecore#//NamedElement">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute DataBase.ecore#//NamedElement/name"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

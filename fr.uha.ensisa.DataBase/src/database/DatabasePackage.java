@@ -88,6 +88,34 @@ public interface DatabasePackage extends EPackage {
 	int DATA_BASE_FEATURE_COUNT = 1;
 
 	/**
+	 * The meta object id for the '{@link database.impl.NamedElementImpl <em>Named Element</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see database.impl.NamedElementImpl
+	 * @see database.impl.DatabasePackageImpl#getNamedElement()
+	 * @generated
+	 */
+	int NAMED_ELEMENT = 6;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAMED_ELEMENT__NAME = 0;
+
+	/**
+	 * The number of structural features of the '<em>Named Element</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int NAMED_ELEMENT_FEATURE_COUNT = 1;
+
+	/**
 	 * The meta object id for the '{@link database.impl.TableImpl <em>Table</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -98,13 +126,22 @@ public interface DatabasePackage extends EPackage {
 	int TABLE = 1;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE__NAME = NAMED_ELEMENT__NAME;
+
+	/**
 	 * The feature id for the '<em><b>Data Base</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TABLE__DATA_BASE = 0;
+	int TABLE__DATA_BASE = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Columns</b></em>' containment reference list.
@@ -113,25 +150,7 @@ public interface DatabasePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TABLE__COLUMNS = 1;
-
-	/**
-	 * The feature id for the '<em><b>PKey</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TABLE__PKEY = 2;
-
-	/**
-	 * The feature id for the '<em><b>Nom</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int TABLE__NOM = 3;
+	int TABLE__COLUMNS = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Indexes</b></em>' containment reference list.
@@ -140,7 +159,43 @@ public interface DatabasePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TABLE__INDEXES = 4;
+	int TABLE__INDEXES = NAMED_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Storage Engine</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE__STORAGE_ENGINE = NAMED_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Collation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE__COLLATION = NAMED_ELEMENT_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Primary Keys</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE__PRIMARY_KEYS = NAMED_ELEMENT_FEATURE_COUNT + 5;
+
+	/**
+	 * The feature id for the '<em><b>Uniques</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int TABLE__UNIQUES = NAMED_ELEMENT_FEATURE_COUNT + 6;
 
 	/**
 	 * The number of structural features of the '<em>Table</em>' class.
@@ -149,7 +204,7 @@ public interface DatabasePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int TABLE_FEATURE_COUNT = 5;
+	int TABLE_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 7;
 
 	/**
 	 * The meta object id for the '{@link database.impl.ColumnImpl <em>Column</em>}' class.
@@ -162,13 +217,13 @@ public interface DatabasePackage extends EPackage {
 	int COLUMN = 2;
 
 	/**
-	 * The feature id for the '<em><b>Nom</b></em>' attribute.
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN__NOM = 0;
+	int COLUMN__NAME = NAMED_ELEMENT__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -177,7 +232,7 @@ public interface DatabasePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN__TYPE = 1;
+	int COLUMN__TYPE = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The feature id for the '<em><b>Nullable</b></em>' attribute.
@@ -186,7 +241,7 @@ public interface DatabasePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN__NULLABLE = 2;
+	int COLUMN__NULLABLE = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Default</b></em>' attribute.
@@ -195,7 +250,25 @@ public interface DatabasePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN__DEFAULT = 3;
+	int COLUMN__DEFAULT = NAMED_ELEMENT_FEATURE_COUNT + 2;
+
+	/**
+	 * The feature id for the '<em><b>Length</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__LENGTH = NAMED_ELEMENT_FEATURE_COUNT + 3;
+
+	/**
+	 * The feature id for the '<em><b>Collation</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COLUMN__COLLATION = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
 	 * The number of structural features of the '<em>Column</em>' class.
@@ -204,7 +277,7 @@ public interface DatabasePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int COLUMN_FEATURE_COUNT = 4;
+	int COLUMN_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
 
 	/**
@@ -218,22 +291,22 @@ public interface DatabasePackage extends EPackage {
 	int INDEX = 4;
 
 	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int INDEX__NAME = NAMED_ELEMENT__NAME;
+
+	/**
 	 * The feature id for the '<em><b>Columns</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int INDEX__COLUMNS = 0;
-
-	/**
-	 * The feature id for the '<em><b>Nom</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int INDEX__NOM = 1;
+	int INDEX__COLUMNS = NAMED_ELEMENT_FEATURE_COUNT + 0;
 
 	/**
 	 * The number of structural features of the '<em>Index</em>' class.
@@ -242,17 +315,26 @@ public interface DatabasePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int INDEX_FEATURE_COUNT = 2;
+	int INDEX_FEATURE_COUNT = NAMED_ELEMENT_FEATURE_COUNT + 1;
 
 	/**
-	 * The meta object id for the '{@link database.impl.PKeyImpl <em>PKey</em>}' class.
+	 * The meta object id for the '{@link database.impl.PrimaryKeyImpl <em>Primary Key</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see database.impl.PKeyImpl
-	 * @see database.impl.DatabasePackageImpl#getPKey()
+	 * @see database.impl.PrimaryKeyImpl
+	 * @see database.impl.DatabasePackageImpl#getPrimaryKey()
 	 * @generated
 	 */
-	int PKEY = 3;
+	int PRIMARY_KEY = 3;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PRIMARY_KEY__NAME = INDEX__NAME;
 
 	/**
 	 * The feature id for the '<em><b>Columns</b></em>' reference list.
@@ -261,25 +343,53 @@ public interface DatabasePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PKEY__COLUMNS = INDEX__COLUMNS;
+	int PRIMARY_KEY__COLUMNS = INDEX__COLUMNS;
 
 	/**
-	 * The feature id for the '<em><b>Nom</b></em>' attribute.
+	 * The number of structural features of the '<em>Primary Key</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PKEY__NOM = INDEX__NOM;
+	int PRIMARY_KEY_FEATURE_COUNT = INDEX_FEATURE_COUNT + 0;
 
 	/**
-	 * The number of structural features of the '<em>PKey</em>' class.
+	 * The meta object id for the '{@link database.impl.UniqueImpl <em>Unique</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see database.impl.UniqueImpl
+	 * @see database.impl.DatabasePackageImpl#getUnique()
+	 * @generated
+	 */
+	int UNIQUE = 5;
+
+	/**
+	 * The feature id for the '<em><b>Name</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PKEY_FEATURE_COUNT = INDEX_FEATURE_COUNT + 0;
+	int UNIQUE__NAME = INDEX__NAME;
+
+	/**
+	 * The feature id for the '<em><b>Columns</b></em>' reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNIQUE__COLUMNS = INDEX__COLUMNS;
+
+	/**
+	 * The number of structural features of the '<em>Unique</em>' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int UNIQUE_FEATURE_COUNT = INDEX_FEATURE_COUNT + 0;
 
 
 	/**
@@ -336,28 +446,6 @@ public interface DatabasePackage extends EPackage {
 	EReference getTable_Columns();
 
 	/**
-	 * Returns the meta object for the containment reference '{@link database.Table#getPKey <em>PKey</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference '<em>PKey</em>'.
-	 * @see database.Table#getPKey()
-	 * @see #getTable()
-	 * @generated
-	 */
-	EReference getTable_PKey();
-
-	/**
-	 * Returns the meta object for the attribute '{@link database.Table#getNom <em>Nom</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Nom</em>'.
-	 * @see database.Table#getNom()
-	 * @see #getTable()
-	 * @generated
-	 */
-	EAttribute getTable_Nom();
-
-	/**
 	 * Returns the meta object for the containment reference list '{@link database.Table#getIndexes <em>Indexes</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -369,6 +457,50 @@ public interface DatabasePackage extends EPackage {
 	EReference getTable_Indexes();
 
 	/**
+	 * Returns the meta object for the attribute '{@link database.Table#getStorageEngine <em>Storage Engine</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Storage Engine</em>'.
+	 * @see database.Table#getStorageEngine()
+	 * @see #getTable()
+	 * @generated
+	 */
+	EAttribute getTable_StorageEngine();
+
+	/**
+	 * Returns the meta object for the attribute '{@link database.Table#getCollation <em>Collation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Collation</em>'.
+	 * @see database.Table#getCollation()
+	 * @see #getTable()
+	 * @generated
+	 */
+	EAttribute getTable_Collation();
+
+	/**
+	 * Returns the meta object for the reference list '{@link database.Table#getPrimaryKeys <em>Primary Keys</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Primary Keys</em>'.
+	 * @see database.Table#getPrimaryKeys()
+	 * @see #getTable()
+	 * @generated
+	 */
+	EReference getTable_PrimaryKeys();
+
+	/**
+	 * Returns the meta object for the reference list '{@link database.Table#getUniques <em>Uniques</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference list '<em>Uniques</em>'.
+	 * @see database.Table#getUniques()
+	 * @see #getTable()
+	 * @generated
+	 */
+	EReference getTable_Uniques();
+
+	/**
 	 * Returns the meta object for class '{@link database.Column <em>Column</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -377,17 +509,6 @@ public interface DatabasePackage extends EPackage {
 	 * @generated
 	 */
 	EClass getColumn();
-
-	/**
-	 * Returns the meta object for the attribute '{@link database.Column#getNom <em>Nom</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Nom</em>'.
-	 * @see database.Column#getNom()
-	 * @see #getColumn()
-	 * @generated
-	 */
-	EAttribute getColumn_Nom();
 
 	/**
 	 * Returns the meta object for the attribute '{@link database.Column#getType <em>Type</em>}'.
@@ -423,14 +544,36 @@ public interface DatabasePackage extends EPackage {
 	EAttribute getColumn_Default();
 
 	/**
-	 * Returns the meta object for class '{@link database.PKey <em>PKey</em>}'.
+	 * Returns the meta object for the attribute '{@link database.Column#getLength <em>Length</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>PKey</em>'.
-	 * @see database.PKey
+	 * @return the meta object for the attribute '<em>Length</em>'.
+	 * @see database.Column#getLength()
+	 * @see #getColumn()
 	 * @generated
 	 */
-	EClass getPKey();
+	EAttribute getColumn_Length();
+
+	/**
+	 * Returns the meta object for the attribute '{@link database.Column#getCollation <em>Collation</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Collation</em>'.
+	 * @see database.Column#getCollation()
+	 * @see #getColumn()
+	 * @generated
+	 */
+	EAttribute getColumn_Collation();
+
+	/**
+	 * Returns the meta object for class '{@link database.PrimaryKey <em>Primary Key</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Primary Key</em>'.
+	 * @see database.PrimaryKey
+	 * @generated
+	 */
+	EClass getPrimaryKey();
 
 	/**
 	 * Returns the meta object for class '{@link database.Index <em>Index</em>}'.
@@ -454,15 +597,35 @@ public interface DatabasePackage extends EPackage {
 	EReference getIndex_Columns();
 
 	/**
-	 * Returns the meta object for the attribute '{@link database.Index#getNom <em>Nom</em>}'.
+	 * Returns the meta object for class '{@link database.Unique <em>Unique</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Nom</em>'.
-	 * @see database.Index#getNom()
-	 * @see #getIndex()
+	 * @return the meta object for class '<em>Unique</em>'.
+	 * @see database.Unique
 	 * @generated
 	 */
-	EAttribute getIndex_Nom();
+	EClass getUnique();
+
+	/**
+	 * Returns the meta object for class '{@link database.NamedElement <em>Named Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for class '<em>Named Element</em>'.
+	 * @see database.NamedElement
+	 * @generated
+	 */
+	EClass getNamedElement();
+
+	/**
+	 * Returns the meta object for the attribute '{@link database.NamedElement#getName <em>Name</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Name</em>'.
+	 * @see database.NamedElement#getName()
+	 * @see #getNamedElement()
+	 * @generated
+	 */
+	EAttribute getNamedElement_Name();
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -531,28 +694,44 @@ public interface DatabasePackage extends EPackage {
 		EReference TABLE__COLUMNS = eINSTANCE.getTable_Columns();
 
 		/**
-		 * The meta object literal for the '<em><b>PKey</b></em>' containment reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference TABLE__PKEY = eINSTANCE.getTable_PKey();
-
-		/**
-		 * The meta object literal for the '<em><b>Nom</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute TABLE__NOM = eINSTANCE.getTable_Nom();
-
-		/**
 		 * The meta object literal for the '<em><b>Indexes</b></em>' containment reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
 		EReference TABLE__INDEXES = eINSTANCE.getTable_Indexes();
+
+		/**
+		 * The meta object literal for the '<em><b>Storage Engine</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TABLE__STORAGE_ENGINE = eINSTANCE.getTable_StorageEngine();
+
+		/**
+		 * The meta object literal for the '<em><b>Collation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute TABLE__COLLATION = eINSTANCE.getTable_Collation();
+
+		/**
+		 * The meta object literal for the '<em><b>Primary Keys</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TABLE__PRIMARY_KEYS = eINSTANCE.getTable_PrimaryKeys();
+
+		/**
+		 * The meta object literal for the '<em><b>Uniques</b></em>' reference list feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference TABLE__UNIQUES = eINSTANCE.getTable_Uniques();
 
 		/**
 		 * The meta object literal for the '{@link database.impl.ColumnImpl <em>Column</em>}' class.
@@ -563,14 +742,6 @@ public interface DatabasePackage extends EPackage {
 		 * @generated
 		 */
 		EClass COLUMN = eINSTANCE.getColumn();
-
-		/**
-		 * The meta object literal for the '<em><b>Nom</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute COLUMN__NOM = eINSTANCE.getColumn_Nom();
 
 		/**
 		 * The meta object literal for the '<em><b>Type</b></em>' attribute feature.
@@ -597,14 +768,30 @@ public interface DatabasePackage extends EPackage {
 		EAttribute COLUMN__DEFAULT = eINSTANCE.getColumn_Default();
 
 		/**
-		 * The meta object literal for the '{@link database.impl.PKeyImpl <em>PKey</em>}' class.
+		 * The meta object literal for the '<em><b>Length</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see database.impl.PKeyImpl
-		 * @see database.impl.DatabasePackageImpl#getPKey()
 		 * @generated
 		 */
-		EClass PKEY = eINSTANCE.getPKey();
+		EAttribute COLUMN__LENGTH = eINSTANCE.getColumn_Length();
+
+		/**
+		 * The meta object literal for the '<em><b>Collation</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute COLUMN__COLLATION = eINSTANCE.getColumn_Collation();
+
+		/**
+		 * The meta object literal for the '{@link database.impl.PrimaryKeyImpl <em>Primary Key</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see database.impl.PrimaryKeyImpl
+		 * @see database.impl.DatabasePackageImpl#getPrimaryKey()
+		 * @generated
+		 */
+		EClass PRIMARY_KEY = eINSTANCE.getPrimaryKey();
 
 		/**
 		 * The meta object literal for the '{@link database.impl.IndexImpl <em>Index</em>}' class.
@@ -625,12 +812,32 @@ public interface DatabasePackage extends EPackage {
 		EReference INDEX__COLUMNS = eINSTANCE.getIndex_Columns();
 
 		/**
-		 * The meta object literal for the '<em><b>Nom</b></em>' attribute feature.
+		 * The meta object literal for the '{@link database.impl.UniqueImpl <em>Unique</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see database.impl.UniqueImpl
+		 * @see database.impl.DatabasePackageImpl#getUnique()
+		 * @generated
+		 */
+		EClass UNIQUE = eINSTANCE.getUnique();
+
+		/**
+		 * The meta object literal for the '{@link database.impl.NamedElementImpl <em>Named Element</em>}' class.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @see database.impl.NamedElementImpl
+		 * @see database.impl.DatabasePackageImpl#getNamedElement()
+		 * @generated
+		 */
+		EClass NAMED_ELEMENT = eINSTANCE.getNamedElement();
+
+		/**
+		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute INDEX__NOM = eINSTANCE.getIndex_Nom();
+		EAttribute NAMED_ELEMENT__NAME = eINSTANCE.getNamedElement_Name();
 
 	}
 

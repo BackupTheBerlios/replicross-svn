@@ -84,12 +84,20 @@ public class DatabaseAdapterFactory extends AdapterFactoryImpl {
 				return createColumnAdapter();
 			}
 			@Override
-			public Adapter casePKey(PKey object) {
-				return createPKeyAdapter();
+			public Adapter casePrimaryKey(PrimaryKey object) {
+				return createPrimaryKeyAdapter();
 			}
 			@Override
 			public Adapter caseIndex(Index object) {
 				return createIndexAdapter();
+			}
+			@Override
+			public Adapter caseUnique(Unique object) {
+				return createUniqueAdapter();
+			}
+			@Override
+			public Adapter caseNamedElement(NamedElement object) {
+				return createNamedElementAdapter();
 			}
 			@Override
 			public Adapter defaultCase(EObject object) {
@@ -154,16 +162,16 @@ public class DatabaseAdapterFactory extends AdapterFactoryImpl {
 	}
 
 	/**
-	 * Creates a new adapter for an object of class '{@link database.PKey <em>PKey</em>}'.
+	 * Creates a new adapter for an object of class '{@link database.PrimaryKey <em>Primary Key</em>}'.
 	 * <!-- begin-user-doc -->
 	 * This default implementation returns null so that we can easily ignore cases;
 	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
 	 * <!-- end-user-doc -->
 	 * @return the new adapter.
-	 * @see database.PKey
+	 * @see database.PrimaryKey
 	 * @generated
 	 */
-	public Adapter createPKeyAdapter() {
+	public Adapter createPrimaryKeyAdapter() {
 		return null;
 	}
 
@@ -178,6 +186,34 @@ public class DatabaseAdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createIndexAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link database.Unique <em>Unique</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see database.Unique
+	 * @generated
+	 */
+	public Adapter createUniqueAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link database.NamedElement <em>Named Element</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see database.NamedElement
+	 * @generated
+	 */
+	public Adapter createNamedElementAdapter() {
 		return null;
 	}
 
