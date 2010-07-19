@@ -90,7 +90,7 @@ public interface Column extends NamedElement {
 	 * @return the value of the '<em>Default</em>' attribute.
 	 * @see #setDefault(String)
 	 * @see database.DatabasePackage#getColumn_Default()
-	 * @model required="true"
+	 * @model
 	 * @generated
 	 */
 	String getDefault();

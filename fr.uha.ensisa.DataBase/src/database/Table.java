@@ -155,7 +155,7 @@ public interface Table extends NamedElement {
 	 * @return the value of the '<em>Primary Keys</em>' reference list.
 	 * @see #isSetPrimaryKeys()
 	 * @see database.DatabasePackage#getTable_PrimaryKeys()
-	 * @model unsettable="true" transient="true" changeable="false" volatile="true" derived="true"
+	 * @model unsettable="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 *        annotation="http://www.eclipse.org/ocl/examples/OCL derive='self.indexes->select(e|e.oclIsTypeOf(PrimaryKey))'"
 	 * @generated
 	 */
@@ -183,7 +183,7 @@ public interface Table extends NamedElement {
 	 * @return the value of the '<em>Uniques</em>' reference list.
 	 * @see #isSetUniques()
 	 * @see database.DatabasePackage#getTable_Uniques()
-	 * @model unsettable="true" transient="true" changeable="false" volatile="true" derived="true"
+	 * @model unsettable="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
 	 *        annotation="http://www.eclipse.org/ocl/examples/OCL derive='self.indexes->select(e|e.oclIsTypeOf(Unique))'"
 	 * @generated
 	 */
