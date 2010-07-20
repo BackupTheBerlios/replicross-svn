@@ -37,10 +37,10 @@ import param.Table;
  *   <li>{@link param.impl.RuleImpl#getTables <em>Tables</em>}</li>
  *   <li>{@link param.impl.RuleImpl#getSource <em>Source</em>}</li>
  *   <li>{@link param.impl.RuleImpl#getTarget <em>Target</em>}</li>
- *   <li>{@link param.impl.RuleImpl#getName <em>Name</em>}</li>
  *   <li>{@link param.impl.RuleImpl#isAll <em>All</em>}</li>
  *   <li>{@link param.impl.RuleImpl#isCheck <em>Check</em>}</li>
  *   <li>{@link param.impl.RuleImpl#isRepair <em>Repair</em>}</li>
+ *   <li>{@link param.impl.RuleImpl#isPositive <em>Positive</em>}</li>
  * </ul>
  * </p>
  *
@@ -76,26 +76,6 @@ public class RuleImpl extends EObjectImpl implements Rule {
 	 * @ordered
 	 */
 	protected DataBase target;
-
-	/**
-	 * The default value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected static final String NAME_EDEFAULT = null;
-
-	/**
-	 * The cached value of the '{@link #getName() <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see #getName()
-	 * @generated
-	 * @ordered
-	 */
-	protected String name = NAME_EDEFAULT;
 
 	/**
 	 * The default value of the '{@link #isAll() <em>All</em>}' attribute.
@@ -156,6 +136,26 @@ public class RuleImpl extends EObjectImpl implements Rule {
 	 * @ordered
 	 */
 	protected boolean repair = REPAIR_EDEFAULT;
+
+	/**
+	 * The default value of the '{@link #isPositive() <em>Positive</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPositive()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean POSITIVE_EDEFAULT = true;
+
+	/**
+	 * The cached value of the '{@link #isPositive() <em>Positive</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isPositive()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean positive = POSITIVE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -269,27 +269,6 @@ public class RuleImpl extends EObjectImpl implements Rule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public void setName(String newName) {
-		String oldName = name;
-		name = newName;
-		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, ParamPackage.RULE__NAME, oldName, name));
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public boolean isAll() {
 		return all;
 	}
@@ -353,6 +332,27 @@ public class RuleImpl extends EObjectImpl implements Rule {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isPositive() {
+		return positive;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setPositive(boolean newPositive) {
+		boolean oldPositive = positive;
+		positive = newPositive;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, ParamPackage.RULE__POSITIVE, oldPositive, positive));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -378,14 +378,14 @@ public class RuleImpl extends EObjectImpl implements Rule {
 			case ParamPackage.RULE__TARGET:
 				if (resolve) return getTarget();
 				return basicGetTarget();
-			case ParamPackage.RULE__NAME:
-				return getName();
 			case ParamPackage.RULE__ALL:
 				return isAll();
 			case ParamPackage.RULE__CHECK:
 				return isCheck();
 			case ParamPackage.RULE__REPAIR:
 				return isRepair();
+			case ParamPackage.RULE__POSITIVE:
+				return isPositive();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -409,9 +409,6 @@ public class RuleImpl extends EObjectImpl implements Rule {
 			case ParamPackage.RULE__TARGET:
 				setTarget((DataBase)newValue);
 				return;
-			case ParamPackage.RULE__NAME:
-				setName((String)newValue);
-				return;
 			case ParamPackage.RULE__ALL:
 				setAll((Boolean)newValue);
 				return;
@@ -420,6 +417,9 @@ public class RuleImpl extends EObjectImpl implements Rule {
 				return;
 			case ParamPackage.RULE__REPAIR:
 				setRepair((Boolean)newValue);
+				return;
+			case ParamPackage.RULE__POSITIVE:
+				setPositive((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -442,9 +442,6 @@ public class RuleImpl extends EObjectImpl implements Rule {
 			case ParamPackage.RULE__TARGET:
 				setTarget((DataBase)null);
 				return;
-			case ParamPackage.RULE__NAME:
-				setName(NAME_EDEFAULT);
-				return;
 			case ParamPackage.RULE__ALL:
 				setAll(ALL_EDEFAULT);
 				return;
@@ -453,6 +450,9 @@ public class RuleImpl extends EObjectImpl implements Rule {
 				return;
 			case ParamPackage.RULE__REPAIR:
 				setRepair(REPAIR_EDEFAULT);
+				return;
+			case ParamPackage.RULE__POSITIVE:
+				setPositive(POSITIVE_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -472,14 +472,14 @@ public class RuleImpl extends EObjectImpl implements Rule {
 				return source != null;
 			case ParamPackage.RULE__TARGET:
 				return target != null;
-			case ParamPackage.RULE__NAME:
-				return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
 			case ParamPackage.RULE__ALL:
 				return all != ALL_EDEFAULT;
 			case ParamPackage.RULE__CHECK:
 				return check != CHECK_EDEFAULT;
 			case ParamPackage.RULE__REPAIR:
 				return repair != REPAIR_EDEFAULT;
+			case ParamPackage.RULE__POSITIVE:
+				return positive != POSITIVE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -494,14 +494,14 @@ public class RuleImpl extends EObjectImpl implements Rule {
 		if (eIsProxy()) return super.toString();
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (name: ");
-		result.append(name);
-		result.append(", all: ");
+		result.append(" (all: ");
 		result.append(all);
 		result.append(", check: ");
 		result.append(check);
 		result.append(", repair: ");
 		result.append(repair);
+		result.append(", positive: ");
+		result.append(positive);
 		result.append(')');
 		return result.toString();
 	}

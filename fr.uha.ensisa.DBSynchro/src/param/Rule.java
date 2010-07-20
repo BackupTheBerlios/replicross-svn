@@ -21,10 +21,10 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link param.Rule#getTables <em>Tables</em>}</li>
  *   <li>{@link param.Rule#getSource <em>Source</em>}</li>
  *   <li>{@link param.Rule#getTarget <em>Target</em>}</li>
- *   <li>{@link param.Rule#getName <em>Name</em>}</li>
  *   <li>{@link param.Rule#isAll <em>All</em>}</li>
  *   <li>{@link param.Rule#isCheck <em>Check</em>}</li>
  *   <li>{@link param.Rule#isRepair <em>Repair</em>}</li>
+ *   <li>{@link param.Rule#isPositive <em>Positive</em>}</li>
  * </ul>
  * </p>
  *
@@ -102,33 +102,8 @@ public interface Rule extends EObject {
 	void setTarget(DataBase value);
 
 	/**
-	 * Returns the value of the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Name</em>' attribute isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Name</em>' attribute.
-	 * @see #setName(String)
-	 * @see param.ParamPackage#getRule_Name()
-	 * @model
-	 * @generated
-	 */
-	String getName();
-
-	/**
-	 * Sets the value of the '{@link param.Rule#getName <em>Name</em>}' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Name</em>' attribute.
-	 * @see #getName()
-	 * @generated
-	 */
-	void setName(String value);
-
-	/**
 	 * Returns the value of the '<em><b>All</b></em>' attribute.
+	 * The default value is <code>"false"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>All</em>' attribute isn't clear,
@@ -138,7 +113,7 @@ public interface Rule extends EObject {
 	 * @return the value of the '<em>All</em>' attribute.
 	 * @see #setAll(boolean)
 	 * @see param.ParamPackage#getRule_All()
-	 * @model
+	 * @model default="false" required="true"
 	 * @generated
 	 */
 	boolean isAll();
@@ -204,5 +179,32 @@ public interface Rule extends EObject {
 	 * @generated
 	 */
 	void setRepair(boolean value);
+
+	/**
+	 * Returns the value of the '<em><b>Positive</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Positive</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Positive</em>' attribute.
+	 * @see #setPositive(boolean)
+	 * @see param.ParamPackage#getRule_Positive()
+	 * @model default="true" required="true"
+	 * @generated
+	 */
+	boolean isPositive();
+
+	/**
+	 * Sets the value of the '{@link param.Rule#isPositive <em>Positive</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Positive</em>' attribute.
+	 * @see #isPositive()
+	 * @generated
+	 */
+	void setPositive(boolean value);
 
 } // Rule

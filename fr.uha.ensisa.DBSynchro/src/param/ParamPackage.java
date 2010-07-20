@@ -134,22 +134,13 @@ public interface ParamPackage extends EPackage {
 	int RULE__TARGET = 2;
 
 	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int RULE__NAME = 3;
-
-	/**
 	 * The feature id for the '<em><b>All</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int RULE__ALL = 4;
+	int RULE__ALL = 3;
 
 	/**
 	 * The feature id for the '<em><b>Check</b></em>' attribute.
@@ -158,7 +149,7 @@ public interface ParamPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RULE__CHECK = 5;
+	int RULE__CHECK = 4;
 
 	/**
 	 * The feature id for the '<em><b>Repair</b></em>' attribute.
@@ -167,7 +158,16 @@ public interface ParamPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int RULE__REPAIR = 6;
+	int RULE__REPAIR = 5;
+
+	/**
+	 * The feature id for the '<em><b>Positive</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int RULE__POSITIVE = 6;
 
 	/**
 	 * The number of structural features of the '<em>Rule</em>' class.
@@ -300,98 +300,6 @@ public interface ParamPackage extends EPackage {
 
 
 	/**
-	 * The meta object id for the '{@link param.impl.StructureRuleImpl <em>Structure Rule</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see param.impl.StructureRuleImpl
-	 * @see param.impl.ParamPackageImpl#getStructureRule()
-	 * @generated
-	 */
-	int STRUCTURE_RULE = 5;
-
-	/**
-	 * The feature id for the '<em><b>Tables</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURE_RULE__TABLES = RULE__TABLES;
-
-	/**
-	 * The feature id for the '<em><b>Source</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURE_RULE__SOURCE = RULE__SOURCE;
-
-	/**
-	 * The feature id for the '<em><b>Target</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURE_RULE__TARGET = RULE__TARGET;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURE_RULE__NAME = RULE__NAME;
-
-	/**
-	 * The feature id for the '<em><b>All</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURE_RULE__ALL = RULE__ALL;
-
-	/**
-	 * The feature id for the '<em><b>Check</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURE_RULE__CHECK = RULE__CHECK;
-
-	/**
-	 * The feature id for the '<em><b>Repair</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURE_RULE__REPAIR = RULE__REPAIR;
-
-	/**
-	 * The feature id for the '<em><b>Positive</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURE_RULE__POSITIVE = RULE_FEATURE_COUNT + 0;
-
-	/**
-	 * The number of structural features of the '<em>Structure Rule</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int STRUCTURE_RULE_FEATURE_COUNT = RULE_FEATURE_COUNT + 1;
-
-
-	/**
 	 * Returns the meta object for class '{@link param.Param <em>Param</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -467,17 +375,6 @@ public interface ParamPackage extends EPackage {
 	EReference getRule_Target();
 
 	/**
-	 * Returns the meta object for the attribute '{@link param.Rule#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see param.Rule#getName()
-	 * @see #getRule()
-	 * @generated
-	 */
-	EAttribute getRule_Name();
-
-	/**
 	 * Returns the meta object for the attribute '{@link param.Rule#isAll <em>All</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -509,6 +406,17 @@ public interface ParamPackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getRule_Repair();
+
+	/**
+	 * Returns the meta object for the attribute '{@link param.Rule#isPositive <em>Positive</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Positive</em>'.
+	 * @see param.Rule#isPositive()
+	 * @see #getRule()
+	 * @generated
+	 */
+	EAttribute getRule_Positive();
 
 	/**
 	 * Returns the meta object for class '{@link param.DataBase <em>Data Base</em>}'.
@@ -618,27 +526,6 @@ public interface ParamPackage extends EPackage {
 	EAttribute getUser_Pass();
 
 	/**
-	 * Returns the meta object for class '{@link param.StructureRule <em>Structure Rule</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Structure Rule</em>'.
-	 * @see param.StructureRule
-	 * @generated
-	 */
-	EClass getStructureRule();
-
-	/**
-	 * Returns the meta object for the attribute '{@link param.StructureRule#isPositive <em>Positive</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Positive</em>'.
-	 * @see param.StructureRule#isPositive()
-	 * @see #getStructureRule()
-	 * @generated
-	 */
-	EAttribute getStructureRule_Positive();
-
-	/**
 	 * Returns the factory that creates the instances of the model.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -721,14 +608,6 @@ public interface ParamPackage extends EPackage {
 		EReference RULE__TARGET = eINSTANCE.getRule_Target();
 
 		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute RULE__NAME = eINSTANCE.getRule_Name();
-
-		/**
 		 * The meta object literal for the '<em><b>All</b></em>' attribute feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
@@ -751,6 +630,14 @@ public interface ParamPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute RULE__REPAIR = eINSTANCE.getRule_Repair();
+
+		/**
+		 * The meta object literal for the '<em><b>Positive</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute RULE__POSITIVE = eINSTANCE.getRule_Positive();
 
 		/**
 		 * The meta object literal for the '{@link param.impl.DataBaseImpl <em>Data Base</em>}' class.
@@ -837,24 +724,6 @@ public interface ParamPackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute USER__PASS = eINSTANCE.getUser_Pass();
-
-		/**
-		 * The meta object literal for the '{@link param.impl.StructureRuleImpl <em>Structure Rule</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see param.impl.StructureRuleImpl
-		 * @see param.impl.ParamPackageImpl#getStructureRule()
-		 * @generated
-		 */
-		EClass STRUCTURE_RULE = eINSTANCE.getStructureRule();
-
-		/**
-		 * The meta object literal for the '<em><b>Positive</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute STRUCTURE_RULE__POSITIVE = eINSTANCE.getStructureRule_Positive();
 
 	}
 

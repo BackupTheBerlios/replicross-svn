@@ -212,7 +212,7 @@ public class UserImpl extends EObjectImpl implements User {
 		StringBuffer result = new StringBuffer(super.toString());
 		result.append(" (userName: ");
 		result.append(userName);
-		result.append(", Pass: ");
+		result.append(", pass: ");
 		result.append(pass);
 		result.append(')');
 		return result.toString();

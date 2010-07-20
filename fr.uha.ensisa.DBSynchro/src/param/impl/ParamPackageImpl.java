@@ -19,7 +19,6 @@ import param.Param;
 import param.ParamFactory;
 import param.ParamPackage;
 import param.Rule;
-import param.StructureRule;
 import param.Table;
 import param.User;
 
@@ -64,13 +63,6 @@ public class ParamPackageImpl extends EPackageImpl implements ParamPackage {
 	 * @generated
 	 */
 	private EClass userEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass structureRuleEClass = null;
 
 	/**
 	 * Creates an instance of the model <b>Package</b>, registered with
@@ -201,7 +193,7 @@ public class ParamPackageImpl extends EPackageImpl implements ParamPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRule_Name() {
+	public EAttribute getRule_All() {
 		return (EAttribute)ruleEClass.getEStructuralFeatures().get(3);
 	}
 
@@ -210,7 +202,7 @@ public class ParamPackageImpl extends EPackageImpl implements ParamPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRule_All() {
+	public EAttribute getRule_Check() {
 		return (EAttribute)ruleEClass.getEStructuralFeatures().get(4);
 	}
 
@@ -219,7 +211,7 @@ public class ParamPackageImpl extends EPackageImpl implements ParamPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRule_Check() {
+	public EAttribute getRule_Repair() {
 		return (EAttribute)ruleEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -228,7 +220,7 @@ public class ParamPackageImpl extends EPackageImpl implements ParamPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getRule_Repair() {
+	public EAttribute getRule_Positive() {
 		return (EAttribute)ruleEClass.getEStructuralFeatures().get(6);
 	}
 
@@ -327,24 +319,6 @@ public class ParamPackageImpl extends EPackageImpl implements ParamPackage {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getStructureRule() {
-		return structureRuleEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getStructureRule_Positive() {
-		return (EAttribute)structureRuleEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
 	public ParamFactory getParamFactory() {
 		return (ParamFactory)getEFactoryInstance();
 	}
@@ -376,10 +350,10 @@ public class ParamPackageImpl extends EPackageImpl implements ParamPackage {
 		createEReference(ruleEClass, RULE__TABLES);
 		createEReference(ruleEClass, RULE__SOURCE);
 		createEReference(ruleEClass, RULE__TARGET);
-		createEAttribute(ruleEClass, RULE__NAME);
 		createEAttribute(ruleEClass, RULE__ALL);
 		createEAttribute(ruleEClass, RULE__CHECK);
 		createEAttribute(ruleEClass, RULE__REPAIR);
+		createEAttribute(ruleEClass, RULE__POSITIVE);
 
 		dataBaseEClass = createEClass(DATA_BASE);
 		createEAttribute(dataBaseEClass, DATA_BASE__NAME);
@@ -393,9 +367,6 @@ public class ParamPackageImpl extends EPackageImpl implements ParamPackage {
 		userEClass = createEClass(USER);
 		createEAttribute(userEClass, USER__USER_NAME);
 		createEAttribute(userEClass, USER__PASS);
-
-		structureRuleEClass = createEClass(STRUCTURE_RULE);
-		createEAttribute(structureRuleEClass, STRUCTURE_RULE__POSITIVE);
 	}
 
 	/**
@@ -426,7 +397,6 @@ public class ParamPackageImpl extends EPackageImpl implements ParamPackage {
 		// Set bounds for type parameters
 
 		// Add supertypes to classes
-		structureRuleEClass.getESuperTypes().add(this.getRule());
 
 		// Initialize classes and features; add operations and parameters
 		initEClass(paramEClass, Param.class, "Param", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -437,10 +407,10 @@ public class ParamPackageImpl extends EPackageImpl implements ParamPackage {
 		initEReference(getRule_Tables(), this.getTable(), null, "tables", null, 0, -1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRule_Source(), this.getDataBase(), null, "source", null, 1, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getRule_Target(), this.getDataBase(), null, "target", null, 1, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRule_Name(), ecorePackage.getEString(), "name", null, 0, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getRule_All(), ecorePackage.getEBoolean(), "all", null, 0, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRule_All(), ecorePackage.getEBoolean(), "all", "false", 1, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRule_Check(), ecorePackage.getEBoolean(), "check", null, 0, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getRule_Repair(), ecorePackage.getEBoolean(), "repair", null, 0, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getRule_Positive(), ecorePackage.getEBoolean(), "positive", "true", 1, 1, Rule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(dataBaseEClass, DataBase.class, "DataBase", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getDataBase_Name(), ecorePackage.getEString(), "name", null, 0, 1, DataBase.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -453,10 +423,7 @@ public class ParamPackageImpl extends EPackageImpl implements ParamPackage {
 
 		initEClass(userEClass, User.class, "User", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getUser_UserName(), ecorePackage.getEString(), "userName", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getUser_Pass(), ecorePackage.getEString(), "Pass", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(structureRuleEClass, StructureRule.class, "StructureRule", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getStructureRule_Positive(), ecorePackage.getEBoolean(), "positive", "true", 1, 1, StructureRule.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getUser_Pass(), ecorePackage.getEString(), "pass", null, 0, 1, User.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Create resource
 		createResource(eNS_URI);

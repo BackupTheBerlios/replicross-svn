@@ -117,13 +117,6 @@ public class ParamSwitch<T> {
 				if (result == null) result = defaultCase(theEObject);
 				return result;
 			}
-			case ParamPackage.STRUCTURE_RULE: {
-				StructureRule structureRule = (StructureRule)theEObject;
-				T result = caseStructureRule(structureRule);
-				if (result == null) result = caseRule(structureRule);
-				if (result == null) result = defaultCase(theEObject);
-				return result;
-			}
 			default: return defaultCase(theEObject);
 		}
 	}
@@ -200,21 +193,6 @@ public class ParamSwitch<T> {
 	 * @generated
 	 */
 	public T caseUser(User object) {
-		return null;
-	}
-
-	/**
-	 * Returns the result of interpreting the object as an instance of '<em>Structure Rule</em>'.
-	 * <!-- begin-user-doc -->
-	 * This implementation returns null;
-	 * returning a non-null result will terminate the switch.
-	 * <!-- end-user-doc -->
-	 * @param object the target of the switch.
-	 * @return the result of interpreting the object as an instance of '<em>Structure Rule</em>'.
-	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-	 * @generated
-	 */
-	public T caseStructureRule(StructureRule object) {
 		return null;
 	}
 
