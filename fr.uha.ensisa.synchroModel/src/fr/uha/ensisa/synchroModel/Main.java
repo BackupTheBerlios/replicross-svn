@@ -12,7 +12,7 @@ import org.eclipse.emf.ecore.EObject;
 import param.DataBase;
 import param.Param;
 import param.ParamFactory;
-import param.StructureRule;
+import param.Rule;
 import param.Table;
 
 public class Main {
@@ -24,8 +24,8 @@ public class Main {
 		
 		String[] tablesToKeep = {"visit","cookieid","pole"};
 		Param p = ParamFactory.eINSTANCE.createParam();
-		StructureRule rule = ParamFactory.eINSTANCE.createStructureRule();
-		rule.setPositive(false);
+		Rule rule = ParamFactory.eINSTANCE.createRule();
+		rule.setPositive(true);
 		p.getRules().add(rule);
 		DataBase dbSrc = ParamFactory.eINSTANCE.createDataBase();
 		dbSrc.setName("waterair");
@@ -46,6 +46,11 @@ public class Main {
 			Connection cn = DriverManager.getConnection("jdbc:mysql://localhost:3306/wrana","wrana","wanar");
 			DBStructure dbs = new DBStructure(cn);
 			database.DataBase structure = dbs.retrieveStructure(p);
+			
+//			for(database.Table table: structure.getTables()){
+//				System.out.println(table.getName()+" "+table.getPrimaryKeys());
+//				System.out.println(table.getUniques());
+//			}
 			
 			Utils.saveModel(URI.createFileURI(new File("model/structure.xmi").getAbsolutePath()), new EObject[]{structure});
 			cn.close();

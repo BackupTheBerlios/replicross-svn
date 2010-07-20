@@ -8,6 +8,7 @@ import java.io.File;
 import java.sql.SQLException;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.junit.After;
 import org.junit.Before;
@@ -21,7 +22,7 @@ public class DBCopyTest {
 	
 	@Before
 	public void connect(){
-		EObject[] parametres =  Utils.loadModel(new File("model/My.xmi").getAbsolutePath(), param.ParamPackage.eINSTANCE);
+		EObject[] parametres =  Utils.loadModel(URI.createFileURI(new File("model/My.xmi").getAbsolutePath()), param.ParamPackage.eINSTANCE);
 		EList<Rule> rules = ((param.impl.ParamImpl) parametres[0]).getRules();
 		try{
 			copy = new DBCopy(rules.get(0));

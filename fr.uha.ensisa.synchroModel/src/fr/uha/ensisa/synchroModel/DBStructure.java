@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.text.StyleContext.SmallAttributeSet;
+
 import param.Param;
 import param.Rule;
-import param.StructureRule;
 
 import com.mysql.jdbc.DatabaseMetaData;
 
@@ -17,7 +18,7 @@ import database.Column;
 import database.DataBase;
 import database.DatabaseFactory;
 import database.Index;
-import database.PKey;
+import database.PrimaryKey;
 import database.Table;
 
 public class DBStructure {
@@ -41,11 +42,9 @@ public class DBStructure {
 		
 		if(constrained){
 			for(Rule rule: p.getRules()){
-				if(rule instanceof StructureRule){
-					positive = ((StructureRule)rule).isPositive();
-					for(param.Table t: rule.getTables())
-						names.add(t.getName());
-				}
+				positive = rule.isPositive();
+				for(param.Table t: rule.getTables())
+					names.add(t.getName());
 			}
 		}
 		
@@ -63,20 +62,60 @@ public class DBStructure {
 				// table
 				Table table = DatabaseFactory.eINSTANCE.createTable();
 				table.setDataBase(database);
-				table.setNom(tableName);
-	
+				table.setName(tableName);
+				
 				// Columns
 				ResultSet columnsRS = targetConn.getMetaData().getColumns(null,
 						null, tableName, null);
 				while (columnsRS.next()) {
 					Column column = DatabaseFactory.eINSTANCE.createColumn();
-					column.setNom(columnsRS.getString("COLUMN_NAME"));
-					String type = columnsRS.getString("TYPE_NAME");
-					if (columnsRS.getString("COLUMN_SIZE") != null
-							&& !columnsRS.getString("COLUMN_SIZE").equals("0"))
-						type += "(" + columnsRS.getString("COLUMN_SIZE") + ")";
-					column.setType(type);
-					column.setDefault(columnsRS.getString("COLUMN_DEF"));
+					column.setName(columnsRS.getString("COLUMN_NAME"));
+					column.setType(columnsRS.getString("TYPE_NAME"));
+					switch(columnsRS.getInt("DATA_TYPE")){
+						case -7: // BIT
+							if(columnsRS.getString("COLUMN_DEF")!=null){
+								column.setType("TINYINT");
+								column.setDefault(columnsRS.getString("COLUMN_DEF"));
+							}
+							column.setLength(columnsRS.getInt("COLUMN_SIZE")+1);
+							break;
+						case -6: // TINYINT
+							column.setLength(columnsRS.getInt("COLUMN_SIZE"));
+							column.setDefault(columnsRS.getString("COLUMN_DEF"));
+							break;
+						case -5: // BIGINT
+							column.setLength(columnsRS.getInt("COLUMN_SIZE")+1);
+							column.setDefault(columnsRS.getString("COLUMN_DEF"));
+							break;
+						case -4: // LONGBLOB
+							column.setLength(0);
+							column.setDefault(columnsRS.getString("COLUMN_DEF"));
+							break;
+						case 4: // INT
+							column.setLength(columnsRS.getInt("COLUMN_SIZE")+1);
+							column.setDefault(columnsRS.getString("COLUMN_DEF"));
+							break;
+						case 5: // SMALLINT
+							column.setLength(columnsRS.getInt("COLUMN_SIZE")+1);
+							column.setDefault(columnsRS.getString("COLUMN_DEF"));
+							break;
+						case 8: // DOUBLE
+							column.setLength(0);
+							column.setDefault(columnsRS.getString("COLUMN_DEF"));
+							break;
+						case 91: // DATE
+							column.setLength(0);
+							column.setDefault(columnsRS.getString("COLUMN_DEF"));
+							break;
+						case 92: // TIME
+							column.setLength(0);
+							column.setDefault(columnsRS.getString("COLUMN_DEF"));
+							break;
+						default: // OTHER TYPES
+							column.setLength(columnsRS.getInt("COLUMN_SIZE"));
+							column.setDefault(columnsRS.getString("COLUMN_DEF"));
+							break;
+					}
 					if (columnsRS.getInt("NULLABLE") == DatabaseMetaData.columnNullable)
 						column.setNullable(true);
 					else
@@ -87,45 +126,37 @@ public class DBStructure {
 				// indexes
 				ResultSet indexesRs = targetConn.getMetaData().getIndexInfo(null,
 						null, tableName, false, false);
-				String lastIndexName = "";
-				String indexName = "";
-				Index index = DatabaseFactory.eINSTANCE.createIndex();
 				while (indexesRs.next()) {
-					indexName = indexesRs.getString("INDEX_NAME");
-					// index.setNom(indexName);
-					if (!indexName.equals("PRIMARY")) {
-						if (indexName.equals(lastIndexName))
-							index.getColumns().add(
-									table.getColumn(indexesRs
-											.getString("COLUMN_NAME")));
-						else {
-							if (index.getColumns().size() != 0) {
-								index.setNom(lastIndexName);
-								table.getIndexes().add(index);
-							}
-							index = DatabaseFactory.eINSTANCE.createIndex();
-							index.setNom(indexName);
-							index.getColumns().add(
-									table.getColumn(indexesRs
-											.getString("COLUMN_NAME")));
+					String indexName = indexesRs.getString("INDEX_NAME");
+					Index index;
+					if (!indexName.equals("PRIMARY")){
+						if(table.getIndex(indexName)!=null)
+							table.getIndex(indexName).getColumns().add(
+									table.getColumn(indexesRs.getString("COLUMN_NAME")));
+						else{
+							if(indexesRs.getBoolean("NON_UNIQUE"))
+								index = DatabaseFactory.eINSTANCE.createIndex();
+							else
+								index = DatabaseFactory.eINSTANCE.createUnique();
+							index.setName(indexName);
+							index.getColumns().add(table.getColumn(indexesRs.getString("COLUMN_NAME")));
+							table.getIndexes().add(index);
 						}
-						lastIndexName = indexName;
 					}
+					
 				}
-				if(index.getNom() != null)
-					table.getIndexes().add(index);
 	
 				// PKeysNames
 				ResultSet pKeysRS = targetConn.getMetaData().getPrimaryKeys(null,
 						null, tableName);
-				PKey pkey = DatabaseFactory.eINSTANCE.createPKey();
+				PrimaryKey pkey = DatabaseFactory.eINSTANCE.createPrimaryKey();
 				while (pKeysRS.next()) {
 					pkey.getColumns().add(
 							table.getColumn(pKeysRS.getString("COLUMN_NAME")));
-					pkey.setNom(pKeysRS.getString("PK_NAME"));
+					pkey.setName(pKeysRS.getString("PK_NAME"));
 				}
 				if (pkey.getColumns().size() != 0)
-					table.setPKey(pkey);
+					table.getIndexes().add(pkey);
 	
 				// foreignKeys
 				/*

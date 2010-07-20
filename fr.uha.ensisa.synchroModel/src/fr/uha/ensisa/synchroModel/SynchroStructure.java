@@ -1,18 +1,31 @@
 package fr.uha.ensisa.synchroModel;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
+
+import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EObject;
+
+import param.Param;
+import param.ParamPackage;
 
 import database.Column;
 import database.DataBase;
 import database.DatabaseFactory;
+import database.DatabasePackage;
 import database.Index;
-import database.PKey;
+import database.PrimaryKey;
 import database.Table;
+import database.Unique;
 
 /**
  * 
@@ -21,16 +34,17 @@ import database.Table;
  */
 
 public class SynchroStructure {
-
+	
 	/**
 	 * @param args
 	 * @throws ClassNotFoundException
 	 * @throws SQLException
 	 * @throws IOException
+	 * @throws InterruptedException 
 	 */
 	public static void main(String[] args) throws SQLException,
-			ClassNotFoundException, IOException {
-		String hostModel, hostCible, DatabaseModel, DatabaseCible, UserModel, UserCible, passwordModel, passwordCible;
+			ClassNotFoundException, IOException, InterruptedException {
+		String hostModel, hostCible, DatabaseModel, DatabaseCible, UserModel, UserCible, passwordModel, passwordCible, rulesModelURI;
 		
 		hostModel = args[0];
 		DatabaseModel = args[1];
@@ -41,119 +55,252 @@ public class SynchroStructure {
 		DatabaseCible =  args[5];
 		UserCible = args[6];
 		passwordCible = args[7];
+
+		if(args.length==9)
+			rulesModelURI = args[8];
+		else
+			rulesModelURI=null;
 		
+//		hostModel = "localhost";
+//		DatabaseModel = "wrana";
+//		UserModel = "wrana";
+//		passwordModel = "wanar";
+		
+//		hostModel = "localhost";
+//		DatabaseModel = "ana";
+//		UserModel = "brice";
+//		passwordModel = "bwensisal";
+		
+//		hostCible = "localhost";
+//		DatabaseCible =  "ana2";
+//		UserCible = "brice";
+//		passwordCible = "bwensisal";
+//		
+//		rulesModelURI = "model/rules.xmi";
+		Param p = null;
+		if(rulesModelURI!=null)
+			p = (Param)Utils.loadModel(URI.createFileURI(new File(rulesModelURI).getAbsolutePath()), ParamPackage.eINSTANCE)[0];
 		Class.forName("com.mysql.jdbc.Driver");
 
+		System.out.println("Connecting to databases...");
 		Connection connCible = DriverManager.getConnection("jdbc:mysql://" + hostCible + "/" + DatabaseCible, UserCible, passwordCible);
 		DBStructure dbstructure2 = new DBStructure(connCible);
-		DataBase DBcible = dbstructure2.retrieveStructure();
+		DataBase DBcible = dbstructure2.retrieveStructure(p);
 		
 		Connection connModel = DriverManager.getConnection("jdbc:mysql://" + hostModel + "/" + DatabaseModel, UserModel, passwordModel);
 		DBStructure dbstructure = new DBStructure(connModel);
-		DataBase DBmodel = dbstructure.retrieveStructure();
+		DataBase DBmodel = dbstructure.retrieveStructure(p);
 		
-		System.out.println("Synchronizing structure...");
-
-		for (Table table : DBmodel.getTables()) {
-			Table tableCible = DBcible.getTable(table.getNom());
+		System.out.println("Structure Comparaison");
+		if(Utils.compareDataBases(DBmodel, DBcible))
+			System.out.println("Databases structures are the same");
+		else{
+			
+			List<String> queries = new ArrayList<String>();
 			Statement st = connCible.createStatement();
-			if (tableCible == null) {
-				String cmd = "CREATE TABLE `" + table.getNom() + "` ( `" + table.getColumns().get(0).getNom() + "` " + table.getColumns().get(0).getType() + " ";
-				if(table.getColumns().get(0).getDefault() != null && !table.getColumns().get(0).getDefault().equals("null") && !table.getColumns().get(0).getDefault().equals(""))
-					cmd += "DEFAULT '" + table.getColumns().get(0).getDefault() + "' ";
-				if( table.getColumns().get(0).isNullable())
-					cmd += "NULL);";
-				else
-					cmd += "NOT NULL);";
-				st.execute(cmd);
-				tableCible = DatabaseFactory.eINSTANCE.createTable();
-				tableCible.setNom(table.getNom());
-				Column column = DatabaseFactory.eINSTANCE.createColumn();
-				column.setNom(table.getColumns().get(0).getNom());
-				column.setType(table.getColumns().get(0).getType());
-				column.setNullable(table.getColumns().get(0).isNullable());
-				column.setDefault(table.getColumns().get(0).getDefault());
-				tableCible.getColumns().add(column);
-				DBcible.getTables().add(tableCible);
-				System.out.println("Add table " + table.getNom());
-			}
-
-			//Columns
-			for (Column column : table.getColumns()) {
-				
-				Column columnCible = tableCible.getColumn(column.getNom());
-				if (columnCible == null ) {
-					String cmd = "ALTER TABLE `" + tableCible.getNom() + "` ADD `" + column.getNom() + "` " + column.getType() + " ";
-					if(column.getDefault() != null && !column.getDefault().equals("null") && !column.getDefault().equals(""))
-						cmd += "DEFAULT '" + column.getDefault() + "' ";
-					if( column.isNullable())
-						cmd += "NULL;";
+		
+			System.out.println("Synchronizing structure...");
+	
+			for (Table table : DBmodel.getTables()) {
+				Table tableCible = DBcible.getTable(table.getName());
+				if (tableCible == null) {
+					String cmd = "CREATE TABLE `" + table.getName() + "` ( `" + table.getColumns().get(0).getName() + "` " + table.getColumns().get(0).getType() + ((table.getColumns().get(0).getLength()==0)? " " : "(" + table.getColumns().get(0).getLength() + ") ");
+					if(table.getColumns().get(0).getDefault() != null && !table.getColumns().get(0).getDefault().equals("null") && !table.getColumns().get(0).getDefault().equals(""))
+						cmd += "DEFAULT '" + table.getColumns().get(0).getDefault() + "' ";
+					if(table.getColumns().get(0).isNullable())
+						cmd += "NULL)";
 					else
-						cmd += "NOT NULL;";
-					st.execute(cmd);
-					columnCible = DatabaseFactory.eINSTANCE.createColumn();
-					columnCible.setNom(column.getNom());
-					columnCible.setType(column.getType());
-					columnCible.setNullable(column.isNullable());
-					columnCible.setDefault(column.getDefault());
-					tableCible.getColumns().add(columnCible);
-
+						cmd += "NOT NULL)";
+					cmd += " ENGINE = " + table.getStorageEngine();
+					queries.add(cmd);
+//					System.out.println(cmd);
+//					st.execute(cmd);
+					tableCible = DatabaseFactory.eINSTANCE.createTable();
+					tableCible.setName(table.getName());
+					Column column = DatabaseFactory.eINSTANCE.createColumn();
+					column.setName(table.getColumns().get(0).getName());
+					column.setType(table.getColumns().get(0).getType());
+					column.setNullable(table.getColumns().get(0).isNullable());
+					column.setDefault(table.getColumns().get(0).getDefault());
+					tableCible.getColumns().add(column);
+					DBcible.getTables().add(tableCible);
 				}
-				else{
-					if(columnCible.getDefault() == null || !columnCible.getDefault().equals(column.getDefault()) || !columnCible.getType().equals(column.getType()) || columnCible.isNullable() != column.isNullable()){
-						String cmd = "ALTER TABLE `" + tableCible.getNom() + "` CHANGE `" + column.getNom() + "` " + "`" + column.getNom() + "` " + column.getType() + " ";
-						if(column.getDefault() != null && !column.getDefault().equals("null") && !column.getDefault().equals(""))
-							cmd += "DEFAULT '" + column.getDefault() + "' ";
+	
+				//Columns
+				Column previousCol = null;
+				for (Column column : table.getColumns()) {
+					
+					Column columnCible = tableCible.getColumn(column.getName());
+					if (columnCible == null ) {
+						String cmd = "ALTER TABLE `" + tableCible.getName() + "` ADD `" + column.getName() + "` " + column.getType() + ((column.getLength()==0)? " " : "(" + column.getLength() + ") ");
 						if( column.isNullable())
-							cmd += "NULL;";
+							cmd += "NULL";
 						else
-							cmd += "NOT NULL;";
-						st.execute(cmd);
+							cmd += "NOT NULL";
+						if(!(column.getDefault()==null))
+							cmd += " DEFAULT '"+column.getDefault()+"'";
+						cmd += " AFTER `"+previousCol.getName()+"`;";
+						queries.add(cmd);
+//						System.out.println(cmd);
+//						st.execute(cmd);
 						columnCible = DatabaseFactory.eINSTANCE.createColumn();
-						columnCible.setNom(column.getNom());
+						columnCible.setName(column.getName());
 						columnCible.setType(column.getType());
+						columnCible.setLength(column.getLength());
 						columnCible.setNullable(column.isNullable());
 						columnCible.setDefault(column.getDefault());
+						columnCible.setCollation(column.getCollation());
+						tableCible.getColumns().add(columnCible);
+	
+					}
+					else{
+						if(!Utils.compareColumns(column, columnCible)){
+							if(columnCible.getDefault() == null || !columnCible.getDefault().equals(column.getDefault()) || !columnCible.getType().equals(column.getType()) || columnCible.isNullable() != column.isNullable() || columnCible.getLength() != column.getLength()){
+								String cmd = "ALTER TABLE `" + tableCible.getName() + "` CHANGE `" + column.getName() + "` " + "`" + column.getName() + "` " + column.getType() + ((column.getLength()==0)? " " : "(" + column.getLength() + ") ");
+								if( column.isNullable())
+									cmd += "NULL";
+								else
+									cmd += "NOT NULL";
+								if(!(column.getDefault()==null))
+									cmd += " DEFAULT '"+column.getDefault()+"'";
+								else
+									cmd += ";";
+								queries.add(cmd);
+//								System.out.println(cmd);
+//								st.execute(cmd);
+								columnCible.setName(column.getName());
+								columnCible.setType(column.getType());
+								columnCible.setLength(column.getLength());
+								columnCible.setNullable(column.isNullable());
+								columnCible.setDefault(column.getDefault());
+								columnCible.setCollation(column.getCollation());
+							}
+						}
+					}
+					previousCol = column;
+				}
+				
+				//Indexes
+				for(Index index : table.getIndexes()){
+					if(!(index instanceof PrimaryKey) &&!(index instanceof Unique)){
+						Index indexCible = tableCible.getIndex(index.getName());
+						if(indexCible == null){
+							indexCible = DatabaseFactory.eINSTANCE.createIndex();
+							indexCible.setName(index.getName());
+							String cmd = "CREATE INDEX `" + index.getName() + "` ON `" + table.getName() + "` (";
+							Iterator<Column> it = index.getColumns().iterator();
+							while(it.hasNext()){
+								String name = it.next().getName();
+								cmd += name;
+								if(it.hasNext())
+									cmd += ", ";
+								indexCible.getColumns().add(tableCible.getColumn(name));
+							}
+							cmd += ")";
+							queries.add(cmd);
+//							System.out.println(cmd);
+//							st.execute(cmd);
+							tableCible.getIndexes().add(indexCible);
+						}
 					}
 				}
 				
-			}
-			
-			//Indexes
-			for(Index index : table.getIndexes()){
-				Index indexCible = tableCible.getIndex(index.getNom());
-				if(indexCible == null){
-					String cmd = "CREATE INDEX `" + index.getNom() + "` ON `" + table.getNom() + "` (";
-					Iterator<Column> it = index.getColumns().iterator();
-					while(it.hasNext()){
-						cmd += it.next().getNom();
-						if(it.hasNext())
-							cmd += ", ";
+				//PrimaryKeys
+				for(PrimaryKey pkey: table.getPrimaryKeys()){
+					PrimaryKey pkeyCible = (PrimaryKey)tableCible.getIndex(pkey.getName());
+					if(pkeyCible == null){
+						pkeyCible = DatabaseFactory.eINSTANCE.createPrimaryKey();
+						pkeyCible.setName(pkey.getName());
+						String cmd = "ALTER TABLE `" + tableCible.getName() + "` ADD PRIMARY KEY `" + "` (";
+						Iterator<Column> it = pkey.getColumns().iterator();
+						while(it.hasNext()){
+							String name = it.next().getName();
+							cmd += name;
+							if(it.hasNext())
+								cmd += ", ";
+							pkeyCible.getColumns().add(tableCible.getColumn(name));
+						}
+						cmd += ")";
+						queries.add(cmd);
+//						System.out.println(cmd);
+//						st.execute(cmd);
+						tableCible.getIndexes().add(pkeyCible);
 					}
-					cmd += ")";
-					st.execute(cmd);
 				}
-			}
-			
-			//PKeys
-			if(table.getPKeys().size() != 0){
-				PKey pkeyCible = null;
-				if(tableCible.getPKeys().size() != 0)
-					pkeyCible = tableCible.getPKeys().get(0);
-				if(pkeyCible == null){
-					String cmd = "ALTER TABLE `" + tableCible.getNom() + "` ADD PRIMARY KEY `" + "` (";
-					Iterator<Column> it = table.getPKeys().get(0).getColumns().iterator();
-					while(it.hasNext()){
-						cmd += it.next().getNom();
-						if(it.hasNext())
-							cmd += ", ";
+				
+				//Uniques
+				for(Unique unique: table.getUniques()){
+					Unique uniqueCible = (Unique)tableCible.getIndex(unique.getName());
+					if(uniqueCible == null){
+						uniqueCible = DatabaseFactory.eINSTANCE.createUnique();
+						uniqueCible.setName(unique.getName());
+						String cmd = "ALTER TABLE `" + tableCible.getName() + "` ADD UNIQUE `" + unique.getName() + "` (";
+						Iterator<Column> it = unique.getColumns().iterator();
+						while(it.hasNext()){
+							String name = it.next().getName();
+							cmd += name;
+							if(it.hasNext())
+								cmd += ", ";
+							uniqueCible.getColumns().add(tableCible.getColumn(name));
+						}
+						cmd += ")";
+						queries.add(cmd);
+//						System.out.println(cmd);
+//						st.execute(cmd);
+						tableCible.getIndexes().add(uniqueCible);
 					}
-					cmd += ")";
-					st.execute(cmd);
 				}
+				
+				//Remove keys
+				List<Index> toRemove = new ArrayList<Index>();
+				for(Index index: tableCible.getIndexes()){
+					if(table.getIndex(index.getName())==null){
+						String cmd = "";
+						if(index instanceof PrimaryKey){
+							cmd = "ALTER TABLE `" + tableCible.getName() + "` DROP PRIMARY KEY";
+						}else{
+							cmd = "ALTER TABLE `" + tableCible.getName() + "` DROP INDEX `" + index.getName() +"`";
+						}
+						queries.add(cmd);
+//						System.out.println(cmd);
+//						st.execute(cmd);
+						toRemove.add(index);
+					}
+				}
+				tableCible.getIndexes().removeAll(toRemove);
+	
 			}
 
+			executeQueries(queries, st);
 		}
+		
+		connCible.close();
+		connModel.close();
+	}
+	
+	private static void executeQueries(List<String> queries, Statement st) throws IOException, SQLException{
+		boolean loop = true;
+		BufferedReader input = new BufferedReader (new InputStreamReader (System.in));
+		while (loop == true) {
+			System.out.println("You are about to execute the following queries:");
+			for(String query: queries)
+				System.out.println(query);
+			System.out.print("Are you sure ? y / n");
+			String line = input.readLine();
+			if (line == null || line.length() == 0) continue;
+			char command = line.charAt(0);
+			switch (command) {
+			case 'Y' : case 'y' : 
+				for(String query: queries)
+					st.execute(query);
+				loop = false;
+				break;
+			case 'N' : case 'n' : loop = false; break;
+			default  : System.out.println("Unknown command"); break;
+			}
+		}
+		input.close();
+		System.out.println("DONE");
 	}
 	
 }
