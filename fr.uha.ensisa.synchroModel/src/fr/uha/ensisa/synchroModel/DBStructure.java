@@ -50,7 +50,7 @@ public class DBStructure {
 		
 		DataBase database = DatabaseFactory.eINSTANCE.createDataBase();
 		
-		System.out.println("Retrieving database structure...");
+		System.out.println("Retrieving '" + targetConn.getCatalog() + "' database structure...");
 
 		// tableNames
 		ResultSet tablesRS = targetConn.getMetaData().getTables(null, null,
