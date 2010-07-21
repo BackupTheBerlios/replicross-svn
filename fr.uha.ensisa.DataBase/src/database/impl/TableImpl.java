@@ -51,7 +51,7 @@ import org.eclipse.ocl.expressions.OCLExpression;
  *   <li>{@link database.impl.TableImpl#getIndexes <em>Indexes</em>}</li>
  *   <li>{@link database.impl.TableImpl#getStorageEngine <em>Storage Engine</em>}</li>
  *   <li>{@link database.impl.TableImpl#getCollation <em>Collation</em>}</li>
- *   <li>{@link database.impl.TableImpl#getPrimaryKeys <em>Primary Keys</em>}</li>
+ *   <li>{@link database.impl.TableImpl#getPrimaryKey <em>Primary Key</em>}</li>
  *   <li>{@link database.impl.TableImpl#getUniques <em>Uniques</em>}</li>
  * </ul>
  * </p>
@@ -257,10 +257,20 @@ public class TableImpl extends NamedElementImpl implements Table {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EList<PrimaryKey> getPrimaryKeys() {
-		EStructuralFeature eFeature = DatabasePackage.Literals.TABLE__PRIMARY_KEYS;
-	
-		if (primaryKeysDeriveOCL == null) { 
+	public PrimaryKey getPrimaryKey() {
+		PrimaryKey primaryKey = basicGetPrimaryKey();
+		return primaryKey != null && primaryKey.eIsProxy() ? (PrimaryKey)eResolveProxy((InternalEObject)primaryKey) : primaryKey;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public PrimaryKey basicGetPrimaryKey() {
+		if (primaryKeyDeriveOCL == null) { 
+			EStructuralFeature eFeature = (DatabasePackage.Literals.TABLE__PRIMARY_KEY);
+			
 			Helper helper = OCL_ENV.createOCLHelper();
 			helper.setAttributeContext(DatabasePackage.Literals.TABLE, eFeature);
 			
@@ -268,17 +278,15 @@ public class TableImpl extends NamedElementImpl implements Table {
 			String derive = (String) ocl.getDetails().get("derive");
 			
 			try {
-				primaryKeysDeriveOCL = helper.createQuery(derive);
+				primaryKeyDeriveOCL = helper.createQuery(derive);
 			} catch (ParserException e) {
 				throw new UnsupportedOperationException(e.getLocalizedMessage());
 			}
 		}
 		
-		Query<EClassifier, ?, ?> query = OCL_ENV.createQuery(primaryKeysDeriveOCL);
+		Query<EClassifier, ?, ?> query = OCL_ENV.createQuery(primaryKeyDeriveOCL);
 	
-		@SuppressWarnings("unchecked")
-		Collection<PrimaryKey> result = (Collection<PrimaryKey>) query.evaluate(this);
-		return new EcoreEList.UnmodifiableEList<PrimaryKey>(this, eFeature, result.size(), result.toArray());
+		return (PrimaryKey) query.evaluate(this);
 	
 	}
 
@@ -287,9 +295,9 @@ public class TableImpl extends NamedElementImpl implements Table {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public boolean isSetPrimaryKeys() {
+	public boolean isSetPrimaryKey() {
 	
-		return this.getPrimaryKeys() != null;
+		return this.basicGetPrimaryKey() != null;
 	
 	}
 
@@ -398,8 +406,9 @@ public class TableImpl extends NamedElementImpl implements Table {
 				return getStorageEngine();
 			case DatabasePackage.TABLE__COLLATION:
 				return getCollation();
-			case DatabasePackage.TABLE__PRIMARY_KEYS:
-				return getPrimaryKeys();
+			case DatabasePackage.TABLE__PRIMARY_KEY:
+				if (resolve) return getPrimaryKey();
+				return basicGetPrimaryKey();
 			case DatabasePackage.TABLE__UNIQUES:
 				return getUniques();
 		}
@@ -481,8 +490,8 @@ public class TableImpl extends NamedElementImpl implements Table {
 				return STORAGE_ENGINE_EDEFAULT == null ? storageEngine != null : !STORAGE_ENGINE_EDEFAULT.equals(storageEngine);
 			case DatabasePackage.TABLE__COLLATION:
 				return COLLATION_EDEFAULT == null ? collation != null : !COLLATION_EDEFAULT.equals(collation);
-			case DatabasePackage.TABLE__PRIMARY_KEYS:
-				return isSetPrimaryKeys();
+			case DatabasePackage.TABLE__PRIMARY_KEY:
+				return isSetPrimaryKey();
 			case DatabasePackage.TABLE__UNIQUES:
 				return isSetUniques();
 		}
@@ -508,13 +517,13 @@ public class TableImpl extends NamedElementImpl implements Table {
 	}
 
 	/**
-	 * The parsed OCL expression for the derivation of '{@link #getPrimaryKeys <em>Primary Keys</em>}' property.
+	 * The parsed OCL expression for the derivation of '{@link #getPrimaryKey <em>Primary Key</em>}' property.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getPrimaryKeys
+	 * @see #getPrimaryKey
 	 * @generated
 	 */
-	private static OCLExpression<EClassifier> primaryKeysDeriveOCL;
+	private static OCLExpression<EClassifier> primaryKeyDeriveOCL;
 
 	/**
 	 * The parsed OCL expression for the derivation of '{@link #getUniques <em>Uniques</em>}' property.

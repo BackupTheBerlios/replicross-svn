@@ -27,11 +27,11 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="InnoDB"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="collation" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="utf8_bin"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="primaryKeys" ordered="false"
-        upperBound="-1" eType="#//PrimaryKey" changeable="false" volatile="true" transient="true"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="primaryKey" ordered="false"
+        eType="#//PrimaryKey" changeable="false" volatile="true" transient="true"
         unsettable="true" derived="true">
       <eAnnotations source="http://www.eclipse.org/ocl/examples/OCL">
-        <details key="derive" value="self.indexes->select(e|e.oclIsTypeOf(PrimaryKey))"/>
+        <details key="derive" value="self.indexes->any(e|e.oclIsTypeOf(PrimaryKey))"/>
       </eAnnotations>
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="uniques" ordered="false"

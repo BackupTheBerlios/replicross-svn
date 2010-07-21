@@ -180,13 +180,13 @@ public interface DatabasePackage extends EPackage {
 	int TABLE__COLLATION = NAMED_ELEMENT_FEATURE_COUNT + 4;
 
 	/**
-	 * The feature id for the '<em><b>Primary Keys</b></em>' reference list.
+	 * The feature id for the '<em><b>Primary Key</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int TABLE__PRIMARY_KEYS = NAMED_ELEMENT_FEATURE_COUNT + 5;
+	int TABLE__PRIMARY_KEY = NAMED_ELEMENT_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Uniques</b></em>' reference list.
@@ -479,15 +479,15 @@ public interface DatabasePackage extends EPackage {
 	EAttribute getTable_Collation();
 
 	/**
-	 * Returns the meta object for the reference list '{@link database.Table#getPrimaryKeys <em>Primary Keys</em>}'.
+	 * Returns the meta object for the reference '{@link database.Table#getPrimaryKey <em>Primary Key</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference list '<em>Primary Keys</em>'.
-	 * @see database.Table#getPrimaryKeys()
+	 * @return the meta object for the reference '<em>Primary Key</em>'.
+	 * @see database.Table#getPrimaryKey()
 	 * @see #getTable()
 	 * @generated
 	 */
-	EReference getTable_PrimaryKeys();
+	EReference getTable_PrimaryKey();
 
 	/**
 	 * Returns the meta object for the reference list '{@link database.Table#getUniques <em>Uniques</em>}'.
@@ -718,12 +718,12 @@ public interface DatabasePackage extends EPackage {
 		EAttribute TABLE__COLLATION = eINSTANCE.getTable_Collation();
 
 		/**
-		 * The meta object literal for the '<em><b>Primary Keys</b></em>' reference list feature.
+		 * The meta object literal for the '<em><b>Primary Key</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference TABLE__PRIMARY_KEYS = eINSTANCE.getTable_PrimaryKeys();
+		EReference TABLE__PRIMARY_KEY = eINSTANCE.getTable_PrimaryKey();
 
 		/**
 		 * The meta object literal for the '<em><b>Uniques</b></em>' reference list feature.

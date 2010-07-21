@@ -218,7 +218,7 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getTable_PrimaryKeys() {
+	public EReference getTable_PrimaryKey() {
 		return (EReference)tableEClass.getEStructuralFeatures().get(5);
 	}
 
@@ -376,7 +376,7 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 		createEReference(tableEClass, TABLE__INDEXES);
 		createEAttribute(tableEClass, TABLE__STORAGE_ENGINE);
 		createEAttribute(tableEClass, TABLE__COLLATION);
-		createEReference(tableEClass, TABLE__PRIMARY_KEYS);
+		createEReference(tableEClass, TABLE__PRIMARY_KEY);
 		createEReference(tableEClass, TABLE__UNIQUES);
 
 		columnEClass = createEClass(COLUMN);
@@ -444,7 +444,7 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 		initEReference(getTable_Indexes(), this.getIndex(), null, "indexes", null, 0, -1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEAttribute(getTable_StorageEngine(), ecorePackage.getEString(), "storageEngine", "InnoDB", 1, 1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getTable_Collation(), ecorePackage.getEString(), "collation", "utf8_bin", 1, 1, Table.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getTable_PrimaryKeys(), this.getPrimaryKey(), null, "primaryKeys", null, 0, -1, Table.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
+		initEReference(getTable_PrimaryKey(), this.getPrimaryKey(), null, "primaryKey", null, 0, 1, Table.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 		initEReference(getTable_Uniques(), this.getUnique(), null, "uniques", null, 0, -1, Table.class, IS_TRANSIENT, IS_VOLATILE, !IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, IS_UNSETTABLE, IS_UNIQUE, IS_DERIVED, !IS_ORDERED);
 
 		op = addEOperation(tableEClass, this.getColumn(), "getColumn", 0, 1, IS_UNIQUE, IS_ORDERED);
@@ -487,10 +487,10 @@ public class DatabasePackageImpl extends EPackageImpl implements DatabasePackage
 	protected void createOCLAnnotations() {
 		String source = "http://www.eclipse.org/ocl/examples/OCL";		
 		addAnnotation
-		  (getTable_PrimaryKeys(), 
+		  (getTable_PrimaryKey(), 
 		   source, 
 		   new String[] {
-			 "derive", "self.indexes->select(e|e.oclIsTypeOf(PrimaryKey))"
+			 "derive", "self.indexes->any(e|e.oclIsTypeOf(PrimaryKey))"
 		   });		
 		addAnnotation
 		  (getTable_Uniques(), 

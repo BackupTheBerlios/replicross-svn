@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link database.Table#getIndexes <em>Indexes</em>}</li>
  *   <li>{@link database.Table#getStorageEngine <em>Storage Engine</em>}</li>
  *   <li>{@link database.Table#getCollation <em>Collation</em>}</li>
- *   <li>{@link database.Table#getPrimaryKeys <em>Primary Keys</em>}</li>
+ *   <li>{@link database.Table#getPrimaryKey <em>Primary Key</em>}</li>
  *   <li>{@link database.Table#getUniques <em>Uniques</em>}</li>
  * </ul>
  * </p>
@@ -144,32 +144,31 @@ public interface Table extends NamedElement {
 	void setCollation(String value);
 
 	/**
-	 * Returns the value of the '<em><b>Primary Keys</b></em>' reference list.
-	 * The list contents are of type {@link database.PrimaryKey}.
+	 * Returns the value of the '<em><b>Primary Key</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Primary Keys</em>' reference list isn't clear,
+	 * If the meaning of the '<em>Primary Key</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Primary Keys</em>' reference list.
-	 * @see #isSetPrimaryKeys()
-	 * @see database.DatabasePackage#getTable_PrimaryKeys()
+	 * @return the value of the '<em>Primary Key</em>' reference.
+	 * @see #isSetPrimaryKey()
+	 * @see database.DatabasePackage#getTable_PrimaryKey()
 	 * @model unsettable="true" transient="true" changeable="false" volatile="true" derived="true" ordered="false"
-	 *        annotation="http://www.eclipse.org/ocl/examples/OCL derive='self.indexes->select(e|e.oclIsTypeOf(PrimaryKey))'"
+	 *        annotation="http://www.eclipse.org/ocl/examples/OCL derive='self.indexes->any(e|e.oclIsTypeOf(PrimaryKey))'"
 	 * @generated
 	 */
-	EList<PrimaryKey> getPrimaryKeys();
+	PrimaryKey getPrimaryKey();
 
 	/**
-	 * Returns whether the value of the '{@link database.Table#getPrimaryKeys <em>Primary Keys</em>}' reference list is set.
+	 * Returns whether the value of the '{@link database.Table#getPrimaryKey <em>Primary Key</em>}' reference is set.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return whether the value of the '<em>Primary Keys</em>' reference list is set.
-	 * @see #getPrimaryKeys()
+	 * @return whether the value of the '<em>Primary Key</em>' reference is set.
+	 * @see #getPrimaryKey()
 	 * @generated
 	 */
-	boolean isSetPrimaryKeys();
+	boolean isSetPrimaryKey();
 
 	/**
 	 * Returns the value of the '<em><b>Uniques</b></em>' reference list.

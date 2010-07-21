@@ -266,7 +266,7 @@
     </children>
     <styles xmi:type="notation:ConnectorStyle" xmi:id="_3-Q4EY_mEd-PNtTi1ZGADQ" lineColor="0"/>
     <styles xmi:type="notation:FontStyle" xmi:id="_3-Q4Eo_mEd-PNtTi1ZGADQ" fontName="Lucida Grande" fontHeight="10"/>
-    <element xmi:type="ecore:EReference" href="DataBase.ecore#//Table/primaryKeys"/>
+    <element xmi:type="ecore:EReference" href="DataBase.ecore#//Table/primaryKey"/>
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_3-Q4E4_mEd-PNtTi1ZGADQ" points="[0, 5, -263, -205]$[0, 210, -263, 0]$[260, 210, -3, 0]"/>
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_3-YM0I_mEd-PNtTi1ZGADQ" id="(0.783625730994152,0.9444444444444444)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_3-YM0Y_mEd-PNtTi1ZGADQ" id="(0.0392156862745098,0.2857142857142857)"/>
