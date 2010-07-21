@@ -13,7 +13,6 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 
 import param.Param;
 import param.ParamPackage;
@@ -21,7 +20,6 @@ import param.ParamPackage;
 import database.Column;
 import database.DataBase;
 import database.DatabaseFactory;
-import database.DatabasePackage;
 import database.Index;
 import database.PrimaryKey;
 import database.Table;
@@ -45,6 +43,7 @@ public class SynchroStructure {
 	public static void main(String[] args) throws SQLException,
 			ClassNotFoundException, IOException, InterruptedException {
 		String hostModel, hostCible, DatabaseModel, DatabaseCible, UserModel, UserCible, passwordModel, passwordCible, rulesModelURI;
+		boolean check = false;
 		
 		hostModel = args[0];
 		DatabaseModel = args[1];
@@ -56,10 +55,16 @@ public class SynchroStructure {
 		UserCible = args[6];
 		passwordCible = args[7];
 
-		if(args.length==9)
-			rulesModelURI = args[8];
-		else
-			rulesModelURI=null;
+		rulesModelURI = null;
+			
+		for(int i=8;i<args.length;i++){
+			if(args[i].equals("-check"))
+				check = true;
+			else if(args[i].equals("-rules"))
+				rulesModelURI = args[++i];
+			else
+				System.out.println("Unknow option: "+args[i]);
+		}
 		
 //		hostModel = "localhost";
 //		DatabaseModel = "wrana";
@@ -70,7 +75,7 @@ public class SynchroStructure {
 //		DatabaseModel = "ana";
 //		UserModel = "brice";
 //		passwordModel = "bwensisal";
-		
+//		
 //		hostCible = "localhost";
 //		DatabaseCible =  "ana2";
 //		UserCible = "brice";
@@ -205,14 +210,14 @@ public class SynchroStructure {
 					}
 				}
 				
-				//PrimaryKeys
-				for(PrimaryKey pkey: table.getPrimaryKeys()){
-					PrimaryKey pkeyCible = (PrimaryKey)tableCible.getIndex(pkey.getName());
+				//PrimaryKey
+				if(table.getPrimaryKey()!=null){
+					PrimaryKey pkeyCible = (PrimaryKey)tableCible.getIndex(table.getPrimaryKey().getName());
 					if(pkeyCible == null){
 						pkeyCible = DatabaseFactory.eINSTANCE.createPrimaryKey();
-						pkeyCible.setName(pkey.getName());
+						pkeyCible.setName(table.getPrimaryKey().getName());
 						String cmd = "ALTER TABLE `" + tableCible.getName() + "` ADD PRIMARY KEY `" + "` (";
-						Iterator<Column> it = pkey.getColumns().iterator();
+						Iterator<Column> it = table.getPrimaryKey().getColumns().iterator();
 						while(it.hasNext()){
 							String name = it.next().getName();
 							cmd += name;
@@ -222,8 +227,8 @@ public class SynchroStructure {
 						}
 						cmd += ")";
 						queries.add(cmd);
-//						System.out.println(cmd);
-//						st.execute(cmd);
+//					System.out.println(cmd);
+//					st.execute(cmd);
 						tableCible.getIndexes().add(pkeyCible);
 					}
 				}
@@ -270,8 +275,13 @@ public class SynchroStructure {
 				tableCible.getIndexes().removeAll(toRemove);
 	
 			}
-
-			executeQueries(queries, st);
+			if(!check)
+				executeQueries(queries, st);
+			else{
+				System.out.println("Queries:");
+				for(String query: queries)
+					System.out.println(query);
+			}
 		}
 		
 		connCible.close();
@@ -291,8 +301,9 @@ public class SynchroStructure {
 			char command = line.charAt(0);
 			switch (command) {
 			case 'Y' : case 'y' : 
-				for(String query: queries)
+				for(String query: queries){
 					st.execute(query);
+				}
 				loop = false;
 				break;
 			case 'N' : case 'n' : loop = false; break;

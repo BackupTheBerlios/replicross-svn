@@ -20,9 +20,7 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceFactoryImpl;
 
 import database.Column;
 import database.DataBase;
-import database.DatabasePackage;
 import database.Index;
-import database.PrimaryKey;
 import database.Table;
 import database.Unique;
 
@@ -54,37 +52,35 @@ public class Utils {
 		return resource.getContents().toArray( new EObject [resource.getContents().size()]);
 	}
 	
-	/**
-	 * compare 2 EObjects
-	 * 
-	 * @param src first EObject to compare
-	 * @param tgt second EObject to compare
-	 * @return true if EObjects are matching, otherwise false
-	 * @throws InterruptedException
-	 */
-	public static boolean compareEObjects(EObject src, EObject tgt) throws InterruptedException{		
-		HashMap<String, Object> options = new HashMap<String,Object>();
-		//options.put("OPTION_IGNORE_ID", Boolean.FALSE);
-		MatchModel match = MatchService.doContentMatch(src, tgt, Collections.<String, Object> emptyMap());
-		DiffModel diff = DiffService.doDiff(match, false);
-		for(DiffElement de: diff.getDifferences())
-			System.out.println(de.toString());
-		int diffs = getSubchanges(diff);
-		if (diffs>0) 
-			return false;
-		return true;
-	}
-	
-	protected static int getSubchanges(DiffModel self) {
-		int subChanges = 0;
-		for (DiffElement diff : self.getOwnedElements()) {
-			if (diff instanceof DiffGroup) 
-				subChanges += ((DiffGroup)diff).getSubchanges();
-			else
-				subChanges += 1;
-		}
-		return subChanges;
-	}
+//	/**
+//	 * compare 2 EObjects
+//	 * 
+//	 * @param src first EObject to compare
+//	 * @param tgt second EObject to compare
+//	 * @return true if EObjects are matching, otherwise false
+//	 * @throws InterruptedException
+//	 */
+//	public static boolean compareEObjects(EObject src, EObject tgt) throws InterruptedException{
+//		MatchModel match = MatchService.doContentMatch(src, tgt, Collections.<String, Object> emptyMap());
+//		DiffModel diff = DiffService.doDiff(match, false);
+//		for(DiffElement de: diff.getDifferences())
+//			System.out.println(de.toString());
+//		int diffs = getSubchanges(diff);
+//		if (diffs>0) 
+//			return false;
+//		return true;
+//	}
+//	
+//	protected static int getSubchanges(DiffModel self) {
+//		int subChanges = 0;
+//		for (DiffElement diff : self.getOwnedElements()) {
+//			if (diff instanceof DiffGroup) 
+//				subChanges += ((DiffGroup)diff).getSubchanges();
+//			else
+//				subChanges += 1;
+//		}
+//		return subChanges;
+//	}
 	
 	public static boolean compareDataBases(DataBase src, DataBase tgt){
 		for(Table tableSrc: src.getTables()){
@@ -103,7 +99,7 @@ public class Utils {
 				|| !src.getCollation().equals(tgt.getCollation())
 				|| src.getColumns().size()!=tgt.getColumns().size()
 				|| src.getIndexes().size()!=tgt.getIndexes().size()
-				|| src.getPrimaryKeys().size()!=tgt.getPrimaryKeys().size()
+				|| !compareIndex(src.getPrimaryKey(),tgt.getPrimaryKey())
 				|| src.getUniques().size()!=tgt.getUniques().size())
 			return false;
 		for(int i=0;i<src.getColumns().size();i++){
@@ -114,13 +110,6 @@ public class Utils {
 			boolean allCorrect = false;
 			for(Index indexTgt: tgt.getIndexes())
 				allCorrect |= compareIndex(indexSrc, indexTgt);
-			if(!allCorrect)
-				return false;
-		}
-		for(PrimaryKey pkeySrc: src.getPrimaryKeys()){
-			boolean allCorrect = false;
-			for(PrimaryKey pkeyTgt: tgt.getPrimaryKeys())
-				allCorrect |= compareIndex(pkeySrc, pkeyTgt);
 			if(!allCorrect)
 				return false;
 		}
@@ -140,7 +129,7 @@ public class Utils {
 				|| (src.getLength()!=tgt.getLength())
 				|| !src.getCollation().equals(tgt.getCollation())
 				|| (src.isNullable()!=tgt.isNullable())
-				|| ((src.getDefault()!=null && tgt.getDefault()!=null) && !src.getDefault().equals(tgt.getDefault()))){
+				|| (src.getDefault()==null)?((tgt.getDefault()==null)?false:true): !src.getDefault().equals(tgt.getDefault())){
 			return false;
 		}
 		return true;

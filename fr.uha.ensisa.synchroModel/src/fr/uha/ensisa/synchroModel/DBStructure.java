@@ -3,7 +3,9 @@ package fr.uha.ensisa.synchroModel;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +59,27 @@ public class DBStructure {
 				null, null);
 		while (tablesRS.next()) {
 			String tableName = tablesRS.getString("TABLE_NAME");
+			
+			Statement st = targetConn.createStatement();
+			ResultSet rsTest = st.executeQuery("SELECT * FROM "+tableName+" LIMIT 1");
 
+			ResultSetMetaData rsmd = rsTest.getMetaData();
+			for(int i=1;i<=rsmd.getColumnCount();i++){
+//				System.out.println(rsmd.getPrecision(i));
+//				System.out.println(rsmd.getCatalogName(i));
+//				System.out.println(rsmd.getColumnClassName(i));
+//				System.out.println(rsmd.getColumnDisplaySize(i));
+//				System.out.println(rsmd.getColumnLabel(i));
+//				System.out.println(rsmd.getColumnName(i));
+//				System.out.println(rsmd.getColumnType(i));
+//				System.out.println(rsmd.getColumnTypeName(i));
+//				System.out.println(rsmd.getScale(i));
+//				System.out.println(rsmd.getSchemaName(i));
+//				System.out.println(rsmd.getTableName(i));
+			}
+				
+			//System.out.println(rsmd.toString());
+			
 			if(!constrained || !(positive^names.contains(tableName))){
 				// table
 				Table table = DatabaseFactory.eINSTANCE.createTable();
@@ -67,53 +89,21 @@ public class DBStructure {
 				// Columns
 				ResultSet columnsRS = targetConn.getMetaData().getColumns(null,
 						null, tableName, null);
+				int i=1;
 				while (columnsRS.next()) {
 					Column column = DatabaseFactory.eINSTANCE.createColumn();
 					column.setName(columnsRS.getString("COLUMN_NAME"));
-					column.setType(columnsRS.getString("TYPE_NAME"));
+					column.setType(rsmd.getColumnTypeName(i));
+					column.setDefault(columnsRS.getString("COLUMN_DEF"));
 					switch(columnsRS.getInt("DATA_TYPE")){
-						case -7: // BIT
-							if(columnsRS.getString("COLUMN_DEF")!=null){
-								column.setType("TINYINT");
-								column.setDefault(columnsRS.getString("COLUMN_DEF"));
-							}
-							column.setLength(columnsRS.getInt("COLUMN_SIZE")+1);
-							break;
-						case -6: // TINYINT
-							column.setLength(columnsRS.getInt("COLUMN_SIZE"));
-							column.setDefault(columnsRS.getString("COLUMN_DEF"));
-							break;
-						case -5: // BIGINT
-							column.setLength(columnsRS.getInt("COLUMN_SIZE")+1);
-							column.setDefault(columnsRS.getString("COLUMN_DEF"));
-							break;
 						case -4: // LONGBLOB
-							column.setLength(0);
-							column.setDefault(columnsRS.getString("COLUMN_DEF"));
-							break;
-						case 4: // INT
-							column.setLength(columnsRS.getInt("COLUMN_SIZE")+1);
-							column.setDefault(columnsRS.getString("COLUMN_DEF"));
-							break;
-						case 5: // SMALLINT
-							column.setLength(columnsRS.getInt("COLUMN_SIZE")+1);
-							column.setDefault(columnsRS.getString("COLUMN_DEF"));
-							break;
 						case 8: // DOUBLE
-							column.setLength(0);
-							column.setDefault(columnsRS.getString("COLUMN_DEF"));
-							break;
 						case 91: // DATE
-							column.setLength(0);
-							column.setDefault(columnsRS.getString("COLUMN_DEF"));
-							break;
 						case 92: // TIME
 							column.setLength(0);
-							column.setDefault(columnsRS.getString("COLUMN_DEF"));
 							break;
 						default: // OTHER TYPES
-							column.setLength(columnsRS.getInt("COLUMN_SIZE"));
-							column.setDefault(columnsRS.getString("COLUMN_DEF"));
+							column.setLength(rsmd.getColumnDisplaySize(i));
 							break;
 					}
 					if (columnsRS.getInt("NULLABLE") == DatabaseMetaData.columnNullable)
@@ -121,6 +111,7 @@ public class DBStructure {
 					else
 						column.setNullable(false);
 					table.getColumns().add(column);
+					i++;
 				}
 	
 				// indexes
