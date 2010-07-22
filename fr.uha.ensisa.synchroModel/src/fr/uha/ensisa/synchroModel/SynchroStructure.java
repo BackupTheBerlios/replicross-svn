@@ -27,7 +27,7 @@ import database.Unique;
 
 /**
  * 
- * @author MESSARA Aghilas
+ * @author MESSARA Aghilas & WITTMANN Brice
  * 
  */
 
@@ -45,15 +45,15 @@ public class SynchroStructure {
 		String hostModel, hostCible, DatabaseModel, DatabaseCible, UserModel, UserCible, passwordModel, passwordCible, rulesModelURI;
 		boolean check = false;
 		
-//		hostModel = args[0];
-//		DatabaseModel = args[1];
-//		UserModel = args[2];
-//		passwordModel = args[3];
-//		
-//		hostCible = args[4];
-//		DatabaseCible =  args[5];
-//		UserCible = args[6];
-//		passwordCible = args[7];
+		hostModel = args[0];
+		DatabaseModel = args[1];
+		UserModel = args[2];
+		passwordModel = args[3];
+		
+		hostCible = args[4];
+		DatabaseCible =  args[5];
+		UserCible = args[6];
+		passwordCible = args[7];
 
 		rulesModelURI = null;
 			
@@ -81,15 +81,15 @@ public class SynchroStructure {
 //		UserModel = "wrana";
 //		passwordModel = "wanar";
 		
-		hostModel = "localhost";
-		DatabaseModel = "ana";
-		UserModel = "brice";
-		passwordModel = "bwensisal";
-		
-		hostCible = "localhost";
-		DatabaseCible =  "ana2";
-		UserCible = "brice";
-		passwordCible = "bwensisal";
+//		hostModel = "localhost";
+//		DatabaseModel = "ana";
+//		UserModel = "brice";
+//		passwordModel = "bwensisal";
+//		
+//		hostCible = "localhost";
+//		DatabaseCible =  "ana2";
+//		UserCible = "brice";
+//		passwordCible = "bwensisal";
 //		
 //		rulesModelURI = "model/rules.xmi";
 		Param p = null;
