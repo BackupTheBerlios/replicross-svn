@@ -197,7 +197,6 @@ public class SynchroStructure {
 							indexCible = DatabaseFactory.eINSTANCE.createIndex();
 						}
 						indexCible.setName(index.getName());
-						System.out.println(indexCible);
 						Iterator<Column> it = index.getColumns().iterator();
 						while(it.hasNext()){
 							String name = it.next().getName();
