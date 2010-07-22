@@ -45,15 +45,15 @@ public class SynchroStructure {
 		String hostModel, hostCible, DatabaseModel, DatabaseCible, UserModel, UserCible, passwordModel, passwordCible, rulesModelURI;
 		boolean check = false;
 		
-		hostModel = args[0];
-		DatabaseModel = args[1];
-		UserModel = args[2];
-		passwordModel = args[3];
-		
-		hostCible = args[4];
-		DatabaseCible =  args[5];
-		UserCible = args[6];
-		passwordCible = args[7];
+//		hostModel = args[0];
+//		DatabaseModel = args[1];
+//		UserModel = args[2];
+//		passwordModel = args[3];
+//		
+//		hostCible = args[4];
+//		DatabaseCible =  args[5];
+//		UserCible = args[6];
+//		passwordCible = args[7];
 
 		rulesModelURI = null;
 			
@@ -67,19 +67,29 @@ public class SynchroStructure {
 		}
 		
 //		hostModel = "localhost";
-//		DatabaseModel = "wrana";
-//		UserModel = "wrana";
-//		passwordModel = "wanar";
-		
-//		hostModel = "localhost";
-//		DatabaseModel = "ana";
+//		DatabaseModel = "ivid";
 //		UserModel = "brice";
 //		passwordModel = "bwensisal";
 //		
 //		hostCible = "localhost";
-//		DatabaseCible =  "ana2";
+//		DatabaseCible =  "test-deploy";
 //		UserCible = "brice";
 //		passwordCible = "bwensisal";
+		
+//		hostModel = "localhost";
+//		DatabaseModel = "wrana";
+//		UserModel = "wrana";
+//		passwordModel = "wanar";
+		
+		hostModel = "localhost";
+		DatabaseModel = "ana";
+		UserModel = "brice";
+		passwordModel = "bwensisal";
+		
+		hostCible = "localhost";
+		DatabaseCible =  "ana2";
+		UserCible = "brice";
+		passwordCible = "bwensisal";
 //		
 //		rulesModelURI = "model/rules.xmi";
 		Param p = null;
@@ -187,76 +197,50 @@ public class SynchroStructure {
 				
 				//Indexes
 				for(Index index : table.getIndexes()){
-					if(!(index instanceof PrimaryKey) &&!(index instanceof Unique)){
-						Index indexCible = tableCible.getIndex(index.getName());
-						if(indexCible == null){
-							indexCible = DatabaseFactory.eINSTANCE.createIndex();
-							indexCible.setName(index.getName());
-							String cmd = "CREATE INDEX `" + index.getName() + "` ON `" + table.getName() + "` (";
-							Iterator<Column> it = index.getColumns().iterator();
-							while(it.hasNext()){
-								String name = it.next().getName();
-								cmd += name;
-								if(it.hasNext())
-									cmd += ", ";
-								indexCible.getColumns().add(tableCible.getColumn(name));
+					Index indexCible = tableCible.getIndex(index.getName());
+					if(!(indexCible!=null && Utils.compareIndex(index, indexCible))){
+						String cmd = "";
+						if(index instanceof PrimaryKey){
+							cmd = "ALTER TABLE `" + tableCible.getName() + "`";
+							if(indexCible!=null){
+								cmd += " DROP PRIMARY KEY,";
 							}
-							cmd += ")";
-							queries.add(cmd);
-//							System.out.println(cmd);
-//							st.execute(cmd);
-							tableCible.getIndexes().add(indexCible);
+							cmd += " ADD PRIMARY KEY (";
+							indexCible = DatabaseFactory.eINSTANCE.createPrimaryKey();
+						}else if(index instanceof Unique){
+							cmd = "ALTER TABLE `" + tableCible.getName() + "`";
+							if(indexCible!=null){
+								cmd += " DROP INDEX `" + index.getName() + "`,";
+							}
+							cmd += " ADD UNIQUE `" + index.getName() + "` (";
+							indexCible = DatabaseFactory.eINSTANCE.createUnique();
+						}else{
+							cmd = "ALTER TABLE `" + tableCible.getName() + "`";
+							if(indexCible!=null){
+								cmd += " DROP INDEX `" + index.getName() + "`,";
+							}
+							cmd += " ADD INDEX `" + index.getName() + "` (";
+							indexCible = DatabaseFactory.eINSTANCE.createIndex();
 						}
-					}
-				}
-				
-				//PrimaryKey
-				if(table.getPrimaryKey()!=null){
-					PrimaryKey pkeyCible = (PrimaryKey)tableCible.getIndex(table.getPrimaryKey().getName());
-					if(pkeyCible == null){
-						pkeyCible = DatabaseFactory.eINSTANCE.createPrimaryKey();
-						pkeyCible.setName(table.getPrimaryKey().getName());
-						String cmd = "ALTER TABLE `" + tableCible.getName() + "` ADD PRIMARY KEY `" + "` (";
-						Iterator<Column> it = table.getPrimaryKey().getColumns().iterator();
+						indexCible.setName(index.getName());
+						System.out.println(indexCible);
+						Iterator<Column> it = index.getColumns().iterator();
 						while(it.hasNext()){
 							String name = it.next().getName();
 							cmd += name;
 							if(it.hasNext())
 								cmd += ", ";
-							pkeyCible.getColumns().add(tableCible.getColumn(name));
-						}
-						cmd += ")";
-						queries.add(cmd);
-//					System.out.println(cmd);
-//					st.execute(cmd);
-						tableCible.getIndexes().add(pkeyCible);
-					}
-				}
-				
-				//Uniques
-				for(Unique unique: table.getUniques()){
-					Unique uniqueCible = (Unique)tableCible.getIndex(unique.getName());
-					if(uniqueCible == null){
-						uniqueCible = DatabaseFactory.eINSTANCE.createUnique();
-						uniqueCible.setName(unique.getName());
-						String cmd = "ALTER TABLE `" + tableCible.getName() + "` ADD UNIQUE `" + unique.getName() + "` (";
-						Iterator<Column> it = unique.getColumns().iterator();
-						while(it.hasNext()){
-							String name = it.next().getName();
-							cmd += name;
-							if(it.hasNext())
-								cmd += ", ";
-							uniqueCible.getColumns().add(tableCible.getColumn(name));
+							indexCible.getColumns().add(tableCible.getColumn(name));
 						}
 						cmd += ")";
 						queries.add(cmd);
 //						System.out.println(cmd);
 //						st.execute(cmd);
-						tableCible.getIndexes().add(uniqueCible);
+						tableCible.getIndexes().add(indexCible);
 					}
 				}
 				
-				//Remove keys
+				//Remove indexes
 				List<Index> toRemove = new ArrayList<Index>();
 				for(Index index: tableCible.getIndexes()){
 					if(table.getIndex(index.getName())==null){

@@ -2,15 +2,8 @@ package fr.uha.ensisa.synchroModel;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.HashMap;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.compare.diff.metamodel.DiffElement;
-import org.eclipse.emf.compare.diff.metamodel.DiffGroup;
-import org.eclipse.emf.compare.diff.metamodel.DiffModel;
-import org.eclipse.emf.compare.diff.service.DiffService;
-import org.eclipse.emf.compare.match.metamodel.MatchModel;
-import org.eclipse.emf.compare.match.service.MatchService;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -82,6 +75,14 @@ public class Utils {
 //		return subChanges;
 //	}
 	
+	
+	/**
+	 * compare 2 DataBase objects
+	 * 
+	 * @param src first database
+	 * @param tgt second database
+	 * @return true if databases are similars, otherwise false
+	 */
 	public static boolean compareDataBases(DataBase src, DataBase tgt){
 		for(Table tableSrc: src.getTables()){
 			boolean allCorrect = false;
@@ -93,13 +94,20 @@ public class Utils {
 		return true;
 	}
 	
+	/**
+	 * compare 2 Table objects
+	 * 
+	 * @param src first table
+	 * @param tgt second table
+	 * @return true if tables are similars, otherwise false
+	 */
 	public static boolean compareTables(Table src, Table tgt){
 		if(!src.getName().equals(tgt.getName())
 				|| !src.getStorageEngine().equals(tgt.getStorageEngine())
 				|| !src.getCollation().equals(tgt.getCollation())
 				|| src.getColumns().size()!=tgt.getColumns().size()
 				|| src.getIndexes().size()!=tgt.getIndexes().size()
-				|| !compareIndex(src.getPrimaryKey(),tgt.getPrimaryKey())
+				|| ((src.getPrimaryKey()==null)?((tgt.getPrimaryKey()==null)?false:true):!compareIndex(src.getPrimaryKey(),tgt.getPrimaryKey()))
 				|| src.getUniques().size()!=tgt.getUniques().size())
 			return false;
 		for(int i=0;i<src.getColumns().size();i++){
@@ -123,21 +131,36 @@ public class Utils {
 		return true;
 	}
 	
+	/**
+	 * compare 2 Column objects
+	 * 
+	 * @param src first column
+	 * @param tgt second column
+	 * @return true if columns are similars, otherwise false
+	 */
 	public static boolean compareColumns(Column src, Column tgt){
 		if(!src.getName().equals(tgt.getName())
 				|| !src.getType().equals(tgt.getType())
 				|| (src.getLength()!=tgt.getLength())
 				|| !src.getCollation().equals(tgt.getCollation())
 				|| (src.isNullable()!=tgt.isNullable())
-				|| (src.getDefault()==null)?((tgt.getDefault()==null)?false:true): !src.getDefault().equals(tgt.getDefault())){
+				|| ((src.getDefault()==null)?((tgt.getDefault()==null)?false:true): !src.getDefault().equals(tgt.getDefault()))){
 			return false;
 		}
 		return true;
 	}
 	
+	/**
+	 * compare 2 Index objects
+	 * 
+	 * @param src first index
+	 * @param tgt second index
+	 * @return true if indexes are similars, otherwise false
+	 */
 	public static boolean compareIndex(Index src, Index tgt){
 		if(!src.getName().equals(tgt.getName())
-				|| src.getColumns().size()!=tgt.getColumns().size())
+				|| src.getColumns().size()!=tgt.getColumns().size()
+				|| !src.eClass().equals(tgt.eClass()))
 			return false;
 		for(Column columnSrc: src.getColumns()){
 			boolean allCorrect = false;

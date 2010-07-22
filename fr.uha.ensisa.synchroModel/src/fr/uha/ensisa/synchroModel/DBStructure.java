@@ -9,8 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.text.StyleContext.SmallAttributeSet;
-
 import param.Param;
 import param.Rule;
 
@@ -62,23 +60,7 @@ public class DBStructure {
 			
 			Statement st = targetConn.createStatement();
 			ResultSet rsTest = st.executeQuery("SELECT * FROM "+tableName+" LIMIT 1");
-
 			ResultSetMetaData rsmd = rsTest.getMetaData();
-			for(int i=1;i<=rsmd.getColumnCount();i++){
-//				System.out.println(rsmd.getPrecision(i));
-//				System.out.println(rsmd.getCatalogName(i));
-//				System.out.println(rsmd.getColumnClassName(i));
-//				System.out.println(rsmd.getColumnDisplaySize(i));
-//				System.out.println(rsmd.getColumnLabel(i));
-//				System.out.println(rsmd.getColumnName(i));
-//				System.out.println(rsmd.getColumnType(i));
-//				System.out.println(rsmd.getColumnTypeName(i));
-//				System.out.println(rsmd.getScale(i));
-//				System.out.println(rsmd.getSchemaName(i));
-//				System.out.println(rsmd.getTableName(i));
-			}
-				
-			//System.out.println(rsmd.toString());
 			
 			if(!constrained || !(positive^names.contains(tableName))){
 				// table
@@ -148,15 +130,6 @@ public class DBStructure {
 				}
 				if (pkey.getColumns().size() != 0)
 					table.getIndexes().add(pkey);
-	
-				// foreignKeys
-				/*
-				 * ResultSet foreignKeys =
-				 * targetConn.getMetaData().getExportedKeys(null, null, tableName);
-				 * while(foreignKeys.next()){ System.out.println(tableName +
-				 * " ForeignKey : " + foreignKeys.getString("FK_NAME") + " " +
-				 * foreignKeys.getString("UPDATE_RULE")); }
-				 */
 	
 				database.getTables().add(table);
 			}
