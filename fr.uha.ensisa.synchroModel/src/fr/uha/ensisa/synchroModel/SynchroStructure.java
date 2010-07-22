@@ -66,32 +66,6 @@ public class SynchroStructure {
 				System.out.println("Unknow option: "+args[i]);
 		}
 		
-//		hostModel = "localhost";
-//		DatabaseModel = "ivid";
-//		UserModel = "brice";
-//		passwordModel = "bwensisal";
-//		
-//		hostCible = "localhost";
-//		DatabaseCible =  "test-deploy";
-//		UserCible = "brice";
-//		passwordCible = "bwensisal";
-		
-//		hostModel = "localhost";
-//		DatabaseModel = "wrana";
-//		UserModel = "wrana";
-//		passwordModel = "wanar";
-		
-//		hostModel = "localhost";
-//		DatabaseModel = "ana";
-//		UserModel = "brice";
-//		passwordModel = "bwensisal";
-//		
-//		hostCible = "localhost";
-//		DatabaseCible =  "ana2";
-//		UserCible = "brice";
-//		passwordCible = "bwensisal";
-//		
-//		rulesModelURI = "model/rules.xmi";
 		Param p = null;
 		if(rulesModelURI!=null)
 			p = (Param)Utils.loadModel(URI.createFileURI(new File(rulesModelURI).getAbsolutePath()), ParamPackage.eINSTANCE)[0];
