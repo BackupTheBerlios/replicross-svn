@@ -2,19 +2,9 @@
 <param:Param xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:param="http://param/1.0" xsi:schemaLocation="http://param/1.0 ../../fr.uha.ensisa.DBSynchro/src/fr/uha/ensisa/DBSynchro/Param.ecore">
   <rules>
     <tables name="cookieid"/>
-    <tables name="element"/>
-    <tables name="element_page_"/>
-    <tables name="identifiable"/>
-    <tables name="identitydatum"/>
-    <tables name="identitydatum_visit_"/>
-    <tables name="mousetrace"/>
-    <tables name="mousetrace_pagevisit_"/>
-    <tables name="page"/>
     <tables name="pagevisit"/>
-    <tables name="polarization"/>
     <tables name="pole"/>
     <tables name="polevalue"/>
-    <tables name="timestamped"/>
     <tables name="visit"/>
   </rules>
 </param:Param>
