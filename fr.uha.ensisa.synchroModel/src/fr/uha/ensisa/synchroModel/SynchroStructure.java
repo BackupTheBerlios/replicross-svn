@@ -179,21 +179,21 @@ public class SynchroStructure {
 							if(indexCible!=null){
 								cmd += " DROP PRIMARY KEY,";
 							}
-							cmd += " ADD PRIMARY KEY (";
+							cmd += " ADD PRIMARY KEY (`";
 							indexCible = DatabaseFactory.eINSTANCE.createPrimaryKey();
 						}else if(index instanceof Unique){
 							cmd = "ALTER TABLE `" + tableCible.getName() + "`";
 							if(indexCible!=null){
 								cmd += " DROP INDEX `" + index.getName() + "`,";
 							}
-							cmd += " ADD UNIQUE `" + index.getName() + "` (";
+							cmd += " ADD UNIQUE `" + index.getName() + "` (`";
 							indexCible = DatabaseFactory.eINSTANCE.createUnique();
 						}else{
 							cmd = "ALTER TABLE `" + tableCible.getName() + "`";
 							if(indexCible!=null){
 								cmd += " DROP INDEX `" + index.getName() + "`,";
 							}
-							cmd += " ADD INDEX `" + index.getName() + "` (";
+							cmd += " ADD INDEX `" + index.getName() + "` (`";
 							indexCible = DatabaseFactory.eINSTANCE.createIndex();
 						}
 						indexCible.setName(index.getName());
@@ -202,10 +202,10 @@ public class SynchroStructure {
 							String name = it.next().getName();
 							cmd += name;
 							if(it.hasNext())
-								cmd += ", ";
+								cmd += "`, `";
 							indexCible.getColumns().add(tableCible.getColumn(name));
 						}
-						cmd += ")";
+						cmd += "`)";
 						queries.add(cmd);
 //						System.out.println(cmd);
 //						st.execute(cmd);
