@@ -59,7 +59,7 @@ public class DBStructure {
 			String tableName = tablesRS.getString("TABLE_NAME");
 			
 			Statement st = targetConn.createStatement();
-			ResultSet rsTest = st.executeQuery("SELECT * FROM "+tableName+" LIMIT 1");
+			ResultSet rsTest = st.executeQuery("SELECT * FROM `"+tableName+"` LIMIT 1");
 			ResultSetMetaData rsmd = rsTest.getMetaData();
 			
 			if(!constrained || !(positive^names.contains(tableName))){
