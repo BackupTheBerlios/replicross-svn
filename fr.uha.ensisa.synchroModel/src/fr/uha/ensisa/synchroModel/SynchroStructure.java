@@ -43,7 +43,12 @@ public class SynchroStructure {
 	public static void main(String[] args) throws SQLException,
 			ClassNotFoundException, IOException, InterruptedException {
 		String hostModel, hostCible, DatabaseModel, DatabaseCible, UserModel, UserCible, passwordModel, passwordCible, rulesModelURI;
-		boolean check = false;
+		boolean check = false, force = false, help = false;
+		
+		if(args.length<8){
+			displayHelpMenu();
+			System.exit(0);
+		}
 		
 		hostModel = args[0];
 		DatabaseModel = args[1];
@@ -58,12 +63,23 @@ public class SynchroStructure {
 		rulesModelURI = null;
 			
 		for(int i=8;i<args.length;i++){
-			if(args[i].equals("-check"))
+			if(args[i].equals("-check")){
 				check = true;
+			}
+			else if(args[i].equals("-force")){
+				force = true;
+			}
 			else if(args[i].equals("-rules"))
 				rulesModelURI = args[++i];
+			else if(args[i].equals("-help"))
+				help = true;
 			else
 				System.out.println("Unknow option: "+args[i]);
+		}
+		
+		if((force && check) || help){
+			displayHelpMenu();
+			System.exit(0);
 		}
 		
 		Param p = null;
@@ -232,13 +248,18 @@ public class SynchroStructure {
 				tableCible.getIndexes().removeAll(toRemove);
 	
 			}
-			if(!check)
-				executeQueries(queries, st);
-			else{
+			if(check){
 				System.out.println("Queries:");
 				for(String query: queries)
 					System.out.println(query);
 			}
+			else if(force){
+				for(String query: queries)
+					st.execute(query);
+				System.out.println("DONE");
+			}
+			else
+				executeQueries(queries, st);
 		}
 		
 		connCible.close();
@@ -269,6 +290,20 @@ public class SynchroStructure {
 		}
 		input.close();
 		System.out.println("DONE");
+	}
+	
+	private static void displayHelpMenu(){
+		System.out.println("Usage: java replicross.jar sourceHost sourceDatabase sourceUser sourcePassword targetHost targetDatabase targetUser targetPassword [-force | -check | -rules rulesModel.xmi]");
+		System.out.println("sourceHost, targetHost: host of the database (i.g. localhost)");
+		System.out.println("sourceDatabase, targetDatabase: names of the databases to compare");
+		System.out.println("sourceUser, targetUser: login of users of each database");
+		System.out.println("sourcePassword, targetPassword: passwords of users of each database");
+		System.out.println("force: run the synchronization of the databases without asking if changes should be applied or not");
+		System.out.println("check: display only the differences between the 2 databases, without applying any changes");
+		System.out.println("rules rulesModel.xmi: it is also possible to take account of only some tables of the source database in the comparison. A rules model can be established in order to determine which tables will be used in the database synchronisation. This model must conform to Param.ecore metalodel (available in the SVN of the Replicross project)");
+		System.out.println();
+		System.out.println("If nor force option, neither check option are mentioned, the program displays the queries to execute and asks the user if these queries can be executed or not");
+		System.out.println("On the other hand, if both force and check options are mentioned, the program does nothing");
 	}
 	
 }
