@@ -117,6 +117,7 @@ public class SynchroStructure {
 					else
 						cmd += "NOT NULL)";
 					cmd += " ENGINE = " + table.getStorageEngine();
+					cmd += " CHARACTER SET utf8 COLLATE utf8_bin";
 					queries.add(cmd);
 //					System.out.println(cmd);
 //					st.execute(cmd);
