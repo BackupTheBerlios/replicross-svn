@@ -85,11 +85,13 @@ public class DBCopy {
 			for (Table srcTable : src.getTables()) {
 				Table dstTable = tgt.getTable(srcTable.getName());
 				if (dstTable == null) {
-					ret.addError("Unknown target table " + srcTable.getName());
-					TableNotFound tnf = LogmodelFactory.eINSTANCE.createTableNotFound();
-					tnf.setTableName(srcTable.getName());
-					tnf.setRule(rule);
-					log.getErrors().add(tnf);
+					if (tables == null) {
+						ret.addError("Unknown target table " + srcTable.getName());
+						TableNotFound tnf = LogmodelFactory.eINSTANCE.createTableNotFound();
+						tnf.setTableName(srcTable.getName());
+						tnf.setRule(rule);
+						log.getErrors().add(tnf);
+					}
 				} else {
 					long size = srcTable.getSize();
 					if ((tables == null || tables.contains(dstTable)) && (!ifDiffer || this.differInSize(srcTable, dstTable))) { //InnoDB is APPROXIMATE in counting rows. Assuming a 20% difference.
@@ -138,7 +140,7 @@ public class DBCopy {
 												fst = false;
 											else
 												vals += ',';
-											val = val.replace("'", "\'");
+											val = val.replace("'", "''");
 											vals += '`' + col.getName() + '`' + " = " + '\'' + val + '\'';
 										}
 									}
