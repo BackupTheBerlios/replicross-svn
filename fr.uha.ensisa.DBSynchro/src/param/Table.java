@@ -54,6 +54,7 @@ public interface Table extends EObject {
 
 	/**
 	 * Returns the value of the '<em><b>Update</b></em>' attribute.
+	 * The default value is <code>"true"</code>.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Update</em>' attribute isn't clear,
@@ -63,7 +64,7 @@ public interface Table extends EObject {
 	 * @return the value of the '<em>Update</em>' attribute.
 	 * @see #setUpdate(boolean)
 	 * @see param.ParamPackage#getTable_Update()
-	 * @model
+	 * @model default="true"
 	 * @generated
 	 */
 	boolean isUpdate();

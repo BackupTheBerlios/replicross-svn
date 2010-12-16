@@ -59,7 +59,7 @@ public class TableImpl extends EObjectImpl implements Table {
 	 * @generated
 	 * @ordered
 	 */
-	protected static final boolean UPDATE_EDEFAULT = false;
+	protected static final boolean UPDATE_EDEFAULT = true;
 
 	/**
 	 * The cached value of the '{@link #isUpdate() <em>Update</em>}' attribute.

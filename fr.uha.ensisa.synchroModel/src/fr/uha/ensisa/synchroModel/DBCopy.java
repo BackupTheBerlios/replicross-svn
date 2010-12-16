@@ -36,6 +36,12 @@ public class DBCopy {
 	    sourceConn = DriverManager.getConnection(rule.getSource().getUrl(), rule.getSource().getUsers().get(0).getUserName(), rule.getSource().getUsers().get(0).getPass());
 	    targetConn = DriverManager.getConnection(rule.getTarget().getUrl(), rule.getTarget().getUsers().get(0).getUserName(), rule.getTarget().getUsers().get(0).getPass());
 	}
+	
+	public DBCopy(Rule rule, Connection sourceConn, Connection targetConn) throws ClassNotFoundException, SQLException {
+	    Class.forName("com.mysql.jdbc.Driver");
+	    this.sourceConn = sourceConn;
+	    this.targetConn = targetConn;
+	}
 
 	public void close() throws SQLException {
 		try {
@@ -210,31 +216,33 @@ public class DBCopy {
 		EList<Rule> rules = ((param.impl.ParamImpl) parametres[0]).getRules();
 		Log log = LogmodelFactory.eINSTANCE.createLog();
 		 
+		copy(rules, log, null, null);
+	}
+
+	public static void copy(EList<Rule> rules, Log log, Connection srcConn, Connection tgtConn) {
 		DBCopy cop;
 		try {
 			for (Rule rule : rules) {
-				if (parametres.equals(null)) {
-					System.out.println("No parametres found!!");
-				} else {
-					cop = new DBCopy(rule);
-					CopyResult res = null;
-					if (rule.isAll()) {
-						res = cop.override(rule, log);
-					} else if (rule.isCheck()) {
-						Set<Table> diff = cop.checkSourceAndTargetSize();
-						if (diff.isEmpty())
-							System.out.println("No difference found.");
-						else {
-							for (Table table : diff) {
-								System.out.println("Table " + table.getName() + " is outdated." );
-							}
+				cop = srcConn == null ? new DBCopy(rule) : new DBCopy(rule, srcConn, tgtConn);
+				CopyResult res = null;
+				if (rule.isAll()) {
+					res = cop.override(rule, log);
+				} else if (rule.isCheck()) {
+					Set<Table> diff = cop.checkSourceAndTargetSize();
+					if (diff.isEmpty())
+						System.out.println("No difference found.");
+					else {
+						for (Table table : diff) {
+							System.out.println("Table " + table.getName() + " is outdated." );
 						}
-					} else if (rule.isRepair()) {
-						res = cop.override(true, null, false, rule, log);
-					} else if (!rule.getTables().isEmpty()) {
-						Database target = cop.getTarget();
-						Set<Table> tbd = new HashSet<Table>();
-						for (param.Table table : rule.getTables()) {
+					}
+				} else if (rule.isRepair()) {
+					res = cop.override(true, null, false, rule, log);
+				} else if (!rule.getTables().isEmpty()) {
+					Database target = cop.getTarget();
+					Set<Table> tbd = new HashSet<Table>();
+					for (param.Table table : rule.getTables()) {
+						if (table.isUpdate()) {
 							String tbName = table.getName();
 							Table t = target.getTable(tbName);
 							if (t == null) {
@@ -243,13 +251,13 @@ public class DBCopy {
 								tbd.add(t);
 							}
 						}
-						res = cop.override(false, tbd, !rule.getTables().isEmpty(), rule, log);
-					} else {
-						printHelp();
 					}
-					if (res != null)
-						System.out.println("Process ended with " + res.getErrorNumber() + " errors.");
+					res = cop.override(false, tbd, !rule.getTables().isEmpty(), rule, log);
+				} else {
+					printHelp();
 				}
+				if (res != null)
+					System.out.println("Process ended with " + res.getErrorNumber() + " errors.");
 			}
 			//ModelSaver.saveModel("log.xmi", new EObject[]{log});
 		} catch (ClassNotFoundException e) {

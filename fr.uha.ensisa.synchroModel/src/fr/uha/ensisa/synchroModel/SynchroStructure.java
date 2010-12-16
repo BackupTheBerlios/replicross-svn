@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import logmodel.Log;
+import logmodel.LogmodelFactory;
+
 import org.eclipse.emf.common.util.URI;
 
 import param.Param;
@@ -262,6 +265,10 @@ public class SynchroStructure {
 			else
 				executeQueries(queries, st);
 		}
+		
+
+		Log log = LogmodelFactory.eINSTANCE.createLog();
+		DBCopy.copy(p.getRules(), log, connModel, connCible);
 		
 		connCible.close();
 		connModel.close();
